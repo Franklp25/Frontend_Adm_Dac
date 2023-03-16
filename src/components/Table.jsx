@@ -1,4 +1,4 @@
-import { useTable } from "react-table";
+import { useTable, usePagination } from "react-table";
 
 export default function Table({ columns, data }) {
     const {
@@ -27,7 +27,7 @@ export default function Table({ columns, data }) {
 
     return (
         <>
-            <div className="flex flex-col mx-4">
+            <div className="flex flex-col mx-4 mt-52">
                 <div className="overflow-x-auto">
                     <div className=" w-full inline-block align-middle">
                         <div className="rounded-lg overflow-x-auto">
@@ -35,7 +35,7 @@ export default function Table({ columns, data }) {
                                 className="min-w-full divide-y divide-gray-200"
                                 {...getTableProps()}
                             >
-                                <thead className=" bg-cyan-700">
+                                <thead className=" dark:bg-blue ">
                                     {headerGroups.map((headerGroup) => (
                                         <tr
                                             {...headerGroup.getHeaderGroupProps()}

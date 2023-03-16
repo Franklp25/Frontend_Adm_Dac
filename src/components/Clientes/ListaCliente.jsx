@@ -11,12 +11,9 @@ const ListaCliente = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data } = await axios({
-                    method: "GET",
-                    url: "/api/clientes",
-                });
+                const response = await clienteAxios.get("/clientes");
 
-                setClients(data.data);
+                setClients(response.data);
             } catch (error) {
                 // Swal.fire({
                 //     position: "center",
@@ -62,11 +59,47 @@ const ListaCliente = () => {
             Header: "Dirreccion",
             accessor: "direccion",
         },
+        {
+            Header: "Editar",
+            accessor: "editar",
+            Cell: (props) => (
+                <button
+                    type="button"
+                    title="Editar usuario"
+                    className="text-yellow-500 hover:text-yellow-700 text-xl ml-4"
+                    onClick={() => handleShowEdit(props)}
+                >
+                    {/* <FontAwesomeIcon
+                        className="hover:cursor-pointer"
+                        icon={icon({ name: "user-pen", style: "solid" })}
+                    /> */}
+                    Editar
+                </button>
+            ),
+        },
+        {
+            Header: "Eliminar",
+            accessor: "eliminar",
+            Cell: (props) => (
+                <button
+                    type="button"
+                    title="Eliminar usuario"
+                    className="text-red-500 hover:text-red-800 text-xl ml-4"
+                    onClick={() => handleShowDelete(props)}
+                >
+                    {/* <FontAwesomeIcon
+                        className="hover:cursor-pointer"
+                        icon={icon({ name: "trash", style: "solid" })}
+                    /> */}
+                    Eliminar
+                </button>
+            ),
+        },
     ];
 
     return (
         <>
-            {/* <Navbar /> */}
+            <Navbar />
             <Table columns={columns} data={clients} />
         </>
     );
