@@ -27,7 +27,7 @@ export default function Table({ columns, data }) {
 
     return (
         <>
-            <div className="flex flex-col mx-4 mt-52">
+            <div className="flex flex-col mx-4 mt-10">
                 <div className="overflow-x-auto">
                     <div className=" w-full inline-block align-middle">
                         <div className="rounded-lg overflow-x-auto">
