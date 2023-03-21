@@ -104,103 +104,103 @@ const ListaCliente = () => {
                 });
             });
     };
-    // const editForm = (
-    //     <>
-    //         <form className="w-full" onSubmit={handleEdit}>
-    //             <div className="  w-full mb-6">
-    //                 <label className="inline-block mb-2">Cédula:</label>
-    //                 <input
-    //                     className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
-    //                     id="cedula"
-    //                     name="cedula"
-    //                     value={cedula}
-    //                     required
-    //                 />
+    const editForm = (
+        <>
+            <form className="w-full" onSubmit={handleEdit}>
+                <div className="  w-full mb-6">
+                    <label className="inline-block mb-2">Cédula:</label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
+                        id="cedula"
+                        name="cedula"
+                        value={cedula}
+                        required
+                    />
 
-    //                 <label className="inline-block my-2">
-    //                     Nombre completo:
-    //                 </label>
-    //                 <input
-    //                     className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
-    //                     id="nombre"
-    //                     name="nombre"
-    //                     value={nombre}
-    //                     onChange={(e) => {
-    //                         setNombre(e.target.value);
-    //                     }}
-    //                     required
-    //                 />
-    //                 <label className="inline-block my-2">
-    //                     Correo electrónico:
-    //                 </label>
-    //                 <input
-    //                     className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
-    //                     id="correo"
-    //                     name="correo"
-    //                     value={correo}
-    //                     onChange={(e) => {
-    //                         setCorreo(e.target.value);
-    //                     }}
-    //                     required
-    //                 />
-    //                 <label className="inline-block my-2">Contraseña:</label>
-    //                 <input
-    //                     id="contrasena"
-    //                     type="password"
-    //                     name="contrasena"
-    //                     className="shadow border rounded w-full py-2 px-1 text-black"
-    //                     value={contrasena}
-    //                     required
-    //                 />
+                    <label className="inline-block my-2">
+                        Nombre completo:
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
+                        id="nombre"
+                        name="nombre"
+                        value={nombre}
+                        onChange={(e) => {
+                            setNombre(e.target.value);
+                        }}
+                        required
+                    />
+                    <label className="inline-block my-2">
+                        Correo electrónico:
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
+                        id="correo"
+                        name="correo"
+                        value={correo}
+                        onChange={(e) => {
+                            setCorreo(e.target.value);
+                        }}
+                        required
+                    />
+                    <label className="inline-block my-2">Contraseña:</label>
+                    <input
+                        id="contrasena"
+                        type="password"
+                        name="contrasena"
+                        className="shadow border rounded w-full py-2 px-1 text-black"
+                        value={contrasena}
+                        required
+                    />
 
-    //                 <label className="inline-block my-2">Rol:</label>
-    //                 <select
-    //                     id="rol"
-    //                     className="shadow border rounded w-full py-2 px-1 text-black"
-    //                     name="rol"
-    //                     value={rol}
-    //                     onChange={(e) => {
-    //                         setRol(e.target.value);
-    //                     }}
-    //                     required
-    //                 >
-    //                     <option disabled value="">
-    //                         Seleccione el rol que tendrá el usuario dentro del
-    //                         sistema...
-    //                     </option>
-    //                     <option value="usuario">Usuario</option>
-    //                     <option value="administrador">Administrador</option>
-    //                 </select>
-    //             </div>
-    //             <div className="h-auto flex items-center justify-start ">
-    //                 <button
-    //                     className="shrink mr-5 px-3 py-2.5 bg-yellow-500 text-white font-bold  leading-tight uppercase rounded shadow-md hover:bg-yellow-700 hover:shadow-lg focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-    //                     type="submit"
-    //                 >
-    //                     Editar
-    //                 </button>
-    //                 <button
-    //                     className="shrink  px-3 py-2.5 bg-red-600 text-white font-bold  leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-    //                     type="button"
-    //                     onClick={() => setShowEditModal(false)}
-    //                 >
-    //                     Cancelar
-    //                 </button>
-    //             </div>
-    //         </form>
-    //     </>
-    // );
+                    <label className="inline-block my-2">Rol:</label>
+                    <select
+                        id="rol"
+                        className="shadow border rounded w-full py-2 px-1 text-black"
+                        name="rol"
+                        value={rol}
+                        onChange={(e) => {
+                            setRol(e.target.value);
+                        }}
+                        required
+                    >
+                        <option disabled value="">
+                            Seleccione el rol que tendrá el usuario dentro del
+                            sistema...
+                        </option>
+                        <option value="usuario">Usuario</option>
+                        <option value="administrador">Administrador</option>
+                    </select>
+                </div>
+                <div className="h-auto flex items-center justify-start ">
+                    <button
+                        className="shrink mr-5 px-3 py-2.5 bg-yellow-500 text-white font-bold  leading-tight uppercase rounded shadow-md hover:bg-yellow-700 hover:shadow-lg focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                        type="submit"
+                    >
+                        Editar
+                    </button>
+                    <button
+                        className="shrink  px-3 py-2.5 bg-red-600 text-white font-bold  leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                        type="button"
+                        onClick={() => setShowEditModal(false)}
+                    >
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+        </>
+    );
 
-    // const handleShowEdit = (cell) => {
-    //     setShowEditModal(true);
-    //     client = cell?.row?.original;
-    //     setCedula(client.cedula);
-    //     setNombre(client.nombre);
-    //     setApellidos(client.apellidos);
-    //     setTelefono(client.telefono);
-    //     setEmail(client.email);
-    //     setDireccion(client.direccion);
-    // };
+    const handleShowEdit = (cell) => {
+        setShowEditModal(true);
+        client = cell?.row?.original;
+        setCedula(client.cedula);
+        setNombre(client.nombre);
+        setApellidos(client.apellidos);
+        setTelefono(client.telefono);
+        setEmail(client.email);
+        setDireccion(client.direccion);
+    };
 
     const columns = [
         {
@@ -272,13 +272,13 @@ const ListaCliente = () => {
     return (
         <>
             <Navbar />
-            {/* {showEditModal ? (
+            {showEditModal ? (
                 <EditModal
                     showModal={showEditModal}
                     setShowModal={setShowEditModal}
                     form={editForm}
                 />
-            ) : null} */}
+            ) : null}
             <Table columns={columns} data={clients} />
         </>
     );
