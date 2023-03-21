@@ -64,8 +64,11 @@ const AgregarProveedor = () => {
     return (
         <>
             <Navbar />
+            <h1 className=" text-gray-600 text-center  p-5 font-bold text-2xl pl-10 ">
+                Agregar Proveedores
+            </h1>
 
-            <section className="bg-gray-50  p-20">
+            <section className="">
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                     <div className="w-full  rounded-2xl shadow dark:border md:mt-0 sm:max-w-md xl:p-0 bg-slate-300 dark:border-green-600">
                         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
