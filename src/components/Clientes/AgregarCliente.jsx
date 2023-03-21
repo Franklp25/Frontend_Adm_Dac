@@ -64,6 +64,8 @@ const AgregarCliente = () => {
         <>
             <Navbar />
 
+            <h1 className="bg-gray-50 ">Agregar Clientes</h1>
+
             <section className="bg-gray-50  p-20">
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                     <div className="w-full  rounded-2xl shadow dark:border md:mt-0 sm:max-w-md xl:p-0 bg-slate-300 dark:border-green-600">
@@ -217,7 +219,7 @@ const AgregarCliente = () => {
 
                                 <button
                                     type="submit"
-                                    className="w-full uppercase text-blue bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                    className="w-full uppercase text-blue  bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                                 >
                                     Guardar Cliente
                                 </button>
