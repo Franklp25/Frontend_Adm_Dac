@@ -35,7 +35,7 @@ export default function Table({ columns, data }) {
                                 className="min-w-full divide-y divide-gray-200"
                                 {...getTableProps()}
                             >
-                                <thead className=" bg-emerald-800 ">
+                                <thead className=" dark:bg-blue ">
                                     {headerGroups.map((headerGroup) => (
                                         <tr
                                             {...headerGroup.getHeaderGroupProps()}

@@ -99,6 +99,9 @@ const ListaProveedor = () => {
     return (
         <>
             <Navbar />
+            <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
+                Lista de Proveedores
+            </h1>
             <Table columns={columns} data={supplier} />
         </>
     );
