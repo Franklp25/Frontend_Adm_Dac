@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import Navbar from "../Navbar";
 import Alerta from "../Alerta";
 import clienteAxios from "../../config/clienteAxios";
@@ -7,20 +6,20 @@ import Table from "../Table.jsx";
 import EditModal from "../modales/EditModal";
 
 const ListaCliente = () => {
-    let client = {};
+    // let client = {};
 
     const [clients, setClients] = useState([]);
 
-    const [tipoCedula, setTipoCedula] = useState("");
-    const [cedula, setCedula] = useState("");
-    const [nombre, setNombre] = useState("");
-    const [apellidos, setApellidos] = useState("");
-    const [telefono, setTelefono] = useState("");
-    const [email, setEmail] = useState("");
-    const [direccion, setDireccion] = useState("");
+    // const [tipoCedula, setTipoCedula] = useState("");
+    // const [cedula, setCedula] = useState("");
+    // const [nombre, setNombre] = useState("");
+    // const [apellidos, setApellidos] = useState("");
+    // const [telefono, setTelefono] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [direccion, setDireccion] = useState("");
 
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    // const [showEditModal, setShowEditModal] = useState(false);
+    // const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -44,66 +43,66 @@ const ListaCliente = () => {
         fetchData();
     }, []);
 
-    const handleEdit = (event) => {
-        setShowEditModal(false);
-        event.preventDefault();
-        let usuario = {
-            _id: id,
-            nombre: nombre,
-            cedula: cedula,
-            correo: correo,
-            contrasena: contrasena,
-            rol: rol,
-        };
-        let message =
-            "Lo sentimos, ocurrió un problema durante el proceso, por favor inténtelo de nuevo";
-        let icon = "error";
-        axios
-            .post(`/aqua-system/user/update/${id}`, usuario)
-            .then((res) => {
-                if (res.data.data !== "") {
-                    message = res.data.data;
-                    icon = "success";
-                }
-                if (res.status === 200) {
-                    message = "¡Usuario actualizado exitosamente!";
-                    icon = "success";
-                } else if (res.status === 400) {
-                    message =
-                        "¡Error, ya existe un usuario con ese número de cédula!";
-                }
-                Swal.fire({
-                    position: "center",
-                    icon: icon,
-                    title: message,
-                    showConfirmButton: false,
-                    timer: 2000,
-                }).then(() => {
-                    window.location.reload();
-                });
-            })
-            .catch((err) => {
-                if (err.response) {
-                    if (err.response.status === 200) {
-                        message = "¡Usuario actualizado exitosamente!";
-                        icon = "success";
-                    } else if (err.response.status === 400) {
-                        message =
-                            "¡Error, ya existe un usuario con ese número de cédula!";
-                        icon = "error";
-                    }
-                }
-                Swal.fire({
-                    position: "center",
-                    icon: icon,
-                    title: message,
-                    showConfirmButton: false,
-                    timer: 2000,
-                }).then(() => {
-                    window.location.reload();
-                });
-            });
-    };
+    // const handleEdit = (event) => {
+    //     setShowEditModal(false);
+    //     event.preventDefault();
+    //     let usuario = {
+    //         _id: id,
+    //         nombre: nombre,
+    //         cedula: cedula,
+    //         correo: correo,
+    //         contrasena: contrasena,
+    //         rol: rol,
+    //     };
+    //     let message =
+    //         "Lo sentimos, ocurrió un problema durante el proceso, por favor inténtelo de nuevo";
+    //     let icon = "error";
+    //     axios
+    //         .post(`/aqua-system/user/update/${id}`, usuario)
+    //         .then((res) => {
+    //             if (res.data.data !== "") {
+    //                 message = res.data.data;
+    //                 icon = "success";
+    //             }
+    //             if (res.status === 200) {
+    //                 message = "¡Usuario actualizado exitosamente!";
+    //                 icon = "success";
+    //             } else if (res.status === 400) {
+    //                 message =
+    //                     "¡Error, ya existe un usuario con ese número de cédula!";
+    //             }
+    //             Swal.fire({
+    //                 position: "center",
+    //                 icon: icon,
+    //                 title: message,
+    //                 showConfirmButton: false,
+    //                 timer: 2000,
+    //             }).then(() => {
+    //                 window.location.reload();
+    //             });
+    //         })
+    //         .catch((err) => {
+    //             if (err.response) {
+    //                 if (err.response.status === 200) {
+    //                     message = "¡Usuario actualizado exitosamente!";
+    //                     icon = "success";
+    //                 } else if (err.response.status === 400) {
+    //                     message =
+    //                         "¡Error, ya existe un usuario con ese número de cédula!";
+    //                     icon = "error";
+    //                 }
+    //             }
+    //             Swal.fire({
+    //                 position: "center",
+    //                 icon: icon,
+    //                 title: message,
+    //                 showConfirmButton: false,
+    //                 timer: 2000,
+    //             }).then(() => {
+    //                 window.location.reload();
+    //             });
+    //         });
+    // };
     // const editForm = (
     //     <>
     //         <form className="w-full" onSubmit={handleEdit}>
