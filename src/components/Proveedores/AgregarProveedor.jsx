@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "../Navbar";
 import Alerta from "../Alerta";
 import clienteAxios from "../../config/clienteAxios";
+import Swal from "sweetalert2";
 
 const AgregarProveedor = () => {
     const [tipoCedula, setTipoCedula] = useState("");
@@ -17,7 +18,7 @@ const AgregarProveedor = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if ([cedula, nombre, telefono, email].includes("")) {
+        if ([tipoCedula, cedula, nombre, telefono, email].includes("")) {
             setAlerta({
                 msg: "Todos los campos son obligatorios",
                 error: true,
@@ -57,6 +58,12 @@ const AgregarProveedor = () => {
                 error: true,
             });
         }
+
+        Swal.fire({
+            icon: "success",
+            title: "Proveedor agregado correctamente",
+            // text: "Gracias por enviar el formulario",
+        });
     };
 
     const { msg } = alerta;
