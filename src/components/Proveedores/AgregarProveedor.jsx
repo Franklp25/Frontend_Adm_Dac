@@ -76,7 +76,7 @@ const AgregarProveedor = () => {
             </h1>
 
             <section className="">
-                <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+                <div className="flex flex-col items-center justify-center px-6 py-8">
                     <div className="w-full  rounded-2xl shadow dark:border md:mt-0 sm:max-w-md xl:p-0 bg-slate-300 dark:border-green-600">
                         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                             <form
@@ -91,17 +91,24 @@ const AgregarProveedor = () => {
                                         Tipo Cedula
                                     </label>
 
-                                    <input
+                                    <select
                                         type="text"
                                         id="tipoCedula"
-                                        placeholder="Fisica, Juridica, DIMEX"
                                         className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         required=""
                                         value={tipoCedula}
                                         onChange={(e) =>
                                             setTipoCedula(e.target.value)
                                         }
-                                    />
+                                    >
+                                        <option value="">
+                                            Selecciona una opción
+                                        </option>
+                                        <option value="Fisica">Fisica</option>
+                                        <option value="Cedula Juridica">
+                                            Cedula Juridica
+                                        </option>
+                                    </select>
                                 </div>
                                 <div>
                                     <label
