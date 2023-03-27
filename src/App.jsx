@@ -25,70 +25,79 @@ function App() {
     return (
         <>
             <BrowserRouter>
-                {/* <AuthProvider> */}
-                <Protected>
+                <AuthProvider>
                     <Routes>
-                        <Route path="/home" element={<Home />} />
+                        <Route path="/" element={<Login />} />
                         <Route
-                            path="agregarCliente"
-                            element={<AgregarCliente />}
-                        />
-                        <Route path="listaCliente" element={<ListaCliente />} />
-
-                        {/* Proveedores */}
-                        <Route
-                            path="agregarProveedor"
-                            element={<AgregarProveedor />}
-                        />
-                        <Route
-                            path="listaProveedor"
-                            element={<ListaProveedor />}
+                            path="olvidar-password"
+                            element={<OlvidePassword />}
                         />
 
-                        {/* Cuentas Por Cobrar */}
                         <Route
-                            path="agregarCuentasCobrar"
-                            element={<AgregarCuentasCobrar />}
+                            path="olvidar-password/:token"
+                            element={<NuevoPassword />}
                         />
                         <Route
-                            path="listaCuentasCobrar"
-                            element={<ListaCuentasCobrar />}
+                            path="confirmar/:id"
+                            element={<ConfirmarCuenta />}
                         />
-
-                        {/* Cuentas Por Pagar */}
-                        <Route
-                            path="agregarCuentasPagar"
-                            element={<AgregarCuentasPagar />}
-                        />
-                        <Route
-                            path="listaCuentasPagar"
-                            element={<ListaCuentasPagar />}
-                        />
-
-                        {/* Inventario */}
-                        <Route path="inventario" element={<Inventario />} />
-
-                        {/* Estadiscticas */}
-                        <Route path="estadistica" element={<Estadistica />} />
-                        <Route path="registrar" element={<Registrar />} />
                     </Routes>
-                </Protected>
+                    <Protected>
+                        <Routes>
+                            <Route path="/home" element={<Home />} />
+                            <Route
+                                path="agregarCliente"
+                                element={<AgregarCliente />}
+                            />
+                            <Route
+                                path="listaCliente"
+                                element={<ListaCliente />}
+                            />
 
-                {/* Public */}
-                <Routes>
-                    <Route path="/" element={<Login />} />
-                    <Route
-                        path="olvidar-password"
-                        element={<OlvidePassword />}
-                    />
+                            {/* Proveedores */}
+                            <Route
+                                path="agregarProveedor"
+                                element={<AgregarProveedor />}
+                            />
+                            <Route
+                                path="listaProveedor"
+                                element={<ListaProveedor />}
+                            />
 
-                    <Route
-                        path="olvidar-password/:token"
-                        element={<NuevoPassword />}
-                    />
-                    <Route path="confirmar/:id" element={<ConfirmarCuenta />} />
-                </Routes>
-                {/* </AuthProvider> */}
+                            {/* Cuentas Por Cobrar */}
+                            <Route
+                                path="agregarCuentasCobrar"
+                                element={<AgregarCuentasCobrar />}
+                            />
+                            <Route
+                                path="listaCuentasCobrar"
+                                element={<ListaCuentasCobrar />}
+                            />
+
+                            {/* Cuentas Por Pagar */}
+                            <Route
+                                path="agregarCuentasPagar"
+                                element={<AgregarCuentasPagar />}
+                            />
+                            <Route
+                                path="listaCuentasPagar"
+                                element={<ListaCuentasPagar />}
+                            />
+
+                            {/* Inventario */}
+                            <Route path="inventario" element={<Inventario />} />
+
+                            {/* Estadiscticas */}
+                            <Route
+                                path="estadistica"
+                                element={<Estadistica />}
+                            />
+                            <Route path="registrar" element={<Registrar />} />
+                        </Routes>
+                    </Protected>
+
+                    {/* Public */}
+                </AuthProvider>
             </BrowserRouter>
         </>
     );
