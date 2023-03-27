@@ -26,7 +26,7 @@ function App() {
         <>
             <BrowserRouter>
                 <AuthProvider>
-                    {/* <Protected> */}
+                    <Protected>
                     <Routes>
                         <Route path="/home" element={<Home />} />
                         <Route
@@ -72,7 +72,7 @@ function App() {
                         <Route path="estadistica" element={<Estadistica />} />
                         <Route path="registrar" element={<Registrar />} />
                     </Routes>
-                    {/* </Protected> */}
+                    </Protected>
 
                     {/* Public */}
                     <Routes>
