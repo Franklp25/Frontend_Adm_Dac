@@ -65,7 +65,7 @@ const ListaProveedor = () => {
                 <button
                     type="button"
                     title="Editar usuario"
-                    className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200"
+                    className="transition duration-200 ease-in-out transform hover:-translate-y-2 hover:scale-200"
                     onClick={() => handleShowEdit(props)}
                 >
                     <svg
@@ -92,7 +92,7 @@ const ListaProveedor = () => {
                 <button
                     type="button"
                     title="Eliminar usuario"
-                    className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200"
+                    className="transition duration-200 ease-in-out transform hover:-translate-y-2 hover:scale-200"
                     onClick={() => handleShowDelete(props)}
                 >
                     <svg
