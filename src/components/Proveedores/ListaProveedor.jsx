@@ -14,15 +14,6 @@ const ListaProveedor = () => {
 
                 setSupplier(response.data);
             } catch (error) {
-                // Swal.fire({
-                //     position: "center",
-                //     icon: "error",
-                //     title: "¡Ocurrió un problema, por favor inténtelo de nuevo!",
-                //     showConfirmButton: false,
-                //     timer: 2000,
-                // }).then(() => {
-                //     window.location.reload();
-                // });
                 console.error(error);
             }
         };
