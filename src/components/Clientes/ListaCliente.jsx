@@ -84,7 +84,7 @@ const ListaCliente = () => {
                 <button
                     type="button"
                     title="Eliminar usuario"
-                    className="  justify-center"
+                    className=" transform hover:-translate-y-1 hover:scale-100"
                     onClick={() => handleShowDelete(props)}
                 >
                     <svg
