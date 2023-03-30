@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
 import Navbar from "../Navbar";
 import Alerta from "../Alerta";
 import clienteAxios from "../../config/clienteAxios";
