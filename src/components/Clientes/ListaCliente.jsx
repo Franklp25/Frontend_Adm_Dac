@@ -57,7 +57,7 @@ const ListaCliente = () => {
                 <button
                     type="button"
                     title="EditClient"
-                    className=""
+                    className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200"
                     onClick={() => handleShowEdit(props)}
                 >
                     <svg
@@ -84,7 +84,7 @@ const ListaCliente = () => {
                 <button
                     type="button"
                     title="Eliminar usuario"
-                    className=" transform hover:-translate-y-1 hover:scale-100"
+                    className=" transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200"
                     onClick={() => handleShowDelete(props)}
                 >
                     <svg
