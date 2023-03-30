@@ -30,17 +30,18 @@ const ListaCliente = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Si, Eliminar!",
-        }).then(async(result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-               
                 try {
-                    const { data } = await clienteAxios.delete(`/clientes/${id}`);
+                    const { data } = await clienteAxios.delete(
+                        `/clientes/${id}`
+                    );
                     console.log(data);
-                     Swal.fire(
-                    "Eliminado!",
-                    "El cliente ha sido eliminado.",
-                    "success"
-                );
+                    Swal.fire(
+                        "Eliminado!",
+                        "El cliente ha sido eliminado.",
+                        "success"
+                    );
                 } catch (error) {
                     console.log(error);
                 }
