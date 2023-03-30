@@ -21,6 +21,33 @@ const ListaCliente = () => {
         fetchData();
     }, []);
 
+    const handleClick = (id) => {
+        Swal.fire({
+            title: "¿Deseas eliminar este cliente?",
+            // text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, Eliminar!",
+        }).then(async(result) => {
+            if (result.isConfirmed) {
+               
+                try {
+                    const { data } = await clienteAxios.delete(`/clientes/${id}`);
+                    console.log(data);
+                     Swal.fire(
+                    "Eliminado!",
+                    "El cliente ha sido eliminado.",
+                    "success"
+                );
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        });
+    };
+
     const columns = [
         {
             Header: "Tipo Cedula",
@@ -83,9 +110,9 @@ const ListaCliente = () => {
             Cell: (props) => (
                 <button
                     type="button"
-                    title="Eliminar usuario"
+                    title="Eliminar"
                     className=" transition duration-200 ease-in-out transform hover:-translate-y-2 hover:scale-200"
-                    onClick={() => handleShowDelete(props)}
+                    onClick={handleClick}
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
