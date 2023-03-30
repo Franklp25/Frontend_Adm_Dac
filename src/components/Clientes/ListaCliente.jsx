@@ -237,7 +237,7 @@ const ListaCliente = () => {
                 <button
                     type="button"
                     title="Editar usuario"
-                    className="text-yellow-500 hover:text-yellow-700 text-xl ml-4"
+                    // className="text-yellow-500 hover:text-yellow-700 text-xl ml-4"
                     onClick={() => handleShowEdit(props)}
                 >
                     <svg
