@@ -345,7 +345,7 @@ export default function Navbar() {
                                     <button
                                         type="button"
                                         onClick={closeSession}
-                                        className="navbar-text text-white bg-green-600 hover:bg-green-800 px-3 py-2 rounded-md text-lg font-semibold"
+                                        className="transition duration-200 ease-in-out transform hover:-translate-y-2 hover:scale-200 navbar-text text-white bg-green-600 hover:bg-green-800 px-3 py-2 rounded-md text-lg font-semibold"
                                     >
                                         Cerrar sesión
                                     </button>
@@ -415,7 +415,7 @@ export default function Navbar() {
                         >
                             <Link
                                 to="/home"
-                                className="hover:bg-green-600 text-white block px-3 py-2 rounded-md text-base font-medium"
+                                className="hover:bg-green-600 text-black block px-3 py-2 rounded-md text-base font-medium"
                             >
                                 Inicio
                             </Link>
@@ -513,7 +513,7 @@ export default function Navbar() {
                             <button
                                 type="button"
                                 onClick={closeSession}
-                                className="w-full text-start text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                                className="transition duration-200 ease-in-out transform hover:-translate-y-2 hover:scale-200 w-full text-start text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                             >
                                 Cerrar sesión
                             </button>
