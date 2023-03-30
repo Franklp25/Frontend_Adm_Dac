@@ -65,7 +65,7 @@ const ListaProveedor = () => {
         <button
           type="button"
           title="Editar usuario"
-          className="text-yellow-500 hover:text-yellow-700 text-xl ml-4"
+          className=""
           onClick={() => handleShowEdit(props)}
         >
           <svg
@@ -92,7 +92,7 @@ const ListaProveedor = () => {
         <button
           type="button"
           title="Eliminar usuario"
-          className="text-red-500 hover:text-red-800 text-xl ml-4"
+          className=""
           // onClick={() => handleShowDelete(props)}
         >
           <svg
