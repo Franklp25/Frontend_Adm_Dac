@@ -1,6 +1,3 @@
-// import { icon } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 function EditModal({ showModal, setShowModal, form }) {
     return (
         <>
@@ -17,13 +14,6 @@ function EditModal({ showModal, setShowModal, form }) {
                                         className="ml-4 text-2xl bg-transparent border-0 text-red-500 float-right hover:text-red-700"
                                         onClick={() => setShowModal(false)}
                                     >
-                                        {/* <FontAwesomeIcon
-                                            className=" hover:cursor-pointer"
-                                            icon={icon({
-                                                name: "xmark",
-                                                style: "solid",
-                                            })}
-                                        /> */}
                                         X
                                     </button>
                                 </div>

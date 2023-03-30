@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
 import Navbar from "../Navbar";
 import Alerta from "../Alerta";
 import clienteAxios from "../../config/clienteAxios";
@@ -236,7 +237,7 @@ const ListaCliente = () => {
             Cell: (props) => (
                 <button
                     type="button"
-                    title="Editar usuario"
+                    title="EditClient"
                     // className="text-yellow-500 hover:text-yellow-700 text-xl ml-4"
                     onClick={() => handleShowEdit(props)}
                 >
