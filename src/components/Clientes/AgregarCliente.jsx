@@ -85,9 +85,6 @@ const AgregarCliente = () => {
                                 onSubmit={handleSubmit}
                             >
                                 <div>
-                                <div style="display: flex;">
-                                    
-                                </div>
                                     <label
                                         htmlFor="tipoCedula"
                                         className=" uppercase text-gray-600 block text-sm font-bold pb-2"
