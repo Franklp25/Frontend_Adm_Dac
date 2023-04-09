@@ -58,12 +58,13 @@ const AgregarCliente = () => {
                 error: true,
             });
         }
+        //Mensaje mediante sweetAlert
 
-        Swal.fire({
-            icon: "success",
-            title: "Cliente agregado correctamente",
-            // text: "Gracias por enviar el formulario",
-        });
+        // Swal.fire({
+        //     icon: "success",
+        //     title: "Cliente agregado correctamente",
+        //     // text: "Gracias por enviar el formulario",
+        // });
     };
 
     const { msg } = alerta;
@@ -84,6 +85,9 @@ const AgregarCliente = () => {
                                 onSubmit={handleSubmit}
                             >
                                 <div>
+                                <div style="display: flex;">
+                                    
+                                </div>
                                     <label
                                         htmlFor="tipoCedula"
                                         className=" uppercase text-gray-600 block text-sm font-bold pb-2"

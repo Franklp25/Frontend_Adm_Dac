@@ -59,11 +59,13 @@ const AgregarProveedor = () => {
             });
         }
 
-        Swal.fire({
-            icon: "success",
-            title: "Proveedor agregado correctamente",
-            // text: "Gracias por enviar el formulario",
-        });
+        //Mensaje mediante SweetAlert
+
+        // Swal.fire({
+        //     icon: "success",
+        //     title: "Proveedor agregado correctamente",
+        //     // text: "Gracias por enviar el formulario",
+        // });
     };
 
     const { msg } = alerta;
@@ -80,7 +82,7 @@ const AgregarProveedor = () => {
                     <div className="w-full  rounded-2xl shadow dark:border md:mt-0 sm:max-w-md xl:p-0 bg-slate-300 dark:border-green-600">
                         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                             <form
-                                className="space-y-4 md:space-y-6"
+                                className="lg-flex space-y-4 md:space-y-6"
                                 onSubmit={handleSubmit}
                             >
                                 <div>
