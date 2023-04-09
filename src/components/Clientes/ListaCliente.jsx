@@ -22,7 +22,9 @@ const ListaCliente = () => {
     }, []);
 
     const handleClick = (id) => {
+        console.log(id);
         Swal.fire({
+            
             title: "¿Deseas eliminar este cliente?",
             // text: "You won't be able to revert this!",
             icon: "warning",
@@ -33,7 +35,7 @@ const ListaCliente = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const { data } = await clienteAxios.delete(
+                    clienteAxios.delete(
                         `/clientes/${id}`
                     );
                     console.log(data);

@@ -72,22 +72,22 @@ const AgregarCliente = () => {
         <>
             <Navbar />
 
-            <h1 className=" text-gray-600 text-center  p-5 font-bold text-2xl pl-10 ">
+            <h1 className=" text-gray-600 text-center  p-5 font-bold text-2xl ">
                 Agregar Clientes
             </h1>
 
             <section className="">
                 <div className="flex flex-col items-center justify-center px-6 py-8">
-                    <div className="w-full  rounded-2xl shadow dark:border md:mt-0 sm:max-w-md xl:p-0 bg-slate-300 dark:border-green-600">
+                    <div className="w-full  rounded-2xl shadow dark:border md:mt-0 sm:w-2/4 xl:p-0 bg-slate-300 dark:border-green-600">
                         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                             <form
-                                className="space-y-4 md:space-y-6"
+                                className="space-y-4 grid grid-cols-1 gap-8 md:grid-cols-2"
                                 onSubmit={handleSubmit}
                             >
                                 <div>
                                     <label
                                         htmlFor="tipoCedula"
-                                        className=" uppercase text-gray-600 block text-sm font-bold pb-2"
+                                        className="mt-4 uppercase text-gray-600 block text-sm font-bold pb-2"
                                     >
                                         Tipo Cedula
                                     </label>
