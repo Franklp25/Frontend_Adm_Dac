@@ -49,7 +49,7 @@ const Login = () => {
                     href="#"
                     className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
                 >
-                    <img className=" w-52 h-36 mr-2" src={logo} alt="logo" />
+                    <img className=" w-53 h-36 mr-2" src={logo} alt="logo" />
                 </a>
                 <div className="w-full rounded-2xl shadow dark:border md:mt-0 sm:max-w-md xl:p-0 bg-slate-300 dark:border-green-600">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
