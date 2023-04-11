@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import Navbar from "../Navbar";
 import Alerta from "../Alerta";
 import clienteAxios from "../../config/clienteAxios";
-import Table from "../Table.jsx";
+//import Table from "../Table.jsx";
 import EditModal from "../modales/EditModal";
 import axios from "axios";
-import MaterialTable from 'material-table';
-
+import { Table, TableHead, TableRow, TableCell, TableBody,TableContainer,Modal,Button,TextField } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 const Inventario = () => {
-
     const [productos, setProductos] = useState([]);
 
     useEffect(() => {
@@ -23,38 +23,80 @@ const Inventario = () => {
             });
     }, []);
 
-    const columnas=[
+    const columnas = [
         {
-            title:'Código',
-            field:'codigo'
+            title: "Código",
+            field: "codigo",
         },
         {
-            title:'Nombre',
-            field:'nombre'
+            title: "Nombre",
+            field: "nombre",
         },
         {
-            title:'Precio',
-            field:'precio'
+            title: "Precio",
+            field: "precio",
         },
         {
-            title:'Descripción',
-            field:'descripcion'
+            title: "Descripción",
+            field: "descripcion",
         },
         {
-            title:'Categoria',
-            field:'categoria'
+            title: "Categoria",
+            field: "categoria",
         },
-    ]
-
-    
+    ];
 
     return (
         <>
             <Navbar />
-            <MaterialTable
-                columns={columnas}
-                data={productos}
-            />
+            <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
+                Lista de Productos
+            </h1>
+
+            <div className="flex flex-col mx-4 mt-10">
+                <div className="overflow-x-auto">
+                    <div className=" w-full inline-block align-middle">
+                        <div className="rounded-lg overflow-x-auto">
+                        <TableContainer>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Código</TableCell>
+                            <TableCell>Nombre</TableCell>
+                            <TableCell>Precio</TableCell>
+                            <TableCell>Descripción</TableCell>
+                            <TableCell>Categoria</TableCell>
+                            <TableCell>Acciones</TableCell>
+                        </TableRow>
+                    </TableHead>
+
+                    <TableBody>
+                        {productos.map(consola=>(
+                            <TableRow key={consola.id}>
+                                <TableCell>{consola.codigo}</TableCell>
+                                <TableCell>{consola.nombre}</TableCell>
+                                <TableCell>{consola.precio}</TableCell>
+                                <TableCell>{consola.descripcion}</TableCell>
+                                <TableCell>{consola.categoria}</TableCell>
+                                <TableCell>
+                                    <EditIcon/>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <DeleteIcon/>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+
+            </TableContainer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            
+            
         </>
     );
 };
