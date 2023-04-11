@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm install @mui/material @emotion/react @emotion/styled --legacy-peer-deps && npm install @mui/icons-material --legacy-peer-deps && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
