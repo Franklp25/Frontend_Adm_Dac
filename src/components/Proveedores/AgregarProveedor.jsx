@@ -241,7 +241,6 @@ const AgregarProveedor = () => {
                                 >
                                     Guardar Proveedor
                                 </button>
-                               
                             </form>
                             <div className=" m-2">
                                 {msg && <Alerta alerta={alerta} />}
