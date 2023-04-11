@@ -239,7 +239,7 @@ export default function Navbar() {
                                 <div className="ml-10 flex items-baseline space-x-4">
                                     <Link
                                         to="/home"
-                                        className="navbar-text text-black hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-lg font-semibold"
+                                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 navbar-text text-black hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-lg font-semibold"
                                     >
                                         Inicio
                                     </Link>
