@@ -40,11 +40,6 @@ const AgregarCliente = () => {
                 direccion,
             });
 
-            setAlerta({
-                msg: data.msg, //se trae los mensajes del backend
-                error: false,
-            });
-
             setTipoCedula("");
             setCedula("");
             setNombre("");
@@ -52,19 +47,19 @@ const AgregarCliente = () => {
             setTelefono("");
             setEmail("");
             setDireccion("");
+            Swal.fire({
+                icon: "success",
+                title: "Cliente agregado correctamente",
+                // text: "Gracias por enviar el formulario",
+            });
         } catch (error) {
-            setAlerta({
-                msg: error.response.data.msg,
-                error: true,
+            Swal.fire({
+                icon: "error",
+                title: JSON.stringify(error.response.data.msg),
+                // text: "Digite un nuevo número de cédula",
             });
         }
         //Mensaje mediante sweetAlert
-
-        // Swal.fire({
-        //     icon: "success",
-        //     title: "Cliente agregado correctamente",
-        //     // text: "Gracias por enviar el formulario",
-        // });
     };
 
     const { msg } = alerta;
