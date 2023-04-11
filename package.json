@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "postinstall":"npm install @mui/material @emotion/react @emotion/styled --legacy-peer-deps && npm install @mui/icons-material --legacy-peer-deps"
+    "preinstall":"npm install @mui/material @emotion/react @emotion/styled --legacy-peer-deps && npm install @mui/icons-material --legacy-peer-deps"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
