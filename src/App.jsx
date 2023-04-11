@@ -14,6 +14,7 @@ import {
     ListaCuentasCobrar,
     AgregarCuentasPagar,
     ListaCuentasPagar,
+    AgregarProducto,
     Inventario,
     Estadistica,
 } from "./components";
@@ -85,6 +86,10 @@ function App() {
                             />
 
                             {/* Inventario */}
+                            <Route
+                                path="agregarProducto"
+                                element={<AgregarProducto />}
+                            />
                             <Route path="inventario" element={<Inventario />} />
 
                             {/* Estadiscticas */}
