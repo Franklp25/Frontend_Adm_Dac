@@ -14,9 +14,9 @@ import {
     TableBody,
     TableContainer,
     Modal,
-    Button,
     TextField,
 } from "@mui/material";
+import Button from '@mui/material/Button';
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -40,24 +40,29 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
 const Inventario = () => {
     const styles = useStyles();
     const [productos, setProductos] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
 
-    const abrirModalEditar = () => {
-        setModalEditar(true);
-        console.log("Se abrio el modal");
-    };
+    const [consolaSeleccionada,setConsolaSeleccionada]=useState({
+        nombre:'',
+        precio:'',
+        descripcion:'',
+        categoria:''
+    })
 
-    const cerrarModalEditar = () => {
-        setModalEditar(false);
-        console.log("Hiciste clic en el botón");
-    };
-
-    function miFuncion() {
-        console.log("Hiciste clic en el botón");
+    const handleChange=e=>{
+        const{name,value}=e.target;
+        setConsolaSeleccionada(prevState=>({
+            ...prevState,
+            [name]:value
+        }))
+        console.log(consolaSeleccionada);
     }
+
+    
 
     useEffect(() => {
         // Obtener los datos desde el servidor utilizando axios
@@ -71,18 +76,22 @@ const Inventario = () => {
             });
     }, []);
 
+    const abrirCerrarModal = () => {
+        setModalEditar(!modalEditar);
+    };
+
     const bodyEditar = (
         <div className={styles.modal}>
             <h3>Editar Registro</h3>
-            <TextField className={styles.inputMaterial} label="Nombre" />
-            <TextField className={styles.inputMaterial} label="Precio" />
-            <TextField className={styles.inputMaterial} label="Descripcion" />
-            <TextField className={styles.inputMaterial} label="Categoria" />
+            <TextField name="nombre" className={styles.inputMaterial} label="Nombre" onChange={handleChange}/>
+            <TextField name="precio" className={styles.inputMaterial} label="Precio" onChange={handleChange}/>
+            <TextField name="descripcion" className={styles.inputMaterial} label="Descripcion" onChange={handleChange}/>
+            <TextField name="codigo" className={styles.inputMaterial} label="Categoria" onChange={handleChange}/>
             <br />
             <br />
             <div align="right">
                 <Button color="primary">Editar</Button>
-                <Button onclick={cerrarModalEditar}>Cancelar</Button>
+                <Button onClick={abrirCerrarModal}>Cancelar</Button>
             </div>
         </div>
     );
@@ -93,9 +102,9 @@ const Inventario = () => {
             <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
                 Lista de Productos
             </h1>
-            <button variant="contained" onclick={miFuncion}>
+            <Button variant="contained" onClick={abrirCerrarModal}>
                 Editar
-            </button>
+            </Button>
 
             <div className="flex flex-col mx-4 mt-10">
                 <div className="overflow-x-auto">
@@ -144,8 +153,8 @@ const Inventario = () => {
                             </TableContainer>
 
                             <Modal
-                                open={true}
-                                onClose={cerrarModalEditar}
+                                open={modalEditar}
+                                onClose={abrirCerrarModal}
                             >
                                 {bodyEditar}
                             </Modal>
