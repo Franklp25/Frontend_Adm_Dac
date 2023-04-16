@@ -80,13 +80,19 @@ const Inventario = () => {
         setModalEditar(!modalEditar);
     };
 
+    const seleccionarConsola=(consola,caso)=>{
+        setConsolaSeleccionada(consola){
+            (caso==='Editar')?modalEditar(true):''
+        }
+    }
+
     const bodyEditar = (
         <div className={styles.modal}>
             <h3>Editar Registro</h3>
-            <TextField name="nombre" className={styles.inputMaterial} label="Nombre" onChange={handleChange}/>
-            <TextField name="precio" className={styles.inputMaterial} label="Precio" onChange={handleChange}/>
-            <TextField name="descripcion" className={styles.inputMaterial} label="Descripcion" onChange={handleChange}/>
-            <TextField name="codigo" className={styles.inputMaterial} label="Categoria" onChange={handleChange}/>
+            <TextField name="nombre" className={styles.inputMaterial} label="Nombre" onChange={handleChange} value={consolaSeleccionada && consolaSeleccionada.nombre}/>
+            <TextField name="precio" className={styles.inputMaterial} label="Precio" onChange={handleChange} value={consolaSeleccionada && consolaSeleccionada.precio}/>
+            <TextField name="descripcion" className={styles.inputMaterial} label="Descripcion" onChange={handleChange} value={consolaSeleccionada && consolaSeleccionada.descripcion}/>
+            <TextField name="codigo" className={styles.inputMaterial} label="Categoria" onChange={handleChange} value={consolaSeleccionada && consolaSeleccionada.codigo}/>
             <br />
             <br />
             <div align="right">
@@ -102,9 +108,6 @@ const Inventario = () => {
             <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
                 Lista de Productos
             </h1>
-            <Button variant="contained" onClick={abrirCerrarModal}>
-                Editar
-            </Button>
 
             <div className="flex flex-col mx-4 mt-10">
                 <div className="overflow-x-auto">
@@ -142,9 +145,9 @@ const Inventario = () => {
                                                     {consola.categoria}
                                                 </TableCell>
                                                 <TableCell>
-                                                    <EditIcon />
+                                                    <EditIcon className={styles.iconos} onClick={seleccionarConsola(consola,'Editar')}/>
                                                     &nbsp;&nbsp;&nbsp;
-                                                    <DeleteIcon />
+                                                    <DeleteIcon className={styles.iconos}/>
                                                 </TableCell>
                                             </TableRow>
                                         ))}
