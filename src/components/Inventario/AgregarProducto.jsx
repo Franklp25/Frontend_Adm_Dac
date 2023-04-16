@@ -5,7 +5,7 @@ import clienteAxios from "../../config/clienteAxios";
 import Swal from "sweetalert2";
 
 const AgregarProducto = () => {
-    // const [codigo, setCodigo] = useState("");
+    const [codigo, setCodigo] = useState("");
     const [nombre, setNombre] = useState("");
     const [precio, setPrecio] = useState("");
     const [descripcion, setDescripcion] = useState("");
@@ -15,7 +15,7 @@ const AgregarProducto = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if ([nombre, precio, descripcion].includes("")) {
+        if ([codigo, nombre, precio, descripcion].includes("")) {
             setAlerta({
                 msg: "Todos los campos son obligatorios",
                 error: true,
@@ -28,7 +28,7 @@ const AgregarProducto = () => {
 
         try {
             const { data } = await clienteAxios.post("/productos", {
-                // codigo,
+                codigo,
                 nombre,
                 precio,
                 descripcion,
@@ -69,6 +69,26 @@ const AgregarProducto = () => {
                                 className="space-y-4 md:space-y-6"
                                 onSubmit={handleSubmit}
                             >
+                                <div>
+                                    <label
+                                        htmlFor="codigo"
+                                        className=" uppercase text-gray-600 block text-sm font-bold pb-2"
+                                    >
+                                        Codigo
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="codigo"
+                                        placeholder="Escriba nombre del producto"
+                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required=""
+                                        value={codigo}
+                                        onChange={(e) =>
+                                            setCodigo(e.target.value)
+                                        }
+                                    />
+                                </div>
                                 <div>
                                     <label
                                         htmlFor="nombre"
@@ -117,7 +137,7 @@ const AgregarProducto = () => {
                                         Descripcion
                                     </label>
 
-                                    <textarea
+                                    <input
                                         type="text"
                                         id="descripcion"
                                         placeholder="Descripción del producto"

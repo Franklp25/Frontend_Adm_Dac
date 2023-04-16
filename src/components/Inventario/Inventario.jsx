@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Navbar from "../Navbar";
 import Alerta from "../Alerta";
 import clienteAxios from "../../config/clienteAxios";
-//import Table from "../Table.jsx";
 import EditModal from "../modales/EditModal";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core";
@@ -209,7 +208,7 @@ const Inventario = () => {
                                             <TableCell>Nombre</TableCell>
                                             <TableCell>Precio</TableCell>
                                             <TableCell>Descripción</TableCell>
-                                            <TableCell>Categoria</TableCell>
+                                            {/* <TableCell>Categoria</TableCell> */}
                                             <TableCell>Acciones</TableCell>
                                         </TableRow>
                                     </TableHead>
@@ -229,9 +228,9 @@ const Inventario = () => {
                                                 <TableCell>
                                                     {consola.descripcion}
                                                 </TableCell>
-                                                <TableCell>
+                                                {/* <TableCell>
                                                     {consola.categoria}
-                                                </TableCell>
+                                                </TableCell> */}
                                                 <TableCell>
                                                     <EditIcon
                                                         className={

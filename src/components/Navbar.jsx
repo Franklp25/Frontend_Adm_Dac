@@ -245,21 +245,12 @@ export default function Navbar() {
                                     </Link>
 
                                     {/* clientes */}
-                                    <div
-                                        className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-md text-lg font-semibold hover:text-white"
-                                        onMouseEnter={onMouseEnterClients}
-                                        onMouseLeave={onMouseLeaveClients}
-                                        onClick={displayDropdownMenuClients}
+                                    <Link
+                                        to="/listaCliente"
+                                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 navbar-text text-black hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-lg font-semibold"
                                     >
                                         Clientes
-                                        <div onClick={closeMobileMenu}>
-                                            {dropdownClients && (
-                                                <Dropdown
-                                                    items={itemsClients}
-                                                />
-                                            )}
-                                        </div>
-                                    </div>
+                                    </Link>
 
                                     {/* Proveedores */}
                                     <div
@@ -309,21 +300,7 @@ export default function Navbar() {
                                     </div>
 
                                     {/* Inventario */}
-                                    {/* <div
-                                        className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-md text-lg font-semibold hover:text-white"
-                                        onMouseEnter={onMouseEnterInventario}
-                                        onMouseLeave={onMouseLeaveInventario}
-                                        onClick={displayDropdownMenuInventario}
-                                    >
-                                        Inventario
-                                        <div onClick={closeMobileMenu}>
-                                            {dropdownInventario && (
-                                                <Dropdown
-                                                    items={itemsInventario}
-                                                />
-                                            )}
-                                        </div>
-                                    </div> */}
+
                                     <Link
                                         to="/inventario"
                                         className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 navbar-text text-black hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-lg font-semibold"
