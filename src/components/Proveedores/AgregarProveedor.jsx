@@ -79,16 +79,16 @@ const AgregarProveedor = () => {
 
             <section className="">
                 <div className="flex flex-col items-center justify-center px-6 py-8">
-                    <div className="w-full  rounded-2xl shadow dark:border md:mt-0 sm:max-w-md xl:p-0 bg-slate-300 dark:border-green-600">
-                        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <div className="w-full  rounded-2xl shadow dark:border md:w-7/12 sm:w-2/3 xl:w-2/4 bg-slate-300 dark:border-green-600">
+                        <div className="p-6 ">
                             <form
-                                className="lg-flex space-y-4 md:space-y-6"
+                                className="space-y-4 grid grid-cols-1 gap-8 md:grid-cols-2"
                                 onSubmit={handleSubmit}
                             >
                                 <div>
                                     <label
                                         htmlFor="tipoCedula"
-                                        className=" uppercase text-gray-600 block text-sm font-bold pb-2"
+                                        className=" mt-4 uppercase text-gray-600 block text-sm font-bold pb-2"
                                     >
                                         Tipo Cedula
                                     </label>
@@ -241,8 +241,10 @@ const AgregarProveedor = () => {
                                 >
                                     Guardar Proveedor
                                 </button>
-                                {msg && <Alerta alerta={alerta} />}
                             </form>
+                            <div className=" m-2">
+                                {msg && <Alerta alerta={alerta} />}
+                            </div>
                         </div>
                     </div>
                 </div>

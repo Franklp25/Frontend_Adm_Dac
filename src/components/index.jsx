@@ -1,3 +1,5 @@
+import { fromJSON } from "postcss";
+
 export { default as Protected } from "./Protected.jsx";
 export { default as NotLoggedIn } from "./NotLoggedIn.jsx";
 
@@ -26,6 +28,7 @@ export { default as AgregarCuentasPagar } from "./CuentasPagar/AgregarCuentasPag
 export { default as ListaCuentasPagar } from "./CuentasPagar/ListaCuentasPagar.jsx";
 
 //Inventario
+export { default as AgregarProducto } from "./Inventario/AgregarProducto.jsx";
 export { default as Inventario } from "./Inventario/Inventario.jsx";
 
 //Estadistica

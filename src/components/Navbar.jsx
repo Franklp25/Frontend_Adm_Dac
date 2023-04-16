@@ -239,44 +239,26 @@ export default function Navbar() {
                                 <div className="ml-10 flex items-baseline space-x-4">
                                     <Link
                                         to="/home"
-                                        className="navbar-text text-black hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-lg font-semibold"
+                                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 navbar-text text-black hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-lg font-semibold"
                                     >
                                         Inicio
                                     </Link>
 
                                     {/* clientes */}
-                                    <div
-                                        className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-md text-lg font-semibold hover:text-white"
-                                        onMouseEnter={onMouseEnterClients}
-                                        onMouseLeave={onMouseLeaveClients}
-                                        onClick={displayDropdownMenuClients}
+                                    <Link
+                                        to="/listaCliente"
+                                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 navbar-text text-black hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-lg font-semibold"
                                     >
                                         Clientes
-                                        <div onClick={closeMobileMenu}>
-                                            {dropdownClients && (
-                                                <Dropdown
-                                                    items={itemsClients}
-                                                />
-                                            )}
-                                        </div>
-                                    </div>
+                                    </Link>
 
                                     {/* Proveedores */}
-                                    <div
-                                        className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-md text-lg font-semibold hover:text-white"
-                                        onMouseEnter={onMouseEnterProvider}
-                                        onMouseLeave={onMouseLeaveProvider}
-                                        onClick={displayDropdownMenuProvider}
+                                    <Link
+                                        to="/listaProveedor"
+                                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 navbar-text text-black hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-lg font-semibold"
                                     >
                                         Proveedores
-                                        <div onClick={closeMobileMenu}>
-                                            {dropdownProvider && (
-                                                <Dropdown
-                                                    items={itemsProveedor}
-                                                />
-                                            )}
-                                        </div>
-                                    </div>
+                                    </Link>
 
                                     {/* Cuentas Por Cobrar */}
                                     <div
@@ -309,24 +291,16 @@ export default function Navbar() {
                                     </div>
 
                                     {/* Inventario */}
-                                    <div
-                                        className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-md text-lg font-semibold hover:text-white"
-                                        onMouseEnter={onMouseEnterInventario}
-                                        onMouseLeave={onMouseLeaveInventario}
-                                        onClick={displayDropdownMenuInventario}
+
+                                    <Link
+                                        to="/inventario"
+                                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 navbar-text text-black hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-lg font-semibold"
                                     >
-                                        Inventario
-                                        <div onClick={closeMobileMenu}>
-                                            {dropdownInventario && (
-                                                <Dropdown
-                                                    items={itemsInventario}
-                                                />
-                                            )}
-                                        </div>
-                                    </div>
+                                        Productos
+                                    </Link>
 
                                     {/* Estadistica */}
-                                    <div
+                                    {/* <div
                                         className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-md text-lg font-semibold hover:text-white"
                                         onMouseEnter={onMouseEnterEstadistica}
                                         onMouseLeave={onMouseLeaveEstadistica}
@@ -340,7 +314,7 @@ export default function Navbar() {
                                                 />
                                             )}
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                     <button
                                         type="button"
@@ -352,6 +326,7 @@ export default function Navbar() {
                                 </div>
                             </div>
                         </div>
+                        {/* -------------------------------------------------------------------------------------------------------------------------- */}
                         <div className="-mr-2 flex md:hidden">
                             <button
                                 onClick={() => setIsOpen(!isOpen)}
@@ -421,34 +396,20 @@ export default function Navbar() {
                             </Link>
 
                             {/* clientes */}
-                            <div
-                                className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-mdtext-black text-lg font-semibold hover:text-white"
-                                onMouseEnter={onMouseEnterClients}
-                                onMouseLeave={onMouseLeaveClients}
-                                onClick={displayDropdownMenuClients}
+                            <Link
+                                to="/listaCliente"
+                                className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 hover:bg-green-600 text-black block px-3 py-2 rounded-md text-base font-medium"
                             >
                                 Clientes
-                                <div onClick={closeMobileMenu}>
-                                    {dropdownClients && (
-                                        <Dropdown items={itemsClients} />
-                                    )}
-                                </div>
-                            </div>
+                            </Link>
 
                             {/* Proveedores */}
-                            <div
-                                className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-mdtext-black text-lg font-semibold hover:text-white"
-                                onMouseEnter={onMouseEnterProvider}
-                                onMouseLeave={onMouseLeaveProvider}
-                                onClick={displayDropdownMenuProvider}
+                            <Link
+                                to="/listaProveedor"
+                                className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 hover:bg-green-600 text-black block px-3 py-2 rounded-md text-base font-medium"
                             >
                                 Proveedores
-                                <div onClick={closeMobileMenu}>
-                                    {dropdownProvider && (
-                                        <Dropdown items={itemsProveedor} />
-                                    )}
-                                </div>
-                            </div>
+                            </Link>
 
                             {/* Cuentas Por Cobrar */}
                             <div
@@ -481,22 +442,15 @@ export default function Navbar() {
                             </div>
 
                             {/* Inventario */}
-                            <div
-                                className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-mdtext-black text-lg font-semibold hover:text-white"
-                                onMouseEnter={onMouseEnterInventario}
-                                onMouseLeave={onMouseLeaveInventario}
-                                onClick={displayDropdownMenuInventario}
+                            <Link
+                                to="/inventario"
+                                className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 hover:bg-green-600 text-black block px-3 py-2 rounded-md text-base font-medium"
                             >
-                                Inventario
-                                <div onClick={closeMobileMenu}>
-                                    {dropdownInventario && (
-                                        <Dropdown items={itemsInventario} />
-                                    )}
-                                </div>
-                            </div>
+                                Productos
+                            </Link>
 
                             {/* Estadistica */}
-                            <div
+                            {/* <div
                                 className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-mdtext-black text-lg font-semibold hover:text-white"
                                 onMouseEnter={onMouseEnterEstadistica}
                                 onMouseLeave={onMouseLeaveEstadistica}
@@ -508,7 +462,7 @@ export default function Navbar() {
                                         <Dropdown items={itemsEstadistica} />
                                     )}
                                 </div>
-                            </div>
+                            </div> */}
 
                             <button
                                 type="button"
