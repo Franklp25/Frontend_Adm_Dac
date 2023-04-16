@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     inputMaterial: {
         padding: "15px",
         width: "100%",
-        marginTop: theme.spacing(1),
+        marginTop: theme.spacing(1)
     },
 }));
 
