@@ -61,7 +61,6 @@ const Inventario = () => {
             ...prevState,
             [name]: value,
         }));
-        console.log(consolaSeleccionada);
     };
 
     useEffect(() => {
@@ -78,9 +77,9 @@ const Inventario = () => {
 
     const peticionPut = async () => {
         await clienteAxios
-            .put(`/productos:${consolaSeleccionada._id}`, consolaSeleccionada)
+            .put(`/productos/${consolaSeleccionada._id}`, consolaSeleccionada)
             .then((response) => {
-                var dataNueva = data;
+                var dataNueva = productos;
                 dataNueva.map((consola) => {
                     if (consolaSeleccionada.id === consola.id) {
                         consola.nombre = consolaSeleccionada.nombre;
@@ -104,7 +103,7 @@ const Inventario = () => {
 
     const bodyEditar = (
         <div className={styles.modal}>
-            <h3>Editar Registro</h3>
+            <h3 className="mb-2">Editar Registro</h3>
             <TextField
                 name="nombre"
                 className={styles.inputMaterial}
