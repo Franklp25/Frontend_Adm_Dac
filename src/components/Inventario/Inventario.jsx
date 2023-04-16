@@ -1,4 +1,5 @@
 import { useState, useEffect, button } from "react";
+import { Link } from "react-router-dom";
 import Navbar from "../Navbar";
 import Alerta from "../Alerta";
 import clienteAxios from "../../config/clienteAxios";
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     inputMaterial: {
         padding: "15px",
         width: "100%",
-        marginTop: theme.spacing(1)
+        marginTop: theme.spacing(1),
     },
 }));
 
@@ -181,9 +182,20 @@ const Inventario = () => {
     return (
         <>
             <Navbar />
-            <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
-                Lista de Productos
-            </h1>
+            <div className="flex justify-between p-2">
+                <h1 className=" text-gray-600 p-3 font-bold text-2xl">
+                    Lista de Productos
+                </h1>
+
+                <div className="m-5">
+                    <Link
+                        to="/agregarProducto"
+                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2  text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold"
+                    >
+                        Agregar Producto
+                    </Link>
+                </div>
+            </div>
 
             <div className="flex flex-col mx-4 mt-10">
                 <div className="overflow-x-auto">
