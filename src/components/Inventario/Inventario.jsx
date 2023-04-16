@@ -1,4 +1,4 @@
-import { useState, useEffect,button } from "react";
+import { useState, useEffect, button } from "react";
 import Navbar from "../Navbar";
 import Alerta from "../Alerta";
 import clienteAxios from "../../config/clienteAxios";
@@ -16,7 +16,7 @@ import {
     Modal,
     TextField,
 } from "@mui/material";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -36,33 +36,33 @@ const useStyles = makeStyles((theme) => ({
         cursor: "pointer",
     },
     inputMaterial: {
+        padding: "15px",
         width: "100%",
+        marginTop: theme.spacing(1),
     },
 }));
-
 
 const Inventario = () => {
     const styles = useStyles();
     const [productos, setProductos] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
 
-    const [consolaSeleccionada,setConsolaSeleccionada]=useState({
-        nombre:'',
-        precio:'',
-        descripcion:'',
-        categoria:''
-    })
+    const [consolaSeleccionada, setConsolaSeleccionada] = useState({
+        nombre: "",
+        precio: "",
+        descripcion: "",
+        categoria: "",
+        _id: "",
+    });
 
-    const handleChange=e=>{
-        const{name,value}=e.target;
-        setConsolaSeleccionada(prevState=>({
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setConsolaSeleccionada((prevState) => ({
             ...prevState,
-            [name]:value
-        }))
+            [name]: value,
+        }));
         console.log(consolaSeleccionada);
-    }
-
-    
+    };
 
     useEffect(() => {
         // Obtener los datos desde el servidor utilizando axios
@@ -76,27 +76,69 @@ const Inventario = () => {
             });
     }, []);
 
+    const peticionPut = async () => {
+        await clienteAxios
+            .put(`/productos:${consolaSeleccionada._id}`, consolaSeleccionada)
+            .then((response) => {
+                var dataNueva = data;
+                dataNueva.map((consola) => {
+                    if (consolaSeleccionada.id === consola.id) {
+                        consola.nombre = consolaSeleccionada.nombre;
+                        consola.precio = consolaSeleccionada.precio;
+                        consola.descripcion = consolaSeleccionada.descripcion;
+                    }
+                });
+                setProductos(dataNueva);
+                abrirCerrarModal();
+            });
+    };
+
     const abrirCerrarModal = () => {
         setModalEditar(!modalEditar);
     };
 
-    const seleccionarConsola=(consola,caso)=>{
-        setConsolaSeleccionada(consola){
-            (caso==='Editar')?modalEditar(true):''
-        }
-    }
+    const seleccionarConsola = (consola, caso) => {
+        setConsolaSeleccionada(consola);
+        caso === "Editar" && setModalEditar(true);
+    };
 
     const bodyEditar = (
         <div className={styles.modal}>
             <h3>Editar Registro</h3>
-            <TextField name="nombre" className={styles.inputMaterial} label="Nombre" onChange={handleChange} value={consolaSeleccionada && consolaSeleccionada.nombre}/>
-            <TextField name="precio" className={styles.inputMaterial} label="Precio" onChange={handleChange} value={consolaSeleccionada && consolaSeleccionada.precio}/>
-            <TextField name="descripcion" className={styles.inputMaterial} label="Descripcion" onChange={handleChange} value={consolaSeleccionada && consolaSeleccionada.descripcion}/>
-            <TextField name="codigo" className={styles.inputMaterial} label="Categoria" onChange={handleChange} value={consolaSeleccionada && consolaSeleccionada.codigo}/>
+            <TextField
+                name="nombre"
+                className={styles.inputMaterial}
+                label="Nombre"
+                onChange={handleChange}
+                value={consolaSeleccionada && consolaSeleccionada.nombre}
+            />
+            <TextField
+                name="precio"
+                className={styles.inputMaterial}
+                label="Precio"
+                onChange={handleChange}
+                value={consolaSeleccionada && consolaSeleccionada.precio}
+            />
+            <TextField
+                name="descripcion"
+                className={styles.inputMaterial}
+                label="Descripcion"
+                onChange={handleChange}
+                value={consolaSeleccionada && consolaSeleccionada.descripcion}
+            />
+            <TextField
+                name="codigo"
+                className={styles.inputMaterial}
+                label="Categoria"
+                onChange={handleChange}
+                value={consolaSeleccionada && consolaSeleccionada.codigo}
+            />
             <br />
             <br />
             <div align="right">
-                <Button color="primary">Editar</Button>
+                <Button color="primary" onClick={peticionPut}>
+                    Editar
+                </Button>
                 <Button onClick={abrirCerrarModal}>Cancelar</Button>
             </div>
         </div>
@@ -145,9 +187,23 @@ const Inventario = () => {
                                                     {consola.categoria}
                                                 </TableCell>
                                                 <TableCell>
-                                                    <EditIcon className={styles.iconos} onClick={seleccionarConsola(consola,'Editar')}/>
+                                                    <EditIcon
+                                                        className={
+                                                            styles.iconos
+                                                        }
+                                                        onClick={() =>
+                                                            seleccionarConsola(
+                                                                consola,
+                                                                "Editar"
+                                                            )
+                                                        }
+                                                    />
                                                     &nbsp;&nbsp;&nbsp;
-                                                    <DeleteIcon className={styles.iconos}/>
+                                                    <DeleteIcon
+                                                        className={
+                                                            styles.iconos
+                                                        }
+                                                    />
                                                 </TableCell>
                                             </TableRow>
                                         ))}
