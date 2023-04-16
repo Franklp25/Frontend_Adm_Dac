@@ -40,12 +40,23 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         marginTop: theme.spacing(1),
     },
+    MuiOutlinedInput: {
+        defaultProps: {
+            notched: false,
+        },
+    },
+    MuiInputLabel: {
+        defaultProps: {
+            shrink: false,
+        },
+    },
 }));
 
 const Inventario = () => {
     const styles = useStyles();
     const [productos, setProductos] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
+    const [modalEliminar,setModalEliminar] = useState(false);
 
     const [consolaSeleccionada, setConsolaSeleccionada] = useState({
         nombre: "",
@@ -110,6 +121,7 @@ const Inventario = () => {
                 label="Nombre"
                 onChange={handleChange}
                 value={consolaSeleccionada && consolaSeleccionada.nombre}
+                InputProps={{notched:false}}
             />
             <TextField
                 name="precio"
@@ -117,6 +129,7 @@ const Inventario = () => {
                 label="Precio"
                 onChange={handleChange}
                 value={consolaSeleccionada && consolaSeleccionada.precio}
+                InputProps={{notched:false}}
             />
             <TextField
                 name="descripcion"
@@ -124,6 +137,7 @@ const Inventario = () => {
                 label="Descripcion"
                 onChange={handleChange}
                 value={consolaSeleccionada && consolaSeleccionada.descripcion}
+                InputProps={{notched:false}}
             />
             <TextField
                 name="codigo"
@@ -131,6 +145,7 @@ const Inventario = () => {
                 label="Categoria"
                 onChange={handleChange}
                 value={consolaSeleccionada && consolaSeleccionada.codigo}
+                InputProps={{notched:false}}
             />
             <br />
             <br />
