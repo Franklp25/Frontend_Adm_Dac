@@ -40,16 +40,7 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         marginTop: theme.spacing(1),
     },
-    MuiOutlinedInput: {
-        defaultProps: {
-            notched: false,
-        },
-    },
-    MuiInputLabel: {
-        defaultProps: {
-            shrink: false,
-        },
-    },
+
 }));
 
 const Inventario = () => {
@@ -103,13 +94,42 @@ const Inventario = () => {
             });
     };
 
+    const peticionDelete = async () =>{
+        await clienteAxios
+            .delete(`/productos/${consolaSeleccionada._id}`)
+            .then((response) => {
+                var dataNueva = productos;
+                setProductos(dataNueva);
+                abrirCerrarModal();
+            });
+    }
+
+    //Confirma mediante sweetAlert si se desea eliminar el elemento
+    const confirmarDelete = async () =>{
+        Swal.fire({
+            
+            title: "¿Deseas eliminar este Producto?",
+            // text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, Eliminar!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                console.log(`producto:${peticionDelete()}`)
+            }
+        });
+    }
+
     const abrirCerrarModal = () => {
         setModalEditar(!modalEditar);
     };
 
     const seleccionarConsola = (consola, caso) => {
         setConsolaSeleccionada(consola);
-        caso === "Editar" && setModalEditar(true);
+        caso === "Editar"? setModalEditar(true):'';
+        caso === "Eliminar"?peticionDelete():'';
     };
 
     const bodyEditar = (
@@ -217,6 +237,7 @@ const Inventario = () => {
                                                         className={
                                                             styles.iconos
                                                         }
+                                                        onClick={()=>confirmarDelete()}
                                                     />
                                                 </TableCell>
                                             </TableRow>
