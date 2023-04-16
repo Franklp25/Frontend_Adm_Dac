@@ -40,14 +40,13 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         marginTop: theme.spacing(1),
     },
-
 }));
 
 const Inventario = () => {
     const styles = useStyles();
     const [productos, setProductos] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
-    const [modalEliminar,setModalEliminar] = useState(false);
+    const [modalEliminar, setModalEliminar] = useState(false);
 
     const [consolaSeleccionada, setConsolaSeleccionada] = useState({
         nombre: "",
@@ -94,20 +93,21 @@ const Inventario = () => {
             });
     };
 
-    const peticionDelete = async () =>{
+    const peticionDelete = async () => {
         await clienteAxios
-            .delete(`/productos/${consolaSeleccionada._id}`)
+            .delete(
+                `/productos/${consolaSeleccionada._id}`,
+                consolaSeleccionada
+            )
             .then((response) => {
                 var dataNueva = productos;
                 setProductos(dataNueva);
-                abrirCerrarModal();
             });
-    }
+    };
 
     //Confirma mediante sweetAlert si se desea eliminar el elemento
-    const confirmarDelete = async () =>{
+    const confirmarDelete = async () => {
         Swal.fire({
-            
             title: "¿Deseas eliminar este Producto?",
             // text: "You won't be able to revert this!",
             icon: "warning",
@@ -117,10 +117,10 @@ const Inventario = () => {
             confirmButtonText: "Si, Eliminar!",
         }).then(async (result) => {
             if (result.isConfirmed) {
-                console.log(`producto:${peticionDelete()}`)
+                peticionDelete();
             }
         });
-    }
+    };
 
     const abrirCerrarModal = () => {
         setModalEditar(!modalEditar);
@@ -128,8 +128,8 @@ const Inventario = () => {
 
     const seleccionarConsola = (consola, caso) => {
         setConsolaSeleccionada(consola);
-        caso === "Editar"? setModalEditar(true):'';
-        caso === "Eliminar"?peticionDelete():'';
+        caso === "Editar" ? setModalEditar(true) : "";
+        caso === "Eliminar" ? confirmarDelete() : "";
     };
 
     const bodyEditar = (
@@ -141,7 +141,7 @@ const Inventario = () => {
                 label="Nombre"
                 onChange={handleChange}
                 value={consolaSeleccionada && consolaSeleccionada.nombre}
-                InputProps={{notched:false}}
+                InputProps={{ notched: false }}
             />
             <TextField
                 name="precio"
@@ -149,7 +149,7 @@ const Inventario = () => {
                 label="Precio"
                 onChange={handleChange}
                 value={consolaSeleccionada && consolaSeleccionada.precio}
-                InputProps={{notched:false}}
+                InputProps={{ notched: false }}
             />
             <TextField
                 name="descripcion"
@@ -157,7 +157,7 @@ const Inventario = () => {
                 label="Descripcion"
                 onChange={handleChange}
                 value={consolaSeleccionada && consolaSeleccionada.descripcion}
-                InputProps={{notched:false}}
+                InputProps={{ notched: false }}
             />
             <TextField
                 name="codigo"
@@ -165,7 +165,7 @@ const Inventario = () => {
                 label="Categoria"
                 onChange={handleChange}
                 value={consolaSeleccionada && consolaSeleccionada.codigo}
-                InputProps={{notched:false}}
+                InputProps={{ notched: false }}
             />
             <br />
             <br />
@@ -237,7 +237,12 @@ const Inventario = () => {
                                                         className={
                                                             styles.iconos
                                                         }
-                                                        onClick={()=>confirmarDelete()}
+                                                        onClick={() =>
+                                                            seleccionarConsola(
+                                                                consola,
+                                                                "Eliminar"
+                                                            )
+                                                        }
                                                     />
                                                 </TableCell>
                                             </TableRow>
