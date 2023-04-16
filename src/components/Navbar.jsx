@@ -253,21 +253,12 @@ export default function Navbar() {
                                     </Link>
 
                                     {/* Proveedores */}
-                                    <div
-                                        className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-md text-lg font-semibold hover:text-white"
-                                        onMouseEnter={onMouseEnterProvider}
-                                        onMouseLeave={onMouseLeaveProvider}
-                                        onClick={displayDropdownMenuProvider}
+                                    <Link
+                                        to="/listaProveedor"
+                                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 navbar-text text-black hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-lg font-semibold"
                                     >
                                         Proveedores
-                                        <div onClick={closeMobileMenu}>
-                                            {dropdownProvider && (
-                                                <Dropdown
-                                                    items={itemsProveedor}
-                                                />
-                                            )}
-                                        </div>
-                                    </div>
+                                    </Link>
 
                                     {/* Cuentas Por Cobrar */}
                                     <div
