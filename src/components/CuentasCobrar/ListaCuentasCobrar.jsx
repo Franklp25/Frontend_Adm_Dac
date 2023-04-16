@@ -86,13 +86,9 @@ const ListaCuentasPagar = () => {
     }, []);
 
     const obtenertotalDeuda = (idCliente) =>{
-      //console.log(idCliente);
       let total=0;
-      console.log(facturas);
       facturas.forEach(factura=>{
-        console.log("idCliente: "+idCliente)
-        if(factura._id==idCliente){
-          console.log("idFactura: "+factura._id)
+        if(factura.cliente==idCliente){
           total=factura.subtotal+factura.iva;
         }
         
@@ -100,53 +96,6 @@ const ListaCuentasPagar = () => {
       return total;
     }
 
-    
-
-    const peticionPut = async () => {
-        await clienteAxios
-            .put(`/productos/${consolaSeleccionada._id}`, consolaSeleccionada)
-            .then((response) => {
-                var dataNueva = productos;
-                dataNueva.map((consola) => {
-                    if (consolaSeleccionada.id === consola.id) {
-                        consola.nombre = consolaSeleccionada.nombre;
-                        consola.precio = consolaSeleccionada.precio;
-                        consola.descripcion = consolaSeleccionada.descripcion;
-                    }
-                });
-                setProductos(dataNueva);
-                abrirCerrarModal();
-            });
-    };
-
-    const peticionDelete = async () => {
-        await clienteAxios
-            .delete(
-                `/productos/${consolaSeleccionada._id}`,
-                consolaSeleccionada
-            )
-            .then((response) => {
-                var dataNueva = productos;
-                setProductos(dataNueva);
-            });
-    };
-
-    //Confirma mediante sweetAlert si se desea eliminar el elemento
-    const confirmarDelete = async () => {
-        Swal.fire({
-            title: "¿Deseas eliminar este Producto?",
-            // text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Si, Eliminar!",
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                peticionDelete();
-            }
-        });
-    };
 
     const abrirCerrarModal = () => {
         setModalEditar(!modalEditar);
@@ -158,51 +107,6 @@ const ListaCuentasPagar = () => {
         caso === "Eliminar" ? confirmarDelete() : "";
     };
 
-    const bodyEditar = (
-        <div className={styles.modal}>
-            <h3 className="mb-2">Editar Registro</h3>
-            <TextField
-                name="nombre"
-                className={styles.inputMaterial}
-                label="Nombre"
-                onChange={handleChange}
-                value={consolaSeleccionada && consolaSeleccionada.nombre}
-                InputProps={{ notched: false }}
-            />
-            <TextField
-                name="precio"
-                className={styles.inputMaterial}
-                label="Precio"
-                onChange={handleChange}
-                value={consolaSeleccionada && consolaSeleccionada.precio}
-                InputProps={{ notched: false }}
-            />
-            <TextField
-                name="descripcion"
-                className={styles.inputMaterial}
-                label="Descripcion"
-                onChange={handleChange}
-                value={consolaSeleccionada && consolaSeleccionada.descripcion}
-                InputProps={{ notched: false }}
-            />
-            <TextField
-                name="codigo"
-                className={styles.inputMaterial}
-                label="Categoria"
-                onChange={handleChange}
-                value={consolaSeleccionada && consolaSeleccionada.codigo}
-                InputProps={{ notched: false }}
-            />
-            <br />
-            <br />
-            <div align="right">
-                <Button color="primary" onClick={peticionPut}>
-                    Editar
-                </Button>
-                <Button onClick={abrirCerrarModal}>Cancelar</Button>
-            </div>
-        </div>
-    );
     return (
         <>
             <Navbar />

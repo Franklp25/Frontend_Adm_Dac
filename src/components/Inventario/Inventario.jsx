@@ -82,7 +82,7 @@ const Inventario = () => {
             .then((response) => {
                 var dataNueva = productos;
                 dataNueva.map((consola) => {
-                    if (consolaSeleccionada.id === consola.id) {
+                    if (consolaSeleccionada.id == consola._id) {
                         consola.nombre = consolaSeleccionada.nombre;
                         consola.precio = consolaSeleccionada.precio;
                         consola.descripcion = consolaSeleccionada.descripcion;

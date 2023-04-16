@@ -81,7 +81,7 @@ const ListaProveedor = () => {
 
     const peticionPut = async () => {
         await clienteAxios
-            .put(`/proveedor/${consolaSeleccionada._id}`, consolaSeleccionada)
+            .put(`/proveedor/${consolaSeleccionada._id}`, consolaSeleccionada._id)
             .then((response) => {
                 var dataNueva = proveedor;
                 dataNueva.map((consola) => {
