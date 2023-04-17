@@ -12,6 +12,7 @@ import {
     ListaProveedor,
     AgregarCuentasCobrar,
     ListaCuentasCobrar,
+    FacturasCliente,
     AgregarCuentasPagar,
     ListaCuentasPagar,
     AgregarProducto,
@@ -73,6 +74,10 @@ function App() {
                             <Route
                                 path="listaCuentasCobrar"
                                 element={<ListaCuentasCobrar />}
+                            />
+                            <Route
+                                path="facturasCliente/:id"
+                                element={<FacturasCliente/>}
                             />
 
                             {/* Cuentas Por Pagar */}

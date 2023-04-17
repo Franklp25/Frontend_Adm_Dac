@@ -261,34 +261,20 @@ export default function Navbar() {
                                     </Link>
 
                                     {/* Cuentas Por Cobrar */}
-                                    <div
-                                        className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-md text-lg font-semibold hover:text-white"
-                                        onMouseEnter={onMouseEnterCobrar}
-                                        onMouseLeave={onMouseLeaveCobrar}
-                                        onClick={displayDropdownMenuCobrar}
+                                    <Link
+                                        to="/listaCuentasCobrar"
+                                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 navbar-text text-black hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-lg font-semibold"
                                     >
-                                        Cobrar
-                                        <div onClick={closeMobileMenu}>
-                                            {dropdownCobrar && (
-                                                <Dropdown items={itemsCobrar} />
-                                            )}
-                                        </div>
-                                    </div>
+                                        Cobros
+                                    </Link>
 
                                     {/* Cuentas Por Pagar */}
-                                    <div
-                                        className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-md text-lg font-semibold hover:text-white"
-                                        onMouseEnter={onMouseEnterPagar}
-                                        onMouseLeave={onMouseLeavePagar}
-                                        onClick={displayDropdownMenuPagar}
+                                    <Link
+                                        to="/listaCuentasPagar"
+                                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 navbar-text text-black hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-lg font-semibold"
                                     >
-                                        Pagar
-                                        <div onClick={closeMobileMenu}>
-                                            {dropdownPagar && (
-                                                <Dropdown items={itemsPagar} />
-                                            )}
-                                        </div>
-                                    </div>
+                                        Pagos
+                                    </Link>
 
                                     {/* Inventario */}
 
@@ -300,21 +286,6 @@ export default function Navbar() {
                                     </Link>
 
                                     {/* Estadistica */}
-                                    {/* <div
-                                        className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-md text-lg font-semibold hover:text-white"
-                                        onMouseEnter={onMouseEnterEstadistica}
-                                        onMouseLeave={onMouseLeaveEstadistica}
-                                        onClick={displayDropdownMenuEstadistica}
-                                    >
-                                        Estadística
-                                        <div onClick={closeMobileMenu}>
-                                            {dropdownEstadistica && (
-                                                <Dropdown
-                                                    items={itemsEstadistica}
-                                                />
-                                            )}
-                                        </div>
-                                    </div> */}
 
                                     <button
                                         type="button"
@@ -412,34 +383,20 @@ export default function Navbar() {
                             </Link>
 
                             {/* Cuentas Por Cobrar */}
-                            <div
-                                className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-mdtext-black text-lg font-semibold hover:text-white"
-                                onMouseEnter={onMouseEnterCobrar}
-                                onMouseLeave={onMouseLeaveCobrar}
-                                onClick={displayDropdownMenuCobrar}
+                            <Link
+                                to="/listaCuentasCobrar"
+                                className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 hover:bg-green-600 text-black block px-3 py-2 rounded-md text-base font-medium"
                             >
-                                Cuentas por cobrar
-                                <div onClick={closeMobileMenu}>
-                                    {dropdownCobrar && (
-                                        <Dropdown items={itemsCobrar} />
-                                    )}
-                                </div>
-                            </div>
+                                Cobros
+                            </Link>
 
                             {/* Cuentas Por Pagar */}
-                            <div
-                                className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-mdtext-black text-lg font-semibold hover:text-white"
-                                onMouseEnter={onMouseEnterPagar}
-                                onMouseLeave={onMouseLeavePagar}
-                                onClick={displayDropdownMenuPagar}
+                            <Link
+                                to="/listaCuentasPagar"
+                                className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 hover:bg-green-600 text-black block px-3 py-2 rounded-md text-base font-medium"
                             >
-                                Cuentas por pagar
-                                <div onClick={closeMobileMenu}>
-                                    {dropdownPagar && (
-                                        <Dropdown items={itemsPagar} />
-                                    )}
-                                </div>
-                            </div>
+                                Pagos
+                            </Link>
 
                             {/* Inventario */}
                             <Link
@@ -450,19 +407,6 @@ export default function Navbar() {
                             </Link>
 
                             {/* Estadistica */}
-                            {/* <div
-                                className="hover:cursor-pointer hover:bg-green-600 px-3 py-2 rounded-mdtext-black text-lg font-semibold hover:text-white"
-                                onMouseEnter={onMouseEnterEstadistica}
-                                onMouseLeave={onMouseLeaveEstadistica}
-                                onClick={displayDropdownMenuEstadistica}
-                            >
-                                Estadística
-                                <div onClick={closeMobileMenu}>
-                                    {dropdownEstadistica && (
-                                        <Dropdown items={itemsEstadistica} />
-                                    )}
-                                </div>
-                            </div> */}
 
                             <button
                                 type="button"
