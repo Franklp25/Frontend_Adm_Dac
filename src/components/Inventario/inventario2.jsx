@@ -5,7 +5,7 @@ import clienteAxios from "../../config/clienteAxios";
 //import Table from "../Table.jsx";
 import EditModal from "../modales/EditModal";
 import axios from "axios";
-import { makeStyles } from "@mui/material";
+import { makeStyles } from "@material-ui/core";
 import {
     Table,
     TableHead,
