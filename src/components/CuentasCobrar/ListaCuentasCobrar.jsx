@@ -1,7 +1,7 @@
 import { useState, useEffect, button } from "react";
 import Navbar from "../Navbar";
 import clienteAxios from "../../config/clienteAxios";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import {
     Table,

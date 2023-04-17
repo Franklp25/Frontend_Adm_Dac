@@ -5,7 +5,7 @@ import Alerta from "../Alerta";
 import clienteAxios from "../../config/clienteAxios";
 import EditModal from "../modales/EditModal";
 import axios from "axios";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/material";
 import {
     Table,
     TableHead,
