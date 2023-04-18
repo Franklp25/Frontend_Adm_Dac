@@ -83,7 +83,7 @@ function App() {
 
                             {/* Cuentas Por Pagar */}
                             <Route
-                                path="agregarFacturasPagar"
+                                path="agregarFacturasPagar/:id"
                                 element={<AgregaFacturasPagar />}
                             />
                             <Route

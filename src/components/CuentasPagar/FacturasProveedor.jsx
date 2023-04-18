@@ -151,7 +151,7 @@ const FacturasProveedor = () => {
                 </h1>
                 <div className="m-5">
                     <Link
-                        to="/agregarFacturasPagar"
+                        to={`/agregarFacturasPagar/${params.id}`}
                         className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2  text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold"
                     >
                         Agregar Factura Proveedor
