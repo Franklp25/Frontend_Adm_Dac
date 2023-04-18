@@ -84,7 +84,7 @@ const ListaCliente = () => {
             .then((response) => {
                 var dataNueva = clientes;
                 dataNueva.map((consola) => {
-                    if (consolaSeleccionada._id === consola._id) {
+                    if (consolaSeleccionada._id == consola._id) {
                         consola.tipoCedula = consolaSeleccionada.tipoCedula;
                         consola.cedula = consolaSeleccionada.cedula;
                         consola.nombre = consolaSeleccionada.nombre;
