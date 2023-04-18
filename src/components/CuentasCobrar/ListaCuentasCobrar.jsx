@@ -1,9 +1,9 @@
 import { useState, useEffect, button } from "react";
 import Navbar from "../Navbar";
+import { Link } from "react-router-dom";
 import clienteAxios from "../../config/clienteAxios";
-//import { makeStyles } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from "@mui/styles";
 import {
     Table,
     TableHead,
@@ -14,8 +14,8 @@ import {
     Modal,
     TextField,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 const useStyles = makeStyles({
     modal: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
     inputMaterial: {
         padding: "15px",
         width: "100%",
-        marginBottom: "5px"
+        marginBottom: "5px",
     },
 });
 
@@ -103,12 +103,12 @@ const ListaCuentasCobrar = () => {
                                     <TableBody>
                                         {clientes.map((consola) => (
                                             <TableRow
-                                                key={consola.id}
-                                                onClick={() =>
-                                                    navigate(
-                                                        `/facturasCliente/${consola._id}`
-                                                    )
-                                                }
+                                            // key={consola.id}
+                                            // onClick={() =>
+                                            //     navigate(
+                                            //         `/facturasCliente/${consola._id}`
+                                            //     )
+                                            // }
                                             >
                                                 <TableCell>
                                                     {consola.nombre +
@@ -124,17 +124,16 @@ const ListaCuentasCobrar = () => {
                                                     )}
                                                 </TableCell>
                                                 <TableCell>
-                                                    <EditIcon
-                                                        className={
-                                                            styles.iconos
-                                                        }
-                                                    />
-                                                    &nbsp;&nbsp;&nbsp;
-                                                    <DeleteIcon
-                                                        className={
-                                                            styles.iconos
-                                                        }
-                                                    />
+                                                    <Link
+                                                        to={`/facturasCliente/${consola._id}`}
+                                                    >
+                                                        <RemoveRedEyeIcon
+                                                            className={
+                                                                styles.iconos
+                                                            }
+                                                        />
+                                                    </Link>
+                                                    {/* &nbsp;&nbsp;&nbsp; */}
                                                 </TableCell>
                                             </TableRow>
                                         ))}
