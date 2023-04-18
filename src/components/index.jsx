@@ -26,8 +26,8 @@ export { default as FacturasCliente } from "./CuentasCobrar/FacturasCliente.jsx"
 
 //cuentas por pagar
 export { default as AgregarCuentasPagar } from "./CuentasPagar/AgregarCuentasPagar.jsx";
+export { default as FacturasProveedor } from "./CuentasPagar/FacturasProveedor.jsx";
 export { default as ListaCuentasPagar } from "./CuentasPagar/ListaCuentasPagar.jsx";
-
 
 //Inventario
 export { default as AgregarProducto } from "./Inventario/AgregarProducto.jsx";
