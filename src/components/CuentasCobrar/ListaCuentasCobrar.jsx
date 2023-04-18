@@ -1,8 +1,9 @@
 import { useState, useEffect, button } from "react";
 import Navbar from "../Navbar";
 import clienteAxios from "../../config/clienteAxios";
-import { makeStyles } from "@material-ui/core";
+//import { makeStyles } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
+import { makeStyles } from '@mui/styles';
 import {
     Table,
     TableHead,
@@ -16,16 +17,25 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
+    modal: {
+        position: "absolute",
+        width: 400,
+        backgroundColor: "white",
+        border: "2px solid #000",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%,-50%)",
+    },
     iconos: {
         cursor: "pointer",
     },
     inputMaterial: {
         padding: "15px",
         width: "100%",
-        marginTop: theme.spacing(1),
+        marginBottom: "5px"
     },
-}));
+});
 
 const ListaCuentasPagar = () => {
     const styles = useStyles();

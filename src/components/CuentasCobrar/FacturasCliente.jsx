@@ -5,7 +5,8 @@ import Alerta from "../Alerta";
 import clienteAxios from "../../config/clienteAxios";
 import EditModal from "../modales/EditModal";
 import axios from "axios";
-import { makeStyles } from "@material-ui/core";
+//import { makeStyles } from "@material-ui/core";
+import { makeStyles } from '@mui/styles';
 import {
     Table,
     TableHead,
@@ -20,14 +21,17 @@ import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
     modal: {
         position: "absolute",
         width: 400,
-        backgroundColor: theme.palette.background.paper,
-        border: "2px solid #000",
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
+        background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+        border: 0,
+        borderRadius: 3,
+        boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+        color: "white",
+        height: 48,
+        padding: "0 30px",
         top: "50%",
         left: "50%",
         transform: "translate(-50%,-50%)",
@@ -38,9 +42,8 @@ const useStyles = makeStyles((theme) => ({
     inputMaterial: {
         padding: "15px",
         width: "100%",
-        marginTop: theme.spacing(1),
     },
-}));
+});
 
 const FacturasCliente = () => {
     const params = useParams();
