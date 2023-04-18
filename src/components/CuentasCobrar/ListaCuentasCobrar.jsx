@@ -37,7 +37,7 @@ const useStyles = makeStyles({
     },
 });
 
-const ListaCuentasPagar = () => {
+const ListaCuentasCobrar = () => {
     const styles = useStyles();
     const [clientes, setClientes] = useState([]);
     const [facturas, setFacturas] = useState([]);
@@ -149,4 +149,4 @@ const ListaCuentasPagar = () => {
     );
 };
 
-export default ListaCuentasPagar;
+export default ListaCuentasCobrar;
