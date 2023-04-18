@@ -65,7 +65,7 @@ const ListaCuentasPagar = () => {
 
     const obtenertotalDeuda = (idProveedor) => {
         let total = 0;
-        console.log(facturasPagar);
+        // console.log(facturasPagar);
         facturasPagar.forEach((factura) => {
             if (factura.proveedor == idProveedor) {
                 total += factura.total;
