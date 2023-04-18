@@ -10,10 +10,10 @@ import {
     ListaCliente,
     AgregarProveedor,
     ListaProveedor,
-    AgregarCuentasCobrar,
+    AgregarFacturasCobrar,
     ListaCuentasCobrar,
     FacturasCliente,
-    AgregarCuentasPagar,
+    AgregaFacturasPagar,
     ListaCuentasPagar,
     FacturasProveedor,
     AgregarProducto,
@@ -69,8 +69,8 @@ function App() {
 
                             {/* Cuentas Por Cobrar */}
                             <Route
-                                path="agregarCuentasCobrar"
-                                element={<AgregarCuentasCobrar />}
+                                path="agregarFacturasCobrar"
+                                element={<AgregarFacturasCobrar />}
                             />
                             <Route
                                 path="listaCuentasCobrar"
@@ -83,8 +83,8 @@ function App() {
 
                             {/* Cuentas Por Pagar */}
                             <Route
-                                path="agregarCuentasPagar"
-                                element={<AgregarCuentasPagar />}
+                                path="agregarFacturasPagar"
+                                element={<AgregaFacturasPagar />}
                             />
                             <Route
                                 path="listaCuentasPagar"
