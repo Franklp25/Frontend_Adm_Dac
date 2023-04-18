@@ -69,7 +69,7 @@ function App() {
 
                             {/* Cuentas Por Cobrar */}
                             <Route
-                                path="agregarFacturasCobrar"
+                                path="agregarFacturasCobrar/:id"
                                 element={<AgregarFacturasCobrar />}
                             />
                             <Route

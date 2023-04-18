@@ -47,7 +47,7 @@ const useStyles = makeStyles({
 
 const FacturasCliente = () => {
     const params = useParams();
-    console.log(params);
+    // console.log(params);
     const styles = useStyles();
     const [facturas, setFacturas] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
@@ -145,9 +145,19 @@ const FacturasCliente = () => {
     return (
         <>
             <Navbar />
-            <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
-                Facturas por Cliente
-            </h1>
+            <div className="flex justify-between p-2">
+                <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
+                    Facturas por Cliente
+                </h1>
+                <div className="m-5">
+                    <Link
+                        to={`/agregarFacturasCobrar/${params.id}`}
+                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2  text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold"
+                    >
+                        Agregar Factura Proveedor
+                    </Link>
+                </div>
+            </div>
             <div className="flex flex-col mx-4 mt-10">
                 <div className="overflow-x-auto">
                     <div className=" w-full inline-block align-middle">
