@@ -53,13 +53,22 @@ const ListaCuentasPagar = () => {
             .catch((error) => {
                 console.log(error);
             });
+        clienteAxios
+            .get("/facturas-pagar")
+            .then((response) => {
+                setFacturasPagar(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
 
     const obtenertotalDeuda = (idProveedor) => {
         let total = 0;
+        // console.log(facturasPagar);
         facturasPagar.forEach((factura) => {
             if (factura.proveedor == idProveedor) {
-                total += factura.subtotal + factura.iva;
+                total += factura.total;
             }
         });
         return total;

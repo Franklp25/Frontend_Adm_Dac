@@ -43,11 +43,10 @@ const useStyles = makeStyles({
     },
 });
 
-const FacturasCliente = () => {
+const FacturasProveedor = () => {
     const params = useParams();
-    console.log(params);
     const styles = useStyles();
-    const [facturas, setFacturas] = useState([]);
+    const [facturasProveedor, setFacturasProveedor] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
     const [modalEliminar, setModalEliminar] = useState(false);
     //const [userId, setUserId] = useState(match.params.id);
@@ -74,10 +73,10 @@ const FacturasCliente = () => {
     useEffect(() => {
         // Obtener los datos desde el servidor utilizando axios
         clienteAxios
-            .get(`/facturas/cliente/${params.id}`)
+            .get(`/facturas-pagar/proveedor/${params.id}`)
             .then((response) => {
-                setFacturas(response.data);
-                //console.log(response.data);
+                setFacturasProveedor(response.data);
+                console.log(response.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -86,9 +85,9 @@ const FacturasCliente = () => {
 
     const peticionPut = async () => {
         await clienteAxios
-            .put(`/clientes/${consolaSeleccionada._id}`, consolaSeleccionada)
+            .put(`/proveedor/${consolaSeleccionada._id}`, consolaSeleccionada)
             .then((response) => {
-                var dataNueva = clientes;
+                var dataNueva = proveedor;
                 dataNueva.map((consola) => {
                     if (consolaSeleccionada._id === consola._id) {
                         consola.tipoCedula = consolaSeleccionada.tipoCedula;
@@ -100,24 +99,27 @@ const FacturasCliente = () => {
                         consola.direccion = consolaSeleccionada.direccion;
                     }
                 });
-                setClientes(dataNueva);
+                setProveedor(dataNueva);
                 abrirCerrarModal();
             });
     };
 
     const peticionDelete = async () => {
         await clienteAxios
-            .delete(`/clientes/${consolaSeleccionada._id}`, consolaSeleccionada)
+            .delete(
+                `/proveedor/${consolaSeleccionada._id}`,
+                consolaSeleccionada
+            )
             .then((response) => {
-                var dataNueva = clientes;
-                setClientes(dataNueva);
+                var dataNueva = proveedor;
+                setProveedor(dataNueva);
             });
     };
 
     //Confirma mediante sweetAlert si se desea eliminar el elemento
     const confirmarDelete = async () => {
         Swal.fire({
-            title: "¿Deseas eliminar este Cliente?",
+            title: "¿Deseas eliminar este proveedor?",
             // text: "You won't be able to revert this!",
             icon: "warning",
             showCancelButton: true,
@@ -143,9 +145,20 @@ const FacturasCliente = () => {
     return (
         <>
             <Navbar />
-            <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
-                Facturas por Cliente
-            </h1>
+            <div className="flex justify-between p-2">
+                <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
+                    Facturas por Proveedor
+                </h1>
+                <div className="m-5">
+                    <Link
+                        to="/agregarFacturasPagar"
+                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2  text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold"
+                    >
+                        Agregar Factura Proveedor
+                    </Link>
+                </div>
+            </div>
+
             <div className="flex flex-col mx-4 mt-10">
                 <div className="overflow-x-auto">
                     <div className=" w-full inline-block align-middle">
@@ -158,11 +171,10 @@ const FacturasCliente = () => {
                                             <TableCell>
                                                 Fecha de Emision
                                             </TableCell>
+                                            <TableCell>Crédito</TableCell>
                                             <TableCell>
                                                 Fecha de Vencimiento
                                             </TableCell>
-                                            <TableCell>IVA</TableCell>
-                                            <TableCell>Subtotal</TableCell>
                                             <TableCell>Total</TableCell>
                                             <TableCell>Estado</TableCell>
                                             <TableCell>Acciones</TableCell>
@@ -170,13 +182,18 @@ const FacturasCliente = () => {
                                     </TableHead>
 
                                     <TableBody>
-                                        {facturas.map((consola) => (
+                                        {facturasProveedor.map((consola) => (
                                             <TableRow key={consola.id}>
-                                                <TableCell>{"N.A"}</TableCell>
+                                                <TableCell>
+                                                    {consola.numFacturaPagar}
+                                                </TableCell>
                                                 <TableCell>
                                                     {new Date(
                                                         consola.fechaEmision
                                                     ).toLocaleDateString()}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {consola.diasCredito}
                                                 </TableCell>
                                                 <TableCell>
                                                     {new Date(
@@ -184,14 +201,7 @@ const FacturasCliente = () => {
                                                     ).toLocaleDateString()}
                                                 </TableCell>
                                                 <TableCell>
-                                                    {consola.iva}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.subtotal}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.iva +
-                                                        consola.subtotal}
+                                                    {consola.total}
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.estado}
@@ -242,4 +252,4 @@ const FacturasCliente = () => {
     );
 };
 
-export default FacturasCliente;
+export default FacturasProveedor;

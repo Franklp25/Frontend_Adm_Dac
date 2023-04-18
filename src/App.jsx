@@ -10,11 +10,12 @@ import {
     ListaCliente,
     AgregarProveedor,
     ListaProveedor,
-    AgregarCuentasCobrar,
+    AgregarFacturasCobrar,
     ListaCuentasCobrar,
     FacturasCliente,
-    AgregarCuentasPagar,
+    AgregaFacturasPagar,
     ListaCuentasPagar,
+    FacturasProveedor,
     AgregarProducto,
     Inventario,
     Estadistica,
@@ -68,8 +69,8 @@ function App() {
 
                             {/* Cuentas Por Cobrar */}
                             <Route
-                                path="agregarCuentasCobrar"
-                                element={<AgregarCuentasCobrar />}
+                                path="agregarFacturasCobrar"
+                                element={<AgregarFacturasCobrar />}
                             />
                             <Route
                                 path="listaCuentasCobrar"
@@ -77,17 +78,21 @@ function App() {
                             />
                             <Route
                                 path="facturasCliente/:id"
-                                element={<FacturasCliente/>}
+                                element={<FacturasCliente />}
                             />
 
                             {/* Cuentas Por Pagar */}
                             <Route
-                                path="agregarCuentasPagar"
-                                element={<AgregarCuentasPagar />}
+                                path="agregarFacturasPagar"
+                                element={<AgregaFacturasPagar />}
                             />
                             <Route
                                 path="listaCuentasPagar"
                                 element={<ListaCuentasPagar />}
+                            />
+                            <Route
+                                path="facturasProveedor/:id"
+                                element={<FacturasProveedor />}
                             />
 
                             {/* Inventario */}
