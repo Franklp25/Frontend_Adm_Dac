@@ -5,7 +5,7 @@ import Alerta from "../Alerta";
 import clienteAxios from "../../config/clienteAxios";
 import EditModal from "../modales/EditModal";
 import axios from "axios";
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from "@mui/styles";
 //import { makeStyles } from "@material-ui/core";
 import {
     Table,
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
     inputMaterial: {
         padding: "15px",
         width: "100%",
-        marginBottom: "5px"
+        marginBottom: "5px",
     },
 });
 
@@ -207,13 +207,13 @@ const ListaCliente = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col mx-4 mt-10">
-                <div className="overflow-x-auto">
-                    <div className=" w-full inline-block align-middle">
+            <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
+                <div className="overflow-x-auto w-full text-sm text-left">
+                    <div className="w-full inline-block align-middle">
                         <div className="rounded-lg overflow-x-auto">
                             <TableContainer>
                                 <Table>
-                                    <TableHead>
+                                    <TableHead className="text-xl uppercase bg-gray-500 font-bold">
                                         <TableRow>
                                             <TableCell>Tipo Cedula</TableCell>
                                             <TableCell>Cedula</TableCell>
@@ -222,6 +222,7 @@ const ListaCliente = () => {
                                             <TableCell>Telefono</TableCell>
                                             <TableCell>Correo</TableCell>
                                             <TableCell>Direccion</TableCell>
+                                            <TableCell>Acciones</TableCell>
                                         </TableRow>
                                     </TableHead>
 
