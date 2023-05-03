@@ -1,5 +1,3 @@
-import { fromJSON } from "postcss";
-
 export { default as Protected } from "./Protected.jsx";
 export { default as NotLoggedIn } from "./NotLoggedIn.jsx";
 
