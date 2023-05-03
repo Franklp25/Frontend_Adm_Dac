@@ -6,7 +6,7 @@ import clienteAxios from "../../config/clienteAxios";
 import EditModal from "../modales/EditModal";
 import axios from "axios";
 //import { makeStyles } from "@material-ui/core";
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from "@mui/styles";
 import {
     Table,
     TableHead,
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
     inputMaterial: {
         padding: "15px",
         width: "100%",
-        marginBottom: "5px"
+        marginBottom: "5px",
     },
 });
 
@@ -80,7 +80,10 @@ const ListaProveedor = () => {
 
     const peticionPut = async () => {
         await clienteAxios
-            .put(`/proveedor/${consolaSeleccionada._id}`, consolaSeleccionada._id)
+            .put(
+                `/proveedor/${consolaSeleccionada._id}`,
+                consolaSeleccionada._id
+            )
             .then((response) => {
                 var dataNueva = proveedor;
                 dataNueva.map((consola) => {
@@ -101,7 +104,10 @@ const ListaProveedor = () => {
 
     const peticionDelete = async () => {
         await clienteAxios
-            .delete(`/proveedor/${consolaSeleccionada._id}`, consolaSeleccionada)
+            .delete(
+                `/proveedor/${consolaSeleccionada._id}`,
+                consolaSeleccionada
+            )
             .then((response) => {
                 var dataNueva = clientes;
                 setProveedor(dataNueva);
@@ -207,13 +213,13 @@ const ListaProveedor = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col mx-4 mt-10">
-                <div className="overflow-x-auto">
-                    <div className=" w-full inline-block align-middle">
+            <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
+                <div className="overflow-x-auto w-full text-sm text-left">
+                    <div className="w-full inline-block align-middle">
                         <div className="rounded-lg overflow-x-auto">
                             <TableContainer>
                                 <Table>
-                                    <TableHead>
+                                    <TableHead className="text-xl uppercase bg-gray-500 font-bold">
                                         <TableRow>
                                             <TableCell>Tipo Cedula</TableCell>
                                             <TableCell>Cedula</TableCell>
@@ -222,6 +228,7 @@ const ListaProveedor = () => {
                                             <TableCell>Telefono</TableCell>
                                             <TableCell>Correo</TableCell>
                                             <TableCell>Direccion</TableCell>
+                                            <TableCell>Acciones</TableCell>
                                         </TableRow>
                                     </TableHead>
 

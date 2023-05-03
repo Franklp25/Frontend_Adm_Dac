@@ -6,7 +6,7 @@ import clienteAxios from "../../config/clienteAxios";
 import EditModal from "../modales/EditModal";
 import axios from "axios";
 //import { makeStyles } from "@material-ui/core";
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from "@mui/styles";
 import {
     Table,
     TableHead,
@@ -158,17 +158,21 @@ const FacturasCliente = () => {
                     </Link>
                 </div>
             </div>
-            <div className="flex flex-col mx-4 mt-10">
-                <div className="overflow-x-auto">
-                    <div className=" w-full inline-block align-middle">
+            <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
+                <div className="overflow-x-auto w-full text-sm text-left">
+                    <div className="w-full inline-block align-middle">
                         <div className="rounded-lg overflow-x-auto">
                             <TableContainer>
                                 <Table>
-                                    <TableHead>
+                                    <TableHead className="text-xl uppercase bg-gray-500 font-bold">
                                         <TableRow>
                                             <TableCell>N°Factura</TableCell>
-                                            <TableCell>Fecha de Emision</TableCell>
-                                            <TableCell>Fecha de Vencimiento</TableCell>
+                                            <TableCell>
+                                                Fecha de Emision
+                                            </TableCell>
+                                            <TableCell>
+                                                Fecha de Vencimiento
+                                            </TableCell>
                                             <TableCell>IVA</TableCell>
                                             <TableCell>Subtotal</TableCell>
                                             <TableCell>Total</TableCell>
@@ -180,14 +184,16 @@ const FacturasCliente = () => {
                                     <TableBody>
                                         {facturas.map((consola) => (
                                             <TableRow key={consola.id}>
+                                                <TableCell>{"N.A"}</TableCell>
                                                 <TableCell>
-                                                    {"N.A"}
+                                                    {new Date(
+                                                        consola.fechaEmision
+                                                    ).toLocaleDateString()}
                                                 </TableCell>
                                                 <TableCell>
-                                                    {new Date(consola.fechaEmision).toLocaleDateString()}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {new Date(consola.fechaVencimiento).toLocaleDateString()}
+                                                    {new Date(
+                                                        consola.fechaVencimiento
+                                                    ).toLocaleDateString()}
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.iva}
@@ -196,12 +202,12 @@ const FacturasCliente = () => {
                                                     {consola.subtotal}
                                                 </TableCell>
                                                 <TableCell>
-                                                    {consola.iva+consola.subtotal}
+                                                    {consola.iva +
+                                                        consola.subtotal}
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.estado}
                                                 </TableCell>
-
 
                                                 <TableCell>
                                                     <EditIcon

@@ -159,13 +159,13 @@ const FacturasProveedor = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col mx-4 mt-10">
-                <div className="overflow-x-auto">
-                    <div className=" w-full inline-block align-middle">
+            <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
+                <div className="overflow-x-auto w-full text-sm text-left">
+                    <div className="w-full inline-block align-middle">
                         <div className="rounded-lg overflow-x-auto">
                             <TableContainer>
                                 <Table>
-                                    <TableHead>
+                                    <TableHead className="text-xl uppercase bg-gray-500 font-bold">
                                         <TableRow>
                                             <TableCell>N°Factura</TableCell>
                                             <TableCell>
