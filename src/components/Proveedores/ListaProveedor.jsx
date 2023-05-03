@@ -23,13 +23,17 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const useStyles = makeStyles({
     modal: {
-        position: "absolute",
-        width: 400,
+        position: "relative",
+        width: 600,
+        height: 590,
+        padding: 20,
+        paddingBottom: 2,
         backgroundColor: "white",
-        border: "2px solid #000",
+        borderRadius: "0.5rem",
         top: "50%",
         left: "50%",
         transform: "translate(-50%,-50%)",
+        boxShadow: " 0 25px 50px -12px rgb(0 0 0 / 0.25)",
     },
     iconos: {
         cursor: "pointer",
@@ -38,6 +42,13 @@ const useStyles = makeStyles({
         padding: "15px",
         width: "100%",
         marginBottom: "5px",
+    },
+    boton: {
+        color: "white",
+        backgroundColor: "green",
+        "&:hover": {
+            backgroundColor: "gray",
+        },
     },
 });
 
@@ -143,7 +154,27 @@ const ListaProveedor = () => {
 
     const bodyEditar = (
         <div className={styles.modal}>
-            <h3 className="mb-2">Editar Proveedor</h3>
+            <button
+                onClick={abrirCerrarModal}
+                type="button"
+                className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                data-modal-hide="authentication-modal"
+            >
+                <svg
+                    aria-hidden="true"
+                    class="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                    ></path>
+                </svg>
+            </button>
+            <h3 className="mb-5 uppercase font-semibold">Editar cliente</h3>
             <TextField
                 name="nombre"
                 className={styles.inputMaterial}
@@ -184,13 +215,11 @@ const ListaProveedor = () => {
                 value={consolaSeleccionada && consolaSeleccionada.direccion}
                 InputProps={{ notched: false }}
             />
-            <br />
-            <br />
-            <div align="right">
-                <Button color="primary" onClick={peticionPut}>
+
+            <div className=" text-right ">
+                <Button className={styles.boton} onClick={peticionPut}>
                     Editar
                 </Button>
-                <Button onClick={abrirCerrarModal}>Cancelar</Button>
             </div>
         </div>
     );
