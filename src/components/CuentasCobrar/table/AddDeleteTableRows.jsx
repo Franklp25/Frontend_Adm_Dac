@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import clienteAxios from "../../../config/clienteAxios";
 import TableRows from "./TableRows";
 
-function AddDeleteTableRows() {
-    const [rowsData, setRowsData] = useState([]);
+function AddDeleteTableRows({rowsData,setRowsData}) {
     const [productos, setProductos] = useState([]);
     const [productoSeleccionado, setProductoSeleccionado] = useState("");
 
