@@ -43,6 +43,7 @@ const ListaCuentasCobrar = () => {
     const [facturas, setFacturas] = useState([]);
     const [idCliente, setIDCliente] = useState();
     const navigate = useNavigate();
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
         // Obtener los datos desde el servidor utilizando axios
@@ -77,9 +78,18 @@ const ListaCuentasCobrar = () => {
     return (
         <>
             <Navbar />
-            <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
-                Lista de Cuentas por Cobrar
-            </h1>
+            <div className="flex justify-between p-2">
+                <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
+                    Lista de Cuentas por Cobrar
+                </h1>
+                <input
+                    type="text"
+                    className=" p-3"
+                    placeholder="Buscar..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+            </div>
 
             <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
                 <div className="overflow-x-auto w-full text-sm text-left">
@@ -101,42 +111,42 @@ const ListaCuentasCobrar = () => {
                                     </TableHead>
 
                                     <TableBody>
-                                        {clientes.map((consola) => (
-                                            <TableRow
-                                            // key={consola.id}
-                                            // onClick={() =>
-                                            //     navigate(
-                                            //         `/facturasCliente/${consola._id}`
-                                            //     )
-                                            // }
-                                            >
-                                                <TableCell>
-                                                    {consola.nombre +
-                                                        " " +
-                                                        consola.apellidos}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.cedula}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {obtenertotalDeuda(
-                                                        consola._id
-                                                    )}
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Link
-                                                        to={`/facturasCliente/${consola._id}`}
-                                                    >
-                                                        <RemoveRedEyeIcon
-                                                            className={
-                                                                styles.iconos
-                                                            }
-                                                        />
-                                                    </Link>
-                                                    {/* &nbsp;&nbsp;&nbsp; */}
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
+                                        {clientes
+                                            .filter((cliente) =>
+                                                cliente.nombre
+                                                    .toLowerCase()
+                                                    .includes(
+                                                        search.toLowerCase()
+                                                    )
+                                            )
+                                            .map((cliente) => (
+                                                <TableRow>
+                                                    <TableCell>
+                                                        {cliente.nombre +
+                                                            " " +
+                                                            cliente.apellidos}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {cliente.cedula}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {obtenertotalDeuda(
+                                                            cliente._id
+                                                        )}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <Link
+                                                            to={`/facturasCliente/${cliente._id}`}
+                                                        >
+                                                            <RemoveRedEyeIcon
+                                                                className={
+                                                                    styles.iconos
+                                                                }
+                                                            />
+                                                        </Link>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
                                     </TableBody>
                                 </Table>
                             </TableContainer>
