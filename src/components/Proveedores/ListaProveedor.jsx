@@ -57,6 +57,7 @@ const ListaProveedor = () => {
     const [proveedor, setProveedor] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
     const [modalEliminar, setModalEliminar] = useState(false);
+    const [search, setSearch] = useState("");
 
     const [consolaSeleccionada, setConsolaSeleccionada] = useState({
         tipoCedula: "",
@@ -241,7 +242,15 @@ const ListaProveedor = () => {
                     </Link>
                 </div>
             </div>
-
+            <div className=" flex justify-end mt-12 mr-10">
+                <input
+                    type="text"
+                    className=" p-3 pl-10 text-base rounded-lg bg-gray-50  dark:bg-gray-500 dark:placeholder-gray-400 dark:text-white "
+                    placeholder="Buscar..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+            </div>
             <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
                 <div className="overflow-x-auto w-full text-sm text-left">
                     <div className="w-full inline-block align-middle">
@@ -262,57 +271,65 @@ const ListaProveedor = () => {
                                     </TableHead>
 
                                     <TableBody>
-                                        {proveedor.map((consola) => (
-                                            <TableRow key={consola.id}>
-                                                <TableCell>
-                                                    {consola.tipoCedula}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.cedula}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.nombre}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.apellidos}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.telefono}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.email}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.direccion}
-                                                </TableCell>
+                                        {proveedor
+                                            .filter((consola) =>
+                                                consola.nombre
+                                                    .toLowerCase()
+                                                    .includes(
+                                                        search.toLowerCase()
+                                                    )
+                                            )
+                                            .map((consola) => (
+                                                <TableRow key={consola.id}>
+                                                    <TableCell>
+                                                        {consola.tipoCedula}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {consola.cedula}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {consola.nombre}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {consola.apellidos}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {consola.telefono}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {consola.email}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {consola.direccion}
+                                                    </TableCell>
 
-                                                <TableCell>
-                                                    <EditIcon
-                                                        className={
-                                                            styles.iconos
-                                                        }
-                                                        onClick={() =>
-                                                            seleccionarConsola(
-                                                                consola,
-                                                                "Editar"
-                                                            )
-                                                        }
-                                                    />
-                                                    &nbsp;&nbsp;&nbsp;
-                                                    <DeleteIcon
-                                                        className={
-                                                            styles.iconos
-                                                        }
-                                                        onClick={() =>
-                                                            seleccionarConsola(
-                                                                consola,
-                                                                "Eliminar"
-                                                            )
-                                                        }
-                                                    />
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
+                                                    <TableCell>
+                                                        <EditIcon
+                                                            className={
+                                                                styles.iconos
+                                                            }
+                                                            onClick={() =>
+                                                                seleccionarConsola(
+                                                                    consola,
+                                                                    "Editar"
+                                                                )
+                                                            }
+                                                        />
+
+                                                        <DeleteIcon
+                                                            className={
+                                                                styles.iconos
+                                                            }
+                                                            onClick={() =>
+                                                                seleccionarConsola(
+                                                                    consola,
+                                                                    "Eliminar"
+                                                                )
+                                                            }
+                                                        />
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
                                     </TableBody>
                                 </Table>
                             </TableContainer>
