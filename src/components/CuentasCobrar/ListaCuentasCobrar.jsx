@@ -78,13 +78,14 @@ const ListaCuentasCobrar = () => {
     return (
         <>
             <Navbar />
-            <div className="flex justify-between p-2">
-                <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
-                    Lista de Cuentas por Cobrar
-                </h1>
+
+            <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
+                Lista de Cuentas por Cobrar
+            </h1>
+            <div className=" flex justify-end mr-10">
                 <input
                     type="text"
-                    className=" p-3"
+                    className=" p-3 pl-10 text-base rounded-lg bg-gray-50  dark:bg-gray-500 dark:placeholder-gray-400 dark:text-white "
                     placeholder="Buscar..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}

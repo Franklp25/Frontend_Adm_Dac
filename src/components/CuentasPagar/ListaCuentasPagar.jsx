@@ -42,6 +42,7 @@ const ListaCuentasPagar = () => {
     const [proveedor, setProveedor] = useState([]);
     const [facturasPagar, setFacturasPagar] = useState([]);
     const navigate = useNavigate();
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
         // Obtener los datos desde el servidor utilizando axios
@@ -80,6 +81,15 @@ const ListaCuentasPagar = () => {
             <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
                 Lista de Cuentas por Pagar
             </h1>
+            <div className=" flex justify-end mr-10">
+                <input
+                    type="text"
+                    className=" p-3 pl-10 text-base rounded-lg bg-gray-50  dark:bg-gray-500 dark:placeholder-gray-400 dark:text-white "
+                    placeholder="Buscar..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+            </div>
 
             <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
                 <div className="overflow-x-auto w-full text-sm text-left">
@@ -101,42 +111,42 @@ const ListaCuentasPagar = () => {
                                     </TableHead>
 
                                     <TableBody>
-                                        {proveedor.map((consola) => (
-                                            <TableRow
-                                            // key={consola.id}
-                                            // onClick={() =>
-                                            //     navigate(
-                                            //         `/facturasProveedor/${consola._id}`
-                                            //     )
-                                            // }
-                                            >
-                                                <TableCell>
-                                                    {consola.nombre +
-                                                        " " +
-                                                        consola.apellidos}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.cedula}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {obtenertotalDeuda(
-                                                        consola._id
-                                                    )}
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Link
-                                                        to={`/facturasProveedor/${consola._id}`}
-                                                    >
-                                                        <RemoveRedEyeIcon
-                                                            className={
-                                                                styles.iconos
-                                                            }
-                                                        />
-                                                    </Link>
-                                                    {/* &nbsp;&nbsp;&nbsp; */}
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
+                                        {proveedor
+                                            .filter((proveedor) =>
+                                                proveedor.nombre
+                                                    .toLowerCase()
+                                                    .includes(
+                                                        search.toLowerCase()
+                                                    )
+                                            )
+                                            .map((proveedor) => (
+                                                <TableRow>
+                                                    <TableCell>
+                                                        {proveedor.nombre +
+                                                            " " +
+                                                            proveedor.apellidos}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {proveedor.cedula}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {obtenertotalDeuda(
+                                                            proveedor._id
+                                                        )}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <Link
+                                                            to={`/facturasProveedor/${proveedor._id}`}
+                                                        >
+                                                            <RemoveRedEyeIcon
+                                                                className={
+                                                                    styles.iconos
+                                                                }
+                                                            />
+                                                        </Link>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
                                     </TableBody>
                                 </Table>
                             </TableContainer>
