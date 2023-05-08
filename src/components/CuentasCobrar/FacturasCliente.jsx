@@ -20,6 +20,8 @@ import {
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const useStyles = makeStyles({
     modal: {
@@ -142,6 +144,55 @@ const FacturasCliente = () => {
         caso === "Editar" ? setModalEditar(true) : "";
         caso === "Eliminar" ? confirmarDelete() : "";
     };
+    const exportarPDF = () => {
+        const doc = new jsPDF();
+
+        //Texto de pdf
+        const empresa = "Bio&Gen S.A";
+        const cliente = `Estado de cuenta de `;
+        const cedJuridica = "Ced: 3-101-753268";
+
+        // Agregar título
+
+        doc.setFontSize(16);
+        doc.text(empresa, 80, 20);
+        doc.text(cedJuridica, 80, 30);
+        doc.text(cliente, 80, 40);
+
+        // Agregar imagen
+        // const imgData = "ruta_de_tu_imagen.jpg";
+        // doc.addImage(imgData, "JPEG", 15, 40, 180, 180);
+        // Agregar tabla
+        doc.autoTable({
+            head: [
+                [
+                    "N°Factura",
+                    "Fecha de Emision",
+                    "Fecha de Vencimiento",
+                    "IVA",
+                    "Subtotal",
+                    "Total",
+                    "Estado",
+                ],
+            ],
+            body: facturas.map((factura) => [
+                factura.id,
+                new Date(factura.fechaEmision).toLocaleDateString(),
+                new Date(factura.fechaVencimiento).toLocaleDateString(),
+                factura.iva,
+                factura.subtotal,
+                factura.iva + factura.subtotal,
+                factura.estado,
+            ]),
+            margin: { top: 80 },
+        });
+
+        // Descargar archivo PDF
+        const pdfOutput = doc.output("blob");
+        const url = URL.createObjectURL(pdfOutput);
+        window.open(url, "_blank");
+    };
+
     return (
         <>
             <Navbar />
@@ -158,6 +209,12 @@ const FacturasCliente = () => {
                     </Link>
                 </div>
             </div>
+            <div className=" ml-10">
+                <Button variant="contained" onClick={exportarPDF}>
+                    Exportar a PDF
+                </Button>
+            </div>
+
             <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
                 <div className="overflow-x-auto w-full text-sm text-left">
                     <div className="w-full inline-block align-middle">
