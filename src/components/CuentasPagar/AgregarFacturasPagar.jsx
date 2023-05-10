@@ -5,15 +5,17 @@ import Navbar from "../Navbar";
 import Alerta from "../Alerta.jsx";
 import clienteAxios from "../../config/clienteAxios";
 import Swal from "sweetalert2";
+import moment from "moment/moment";
 
 const AgregaFacturasPagar = () => {
     const params = useParams();
 
     const [numFacturaPagar, setNumFacturaPagar] = useState("");
     const [fechaEmision, setFechaEmision] = useState("");
-    const [fechaVencimiento, setFechaVenciemto] = useState("");
+    const [fechaVencimiento, setFechaVencimiento] = useState("");
     const [diasCredito, setDiasCredito] = useState("");
     const [total, setTotal] = useState("");
+    const parsedTotal = parseFloat(total);
 
     const [proveedor, setProveedor] = useState("");
 
@@ -32,14 +34,6 @@ const AgregaFacturasPagar = () => {
             });
     }, []);
 
-    const obtenerFechaVencimiento = (emision, credito) => {
-        const fecha = new Date(emision);
-        const nuevaFecha = new Date(fecha.setDate(fecha.getDate() + credito));
-
-        console.log(nuevaFecha);
-        return nuevaFecha;
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -57,15 +51,18 @@ const AgregaFacturasPagar = () => {
         try {
             const { data } = await clienteAxios.post("/facturas-pagar", {
                 numFacturaPagar,
+                proveedor,
                 fechaEmision,
                 diasCredito,
+                fechaVencimiento,
                 total,
             });
 
             setNumFacturaPagar("");
+            setProveedor("");
             setFechaEmision("");
             setDiasCredito("");
-            setApellidos("");
+            setFechaVencimiento("");
             setTotal("");
             Swal.fire({
                 icon: "success",
@@ -81,6 +78,13 @@ const AgregaFacturasPagar = () => {
         }
         //Mensaje mediante sweetAlert
     };
+    useEffect(() => {
+        setFechaVencimiento(
+            moment(moment(fechaEmision).add(diasCredito, "days"), "x").format(
+                "MM/DD/YYYY"
+            )
+        );
+    }, [fechaEmision, diasCredito]);
     const { msg } = alerta;
     return (
         <>
@@ -190,17 +194,13 @@ const AgregaFacturasPagar = () => {
                                     </label>
 
                                     <input
-                                        type="date"
+                                        type="text"
                                         id="fechaVencimiento"
                                         // placeholder="Escriba nombre del cliente"
                                         className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required=""
-                                        value={obtenerFechaVencimiento(
-                                            fechaEmision,
-                                            diasCredito
-                                        )}
+                                        value={fechaVencimiento}
                                         onChange={(e) =>
-                                            setFechaVenciemto(e.target.value)
+                                            setFechaVencimiento(e.target.value)
                                         }
                                     />
                                 </div>
@@ -216,11 +216,12 @@ const AgregaFacturasPagar = () => {
                                         type="number"
                                         id="total"
                                         placeholder="Digite el monto de la factura"
-                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        className="border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         required=""
-                                        value={total}
+                                        step="0.01" // permite valores decimales con dos lugares decimales (centavos)
+                                        value={parsedTotal}
                                         onChange={(e) =>
-                                            setTotal(e.target.value)
+                                            setTotal(parseFloat(e.target.value))
                                         }
                                     />
                                 </div>
