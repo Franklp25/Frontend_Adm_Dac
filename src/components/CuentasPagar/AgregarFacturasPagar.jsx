@@ -15,7 +15,6 @@ const AgregaFacturasPagar = () => {
     const [fechaVencimiento, setFechaVencimiento] = useState("");
     const [diasCredito, setDiasCredito] = useState("");
     const [total, setTotal] = useState("");
-    const parsedTotal = parseFloat(total);
 
     const [proveedor, setProveedor] = useState("");
 
@@ -219,7 +218,7 @@ const AgregaFacturasPagar = () => {
                                         className="border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         required=""
                                         step="0.01" // permite valores decimales con dos lugares decimales (centavos)
-                                        value={parsedTotal}
+                                        value={total}
                                         onChange={(e) =>
                                             setTotal(parseFloat(e.target.value))
                                         }
