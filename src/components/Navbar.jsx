@@ -3,11 +3,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Transition } from "@headlessui/react";
 
-// import DropdownClientes from "./Clientes/DropdownClientes";
-// import DropdownProveedores from "./Proveedores/DropdownProveedores";
-
-import Dropdown from "./Dropdown";
-
 import logo from "../assets/images/Logotipo_Bio&Gen.png";
 
 export default function Navbar() {
@@ -15,211 +10,12 @@ export default function Navbar() {
 
     const [click, setClick] = useState(false);
 
-    const [dropdown, setDropdown] = useState(false);
-    const [flag, setFlag] = useState(false);
-
     const [isOpen, setIsOpen] = useState(false);
-
-    const handleClick = () => setClick(!click);
-    const closeMobileMenu = () => setClick(false);
-
-    const displayDropdownMenu = () => {
-        if (!flag) setDropdown(true);
-        else setDropdown(false);
-
-        setFlag(!flag);
-    };
-
-    const onMouseEnter = () => {
-        setDropdown(true);
-    };
-
-    const onMouseLeave = () => {
-        setDropdown(false);
-    };
 
     function closeSession() {
         localStorage.removeItem("token");
         window.location = "/";
     }
-
-    //cliente---------------------------------------------------------------------------------------------
-    const [dropdownClients, setDropdownClients] = useState(false);
-    const [flagClients, setFlagClients] = useState(false);
-
-    const onMouseEnterClients = () => {
-        setDropdownClients(true);
-
-        console.log(itemsClients);
-    };
-
-    const onMouseLeaveClients = () => {
-        setDropdownClients(false);
-    };
-
-    const displayDropdownMenuClients = () => {
-        if (!flagClients) setDropdownClients(true);
-        else setDropdownClients(false);
-
-        setFlagClients(!flagClients);
-    };
-    const itemsClients = [
-        {
-            title: "Agregar cliente",
-            path: "/agregarCliente",
-            cName: "dropdown-link",
-        },
-        {
-            title: "Lista cliente",
-            path: "/listaCliente",
-            cName: "dropdown-link",
-        },
-    ];
-
-    //proveedor -------------------------------------------------------------------------------------------
-    const [dropdownProvider, setDropdownProvider] = useState(false);
-    const [flagProvider, setFlagProvider] = useState(false);
-
-    const onMouseEnterProvider = () => {
-        setDropdownProvider(true);
-    };
-
-    const onMouseLeaveProvider = () => {
-        setDropdownProvider(false);
-    };
-
-    const displayDropdownMenuProvider = () => {
-        if (!flagProvider) setDropdownProvider(true);
-        else setDropdownProvider(false);
-
-        setFlagProvider(!flagProvider);
-    };
-    const itemsProveedor = [
-        {
-            title: "Agregar proveedor",
-            path: "/agregarProveedor",
-            cName: "dropdown-link",
-        },
-        {
-            title: "Lista proveedor",
-            path: "/listaProveedor",
-            cName: "dropdown-link",
-        },
-    ];
-
-    //Cuentas por Cobrar -------------------------------------------------------------------------------------------
-    const [dropdownCobrar, setDropdownCobrar] = useState(false);
-    const [flagCobrar, setFlagCobrar] = useState(false);
-
-    const onMouseEnterCobrar = () => {
-        setDropdownCobrar(true);
-    };
-
-    const onMouseLeaveCobrar = () => {
-        setDropdownCobrar(false);
-    };
-
-    const displayDropdownMenuCobrar = () => {
-        if (!flagCobrar) setDropdownCobrar(true);
-        else setDropdownCobrar(false);
-
-        setFlagCobrar(!flagCobrar);
-    };
-    const itemsCobrar = [
-        {
-            title: "Agregar cuentas por cobrar",
-            path: "/agregarCuentasCobrar",
-            cName: "dropdown-link",
-        },
-        {
-            title: "Lista cuentas por cobrar",
-            path: "/listaCuentasCobrar",
-            cName: "dropdown-link",
-        },
-    ];
-
-    //Cuentas por Pagar -------------------------------------------------------------------------------------------
-    const [dropdownPagar, setDropdownPagar] = useState(false);
-    const [flagPagar, setFlagPagar] = useState(false);
-
-    const onMouseEnterPagar = () => {
-        setDropdownPagar(true);
-    };
-
-    const onMouseLeavePagar = () => {
-        setDropdownPagar(false);
-    };
-
-    const displayDropdownMenuPagar = () => {
-        if (!flagPagar) setDropdownPagar(true);
-        else setDropdownPagar(false);
-
-        setFlagPagar(!flagPagar);
-    };
-    const itemsPagar = [
-        {
-            title: "Agregar cuentas por pagar",
-            path: "/agregarCuentasPagar",
-            cName: "dropdown-link",
-        },
-        {
-            title: "Lista cuentas por pagar",
-            path: "/listaCuentasPagar",
-            cName: "dropdown-link",
-        },
-    ];
-
-    //Inventario -------------------------------------------------------------------------------------------
-    const [dropdownInventario, setDropdownInventario] = useState(false);
-    const [flagInventario, setFlagInventario] = useState(false);
-
-    const onMouseEnterInventario = () => {
-        setDropdownInventario(true);
-    };
-
-    const onMouseLeaveInventario = () => {
-        setDropdownInventario(false);
-    };
-
-    const displayDropdownMenuInventario = () => {
-        if (!flagInventario) setDropdownInventario(true);
-        else setDropdownInventario(false);
-
-        setFlagInventario(!flagInventario);
-    };
-    const itemsInventario = [
-        {
-            title: "Inventario",
-            path: "/inventario",
-            cName: "dropdown-link",
-        },
-    ];
-
-    //Estadistica -------------------------------------------------------------------------------------------
-    const [dropdownEstadistica, setDropdownEstadistica] = useState(false);
-    const [flagEstadistica, setFlagEstadistica] = useState(false);
-
-    const onMouseEnterEstadistica = () => {
-        setDropdownEstadistica(true);
-    };
-
-    const onMouseLeaveEstadistica = () => {
-        setDropdownEstadistica(false);
-    };
-
-    const displayDropdownMenuEstadistica = () => {
-        if (!flagEstadistica) setDropdownEstadistica(true);
-        else setDropdownEstadistica(false);
-
-        setFlagEstadistica(!flagEstadistica);
-    };
-    const itemsEstadistica = [
-        {
-            title: "Estadistica",
-            path: "/estadistica",
-            cName: "dropdown-link",
-        },
-    ];
 
     return (
         <>
@@ -287,13 +83,15 @@ export default function Navbar() {
 
                                     {/* Estadistica */}
 
-                                    <button
-                                        type="button"
-                                        onClick={closeSession}
-                                        className="transition duration-200 ease-in-out transform hover:-translate-y-2 hover:scale-200 navbar-text text-white bg-green-600 hover:bg-green-800 px-3 py-2 rounded-md text-lg font-semibold"
-                                    >
-                                        Cerrar sesión
-                                    </button>
+                                    <div class="flex justify-end">
+                                        <button
+                                            type="button"
+                                            onClick={closeSession}
+                                            class="transition duration-200 ease-in-out transform hover:-translate-y-2 hover:scale-200 navbar-text text-white bg-green-600 hover:bg-green-800 px-3 py-2 rounded-md text-lg font-semibold text-center"
+                                        >
+                                            Cerrar sesión
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
