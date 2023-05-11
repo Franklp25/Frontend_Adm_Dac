@@ -19,15 +19,15 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className=" bg-white">
+            <nav className="bg-white">
                 <div className="max-w-screen px-5 sm:px-6 lg:px-8 border-solid border-b-2 border-gray-300 ">
                     <div className="flex items-center justify-between h-20 ">
                         <div className="flex-shrink-0">
                             <Link
                                 to="/home"
-                                className=" navbar-text text-black hover:cursor-pointer hover:text-white px-3 py-2 rounded-md text-lg font-semibold"
+                                className="navbar-text text-black hover:cursor-pointer hover:text-white px-3 py-2 rounded-md text-lg font-semibold"
                             >
-                                <img className=" w-32" src={logo} alt="Logo" />
+                                <img className="w-32" src={logo} alt="Logo" />
                             </Link>
                         </div>
                         <div className="flex items-center ml-8">
@@ -73,7 +73,6 @@ export default function Navbar() {
                                     </Link>
 
                                     {/* Inventario */}
-
                                     <Link
                                         to="/inventario"
                                         className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 navbar-text text-black hover:bg-green-600 hover:text-white px-3 py-2 rounded-md text-lg font-semibold"
@@ -82,12 +81,11 @@ export default function Navbar() {
                                     </Link>
 
                                     {/* Estadistica */}
-
-                                    <div class="flex justify-end">
+                                    <div className="flex justify-end">
                                         <button
                                             type="button"
                                             onClick={closeSession}
-                                            class="transition duration-200 ease-in-out transform hover:-translate-y-2 hover:scale-200 navbar-text text-white bg-green-600 hover:bg-green-800 px-3 py-2 rounded-md text-lg font-semibold text-center"
+                                            className="transition duration-200 ease-in-out transform hover:-translate-y-2 hover:scale-200 navbar-text text-white bg-green-600 hover:bg-green-800 px-3 py-2 rounded-md text-lg font-semibold text-center"
                                         >
                                             Cerrar sesión
                                         </button>
