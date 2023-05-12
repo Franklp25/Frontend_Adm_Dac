@@ -5,17 +5,18 @@ import Navbar from "../Navbar";
 import Alerta from "../Alerta.jsx";
 import clienteAxios from "../../config/clienteAxios";
 import Swal from "sweetalert2";
+import moment from "moment/moment";
 
 const AgregaFacturasPagar = () => {
     const params = useParams();
 
     const [numFacturaPagar, setNumFacturaPagar] = useState("");
     const [fechaEmision, setFechaEmision] = useState("");
-    const [fechaVencimiento, setFechaVenciemto] = useState("");
+    const [fechaVencimiento, setFechaVencimiento] = useState("");
     const [diasCredito, setDiasCredito] = useState("");
     const [total, setTotal] = useState("");
 
-    const [proveedor, setProveedor] = useState("");
+    const [proveedor, setProveedor] = useState(params);
 
     const [alerta, setAlerta] = useState({});
 
@@ -32,13 +33,18 @@ const AgregaFacturasPagar = () => {
             });
     }, []);
 
-    const obtenerFechaVencimiento = (emision, credito) => {
-        const fecha = new Date(emision);
-        const nuevaFecha = new Date(fecha.setDate(fecha.getDate() + credito));
-
-        console.log(nuevaFecha);
-        return nuevaFecha;
-    };
+    useEffect(() => {
+        setFechaVencimiento(
+            moment(moment(fechaEmision).add(diasCredito, "days"), "x").format(
+                "MM/DD/YYYY"
+            )
+        );
+        console.log(
+            moment(moment(fechaEmision).add(diasCredito, "days"), "x").format(
+                "MM/DD/YYYY"
+            )
+        );
+    }, [fechaEmision, diasCredito]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -60,6 +66,7 @@ const AgregaFacturasPagar = () => {
                 fechaEmision,
                 diasCredito,
                 total,
+                proveedor,
             });
 
             setNumFacturaPagar("");
@@ -190,17 +197,14 @@ const AgregaFacturasPagar = () => {
                                     </label>
 
                                     <input
-                                        type="date"
+                                        type="text"
                                         id="fechaVencimiento"
                                         // placeholder="Escriba nombre del cliente"
                                         className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         required=""
-                                        value={obtenerFechaVencimiento(
-                                            fechaEmision,
-                                            diasCredito
-                                        )}
+                                        value={fechaVencimiento}
                                         onChange={(e) =>
-                                            setFechaVenciemto(e.target.value)
+                                            setFechaVencimiento(e.target.value)
                                         }
                                     />
                                 </div>
