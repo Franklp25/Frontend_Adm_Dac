@@ -33,22 +33,6 @@ const AgregaFacturasPagar = () => {
             });
     }, []);
 
-<<<<<<< HEAD
-    useEffect(() => {
-        setFechaVencimiento(
-            moment(moment(fechaEmision).add(diasCredito, "days"), "x").format(
-                "MM/DD/YYYY"
-            )
-        );
-        console.log(
-            moment(moment(fechaEmision).add(diasCredito, "days"), "x").format(
-                "MM/DD/YYYY"
-            )
-        );
-    }, [fechaEmision, diasCredito]);
-
-=======
->>>>>>> Frank
     const handleSubmit = async (e) => {
         e.preventDefault();
 
