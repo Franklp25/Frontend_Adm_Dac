@@ -50,6 +50,7 @@ const FacturasProveedor = () => {
     const [modalEditar, setModalEditar] = useState(false);
     const [modalEliminar, setModalEliminar] = useState(false);
     //const [userId, setUserId] = useState(match.params.id);
+    const [filtro, setFiltro] = useState("todos"); // estado del filtro
 
     const [consolaSeleccionada, setConsolaSeleccionada] = useState({
         tipoCedula: "",
@@ -61,6 +62,24 @@ const FacturasProveedor = () => {
         direccion: "",
         _id: "",
     });
+
+    const cambiarEstadoFactura = async (facturaId, nuevoEstado) => {
+        try {
+            await clienteAxios.put(`/facturas-pagar/${facturaId}`, {
+                estado: nuevoEstado,
+            });
+            setFacturasProveedor(
+                facturasProveedor.map((factura) => {
+                    if (factura._id === facturaId) {
+                        factura.estado = nuevoEstado;
+                    }
+                    return factura;
+                })
+            );
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -204,7 +223,33 @@ const FacturasProveedor = () => {
                                                     {consola.total}
                                                 </TableCell>
                                                 <TableCell>
-                                                    {consola.estado}
+                                                    {consola.estado ? (
+                                                        <Button
+                                                            variant="contained"
+                                                            color="primary"
+                                                            onClick={() =>
+                                                                cambiarEstadoFactura(
+                                                                    consola._id,
+                                                                    false
+                                                                )
+                                                            }
+                                                        >
+                                                            Pagado
+                                                        </Button>
+                                                    ) : (
+                                                        <Button
+                                                            variant="contained"
+                                                            color="error"
+                                                            onClick={() =>
+                                                                cambiarEstadoFactura(
+                                                                    consola._id,
+                                                                    true
+                                                                )
+                                                            }
+                                                        >
+                                                            Pendiente
+                                                        </Button>
+                                                    )}
                                                 </TableCell>
 
                                                 <TableCell>
@@ -219,7 +264,7 @@ const FacturasProveedor = () => {
                                                             )
                                                         }
                                                     />
-                                                    &nbsp;&nbsp;&nbsp;
+
                                                     <DeleteIcon
                                                         className={
                                                             styles.iconos

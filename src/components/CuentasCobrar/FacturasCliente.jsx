@@ -75,6 +75,24 @@ const FacturasCliente = () => {
         }));
     };
 
+    const cambiarEstadoFactura = async (facturaId, nuevoEstado) => {
+        try {
+            await clienteAxios.put(`/facturas/${facturaId}`, {
+                estado: nuevoEstado,
+            });
+            setFacturas(
+                facturas.map((factura) => {
+                    if (factura._id === facturaId) {
+                        factura.estado = nuevoEstado;
+                    }
+                    return factura;
+                })
+            );
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         // Obtener los datos desde el servidor utilizando axios
         clienteAxios
@@ -263,7 +281,33 @@ const FacturasCliente = () => {
                                                         consola.subtotal}
                                                 </TableCell>
                                                 <TableCell>
-                                                    {consola.estado}
+                                                    {consola.estado ? (
+                                                        <Button
+                                                            variant="contained"
+                                                            color="primary"
+                                                            onClick={() =>
+                                                                cambiarEstadoFactura(
+                                                                    consola._id,
+                                                                    false
+                                                                )
+                                                            }
+                                                        >
+                                                            Pagado
+                                                        </Button>
+                                                    ) : (
+                                                        <Button
+                                                            variant="contained"
+                                                            color="error"
+                                                            onClick={() =>
+                                                                cambiarEstadoFactura(
+                                                                    consola._id,
+                                                                    true
+                                                                )
+                                                            }
+                                                        >
+                                                            Pendiente
+                                                        </Button>
+                                                    )}
                                                 </TableCell>
 
                                                 <TableCell>
