@@ -5,18 +5,17 @@ import Navbar from "../Navbar";
 import Alerta from "../Alerta.jsx";
 import clienteAxios from "../../config/clienteAxios";
 import Swal from "sweetalert2";
-import moment from "moment/moment";
 
 const AgregaFacturasPagar = () => {
     const params = useParams();
 
     const [numFacturaPagar, setNumFacturaPagar] = useState("");
     const [fechaEmision, setFechaEmision] = useState("");
-    const [fechaVencimiento, setFechaVencimiento] = useState("");
+    const [fechaVencimiento, setFechaVenciemto] = useState("");
     const [diasCredito, setDiasCredito] = useState("");
     const [total, setTotal] = useState("");
 
-    const [proveedor, setProveedor] = useState(params);
+    const [proveedor, setProveedor] = useState("");
 
     const [alerta, setAlerta] = useState({});
 
@@ -32,6 +31,14 @@ const AgregaFacturasPagar = () => {
                 console.log(error);
             });
     }, []);
+
+    const obtenerFechaVencimiento = (emision, credito) => {
+        const fecha = new Date(emision);
+        const nuevaFecha = new Date(fecha.setDate(fecha.getDate() + credito));
+
+        console.log(nuevaFecha);
+        return nuevaFecha;
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -55,7 +62,6 @@ const AgregaFacturasPagar = () => {
                 diasCredito,
                 fechaVencimiento,
                 total,
-                proveedor,
             });
 
             setNumFacturaPagar("");
@@ -194,13 +200,14 @@ const AgregaFacturasPagar = () => {
                                     </label>
 
                                     <input
-                                        type="text"
+                                        type="date"
                                         id="fechaVencimiento"
                                         // placeholder="Escriba nombre del cliente"
                                         className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required=""
                                         value={fechaVencimiento}
                                         onChange={(e) =>
-                                            setFechaVencimiento(e.target.value)
+                                            setFechaVenciemto(e.target.value)
                                         }
                                     />
                                 </div>

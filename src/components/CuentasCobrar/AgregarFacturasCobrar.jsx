@@ -11,7 +11,6 @@ const AgregarFacturasCobrar = () => {
     const [diasCredito, setDiasCredito] = useState("");
     const [fechaVencimiento, setFechaVencimiento] = useState("");
     const [rowsData, setRowsData] = useState([]);
-    
     useEffect(() => {
         setFechaVencimiento(moment(moment(fechaEmision).add(diasCredito, "days"), "x").format("MM/DD/YYYY"));
         console.log(moment(moment(fechaEmision).add(diasCredito, "days"), "x").format("MM/DD/YYYY"))
