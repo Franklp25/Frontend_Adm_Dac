@@ -18,6 +18,9 @@ import {
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+//pdf
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const useStyles = makeStyles({
     modal: {
@@ -41,16 +44,19 @@ const useStyles = makeStyles({
         padding: "15px",
         width: "100%",
     },
+    total: {
+        fontWeight: "bold",
+    },
 });
 
 const FacturasProveedor = () => {
     const params = useParams();
     const styles = useStyles();
     const [facturasProveedor, setFacturasProveedor] = useState([]);
+    const [montoTotal, setMontoTotal] = useState(0);
     const [modalEditar, setModalEditar] = useState(false);
     const [modalEliminar, setModalEliminar] = useState(false);
-    //const [userId, setUserId] = useState(match.params.id);
-    const [filtro, setFiltro] = useState("todos"); // estado del filtro
+    //filtrar
 
     const [consolaSeleccionada, setConsolaSeleccionada] = useState({
         tipoCedula: "",
@@ -81,6 +87,8 @@ const FacturasProveedor = () => {
         }
     };
 
+    //funcion para filtrar
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setConsolaSeleccionada((prevState) => ({
@@ -88,6 +96,7 @@ const FacturasProveedor = () => {
             [name]: value,
         }));
     };
+    //
 
     useEffect(() => {
         // Obtener los datos desde el servidor utilizando axios
@@ -161,6 +170,69 @@ const FacturasProveedor = () => {
         caso === "Editar" ? setModalEditar(true) : "";
         caso === "Eliminar" ? confirmarDelete() : "";
     };
+
+    //pdf
+    const exportarPDF = () => {
+        const doc = new jsPDF();
+
+        //Texto de pdf
+        const empresa = "Bio&Gen S.A";
+        const cliente = `Estado de cuenta de `;
+        const cedJuridica = "Ced: 3-101-753268";
+
+        // Agregar título
+
+        doc.setFontSize(16);
+        doc.text(empresa, 80, 20);
+        doc.text(cedJuridica, 80, 30);
+        doc.text(cliente, 80, 40);
+
+        // Agregar imagen
+        // const imgData = "ruta_de_tu_imagen.jpg";
+        // doc.addImage(imgData, "JPEG", 15, 40, 180, 180);
+        // Agregar tabla
+        doc.autoTable({
+            head: [
+                [
+                    "N°Factura",
+                    "Fecha de Emision",
+                    "Credito",
+                    "Fecha de Vencimiento",
+                    "Total",
+                    "Estado",
+                ],
+            ],
+            body: facturasProveedor.map((factura) => [
+                factura.numFacturaPagar,
+                new Date(factura.fechaEmision).toLocaleDateString(),
+                factura.diasCredito,
+                new Date(factura.fechaVencimiento).toLocaleDateString(),
+                factura.total,
+                factura.estado,
+                doc.text(
+                    `Total de facturas: ${montoTotal}`,
+                    80,
+                    doc.autoTable.previous.finalY + 10
+                ),
+            ]),
+            margin: { top: 80 },
+        });
+
+        // Descargar archivo PDF
+        const pdfOutput = doc.output("blob");
+        const url = URL.createObjectURL(pdfOutput);
+        window.open(url, "_blank");
+    };
+
+    //montoTotal
+    useEffect(() => {
+        const totalMonto = facturasProveedor.reduce(
+            (total, factura) => total + factura.total,
+            0
+        );
+        setMontoTotal(totalMonto);
+    }, [facturasProveedor]);
+
     return (
         <>
             <Navbar />
@@ -176,6 +248,11 @@ const FacturasProveedor = () => {
                         Agregar Factura Proveedor
                     </Link>
                 </div>
+            </div>
+            <div className=" ml-10 flex">
+                <Button variant="contained" onClick={exportarPDF}>
+                    Exportar a PDF
+                </Button>
             </div>
 
             <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
@@ -279,6 +356,18 @@ const FacturasProveedor = () => {
                                                 </TableCell>
                                             </TableRow>
                                         ))}
+                                        <TableRow>
+                                            <TableCell
+                                                className={styles.total}
+                                                colSpan={4}
+                                            >
+                                                Total
+                                            </TableCell>
+                                            <TableCell className={styles.total}>
+                                                {montoTotal}
+                                            </TableCell>
+                                            <TableCell></TableCell>
+                                        </TableRow>
                                     </TableBody>
                                 </Table>
                             </TableContainer>
