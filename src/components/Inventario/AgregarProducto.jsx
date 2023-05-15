@@ -63,13 +63,13 @@ const AgregarProducto = () => {
 
             <section className="">
                 <div className="flex flex-col items-center justify-center px-6 py-8">
-                    <div className="w-full  rounded-2xl shadow dark:border md:w-7/12 sm:w-2/3 xl:w-2/4 :2-3/ bg-slate-300 dark:border-green-600">
+                    <div className="w-full bg-slate-50 rounded-2xl shadow-xl dark:border md:w-7/12 sm:w-2/3 xl:w-2/4 :2-3/">
                         <div className="p-6 ">
                             <form
-                                className="space-y-4 md:space-y-6"
+                                className="grid grid-cols-3 gap-4 md:gap-6"
                                 onSubmit={handleSubmit}
                             >
-                                <div>
+                                <div className="col-span-1">
                                     <label
                                         htmlFor="codigo"
                                         className=" uppercase text-gray-600 block text-sm font-bold pb-2"
@@ -89,7 +89,7 @@ const AgregarProducto = () => {
                                         }
                                     />
                                 </div>
-                                <div>
+                                <div className="col-span-1">
                                     <label
                                         htmlFor="nombre"
                                         className=" uppercase text-gray-600 block text-sm font-bold pb-2"
@@ -109,7 +109,7 @@ const AgregarProducto = () => {
                                         }
                                     />
                                 </div>
-                                <div>
+                                <div className="col-span-1">
                                     <label
                                         htmlFor="precio"
                                         className=" uppercase text-gray-600 block text-sm font-bold pb-2"
@@ -129,33 +129,33 @@ const AgregarProducto = () => {
                                         }
                                     />
                                 </div>
-                                <div>
+                                <div className="col-span-3">
                                     <label
                                         htmlFor="descripcion"
                                         className=" uppercase text-gray-600 block text-sm font-bold pb-2"
                                     >
                                         Descripcion
                                     </label>
-
-                                    <input
-                                        type="text"
-                                        id="descripcion"
-                                        placeholder="Descripción del producto"
-                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required=""
-                                        value={descripcion}
-                                        onChange={(e) =>
-                                            setDescripcion(e.target.value)
-                                        }
-                                    />
+                                    <div className="flex justify-between gap-4">
+                                        <input
+                                            type="text"
+                                            id="descripcion"
+                                            placeholder="Descripción del producto"
+                                            className=" pr-80 border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            required=""
+                                            value={descripcion}
+                                            onChange={(e) =>
+                                                setDescripcion(e.target.value)
+                                            }
+                                        />
+                                        <button
+                                            type="submit"
+                                            className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full uppercase text-blue  bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800 "
+                                        >
+                                            Guardar Producto
+                                        </button>
+                                    </div>
                                 </div>
-
-                                <button
-                                    type="submit"
-                                    className=" transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full uppercase text-blue  bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                >
-                                    Guardar Producto
-                                </button>
                             </form>
                             <div className=" m-2">
                                 {msg && <Alerta alerta={alerta} />}
