@@ -47,7 +47,7 @@ const AgregarFacturasCobrar = () => {
     //Verificara que ningun campo quede vacio para luego crear la factura
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (
             [
                 numFacturaCobrar,
@@ -89,32 +89,36 @@ const AgregarFacturasCobrar = () => {
             });
             return;
         }
-        
     };
 
     //Esta funcion agregara los productos en la lista a detalle factura
     async function agregarDetalles(factura) {
-        console.log("esta es la factura: " + factura);
         try {
-            rowsData.forEach( (prod) => {
-                prod.cantidad=Number(prod.cantidad)
-                agregarLinea(prod,factura);
-            });
+            for (const prod of rowsData) {
+                prod.cantidad = Number(prod.cantidad);
+                const { producto, precioUnitario, cantidad } = prod;
+                await clienteAxios.post("/detalle_factura", {
+                    producto,
+                    precioUnitario,
+                    cantidad,
+                    factura,
+                });
+            }
         } catch (error) {
             console.log(error);
         }
     }
 
-    async function agregarLinea(prod,factura) {
-        const { producto, precioUnitario, cantidad } = prod;
-        
-        const { data } = await clienteAxios.post("/detalle_factura", {
-            producto,
-            precioUnitario, 
-            cantidad,
-            factura,
-        });
-    }
+    // function agregarLinea(prod, factura) {
+    //     const { producto, precioUnitario, cantidad } = prod;
+
+    //     const { data } = clienteAxios.post("/detalle_factura", {
+    //         producto,
+    //         precioUnitario,
+    //         cantidad,
+    //         factura,
+    //     });
+    // }
 
     return (
         <>

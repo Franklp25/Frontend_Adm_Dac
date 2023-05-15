@@ -35,7 +35,7 @@ function AddDeleteTableRows({rowsData,setRowsData}) {
             [name]: value,
             precioUnitario: selectedProduct
                 ? selectedProduct.precio
-                : newValues[index].precioUnitario,
+                : newValues[index].precio,
         };
         setRowsData(newValues);
         //console.log(rowsData);
