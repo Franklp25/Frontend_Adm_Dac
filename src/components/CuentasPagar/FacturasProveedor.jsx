@@ -58,6 +58,9 @@ const FacturasProveedor = () => {
     const [modalEliminar, setModalEliminar] = useState(false);
     //filtrar
 
+    const [filtro, setFiltro] = useState("todos"); // Estado para almacenar el filtro seleccionado ('todos', 'pendientes' o 'pagadas')
+    const [facturasFiltradas, setFacturasFiltradas] = useState([]); // Estado para almacenar las facturas filtradas
+
     const [consolaSeleccionada, setConsolaSeleccionada] = useState({
         tipoCedula: "",
         cedula: "",
@@ -88,6 +91,24 @@ const FacturasProveedor = () => {
     };
 
     //funcion para filtrar
+    useEffect(() => {
+        // Filtrar las facturas según el filtro seleccionado
+        if (filtro === "todos") {
+            setFacturasFiltradas(facturasProveedor);
+        } else if (filtro === "pendientes") {
+            setFacturasFiltradas(
+                facturasProveedor.filter((factura) => !factura.estado)
+            );
+        } else if (filtro === "pagadas") {
+            setFacturasFiltradas(
+                facturasProveedor.filter((factura) => factura.estado)
+            );
+        }
+    }, [facturasProveedor, filtro]);
+
+    const handleFiltroChange = (e) => {
+        setFiltro(e.target.value);
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -181,7 +202,6 @@ const FacturasProveedor = () => {
         const cedJuridica = "Ced: 3-101-753268";
 
         // Agregar título
-
         doc.setFontSize(16);
         doc.text(empresa, 80, 20);
         doc.text(cedJuridica, 80, 30);
@@ -190,7 +210,17 @@ const FacturasProveedor = () => {
         // Agregar imagen
         // const imgData = "ruta_de_tu_imagen.jpg";
         // doc.addImage(imgData, "JPEG", 15, 40, 180, 180);
+
         // Agregar tabla
+        const datosTabla = facturasFiltradas.map((factura) => [
+            factura.numFacturaPagar,
+            new Date(factura.fechaEmision).toLocaleDateString(),
+            factura.diasCredito,
+            new Date(factura.fechaVencimiento).toLocaleDateString(),
+            factura.total,
+            factura.estado,
+        ]);
+
         doc.autoTable({
             head: [
                 [
@@ -202,21 +232,14 @@ const FacturasProveedor = () => {
                     "Estado",
                 ],
             ],
-            body: facturasProveedor.map((factura) => [
-                factura.numFacturaPagar,
-                new Date(factura.fechaEmision).toLocaleDateString(),
-                factura.diasCredito,
-                new Date(factura.fechaVencimiento).toLocaleDateString(),
-                factura.total,
-                factura.estado,
-                doc.text(
-                    `Total de facturas: ${montoTotal}`,
-                    80,
-                    doc.autoTable.previous.finalY + 10
-                ),
-            ]),
+            body: datosTabla,
             margin: { top: 80 },
         });
+        doc.text(
+            `Total de facturas: ${montoTotal}`,
+            80,
+            doc.autoTable.previous.finalY + 10
+        );
 
         // Descargar archivo PDF
         const pdfOutput = doc.output("blob");
@@ -226,12 +249,12 @@ const FacturasProveedor = () => {
 
     //montoTotal
     useEffect(() => {
-        const totalMonto = facturasProveedor.reduce(
+        const totalMonto = facturasFiltradas.reduce(
             (total, factura) => total + factura.total,
             0
         );
         setMontoTotal(totalMonto);
-    }, [facturasProveedor]);
+    }, [facturasFiltradas]);
 
     return (
         <>
@@ -249,10 +272,19 @@ const FacturasProveedor = () => {
                     </Link>
                 </div>
             </div>
+
             <div className=" ml-10 flex">
                 <Button variant="contained" onClick={exportarPDF}>
                     Exportar a PDF
                 </Button>
+            </div>
+            <div className="flex justify-start m-10 ">
+                <label className="mr-2">Filtrar:</label>
+                <select value={filtro} onChange={handleFiltroChange}>
+                    <option value="todos">Todos</option>
+                    <option value="pendientes">Pendientes</option>
+                    <option value="pagadas">Pagadas</option>
+                </select>
             </div>
 
             <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
@@ -278,7 +310,7 @@ const FacturasProveedor = () => {
                                     </TableHead>
 
                                     <TableBody>
-                                        {facturasProveedor.map((consola) => (
+                                        {facturasFiltradas.map((consola) => (
                                             <TableRow key={consola.id}>
                                                 <TableCell>
                                                     {consola.numFacturaPagar}
