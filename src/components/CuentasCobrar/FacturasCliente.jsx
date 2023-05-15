@@ -20,6 +20,7 @@ import {
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+//pdf
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
@@ -55,6 +56,9 @@ const FacturasCliente = () => {
     const [modalEditar, setModalEditar] = useState(false);
     const [modalEliminar, setModalEliminar] = useState(false);
     //const [userId, setUserId] = useState(match.params.id);
+    const [montoTotal, setMontoTotal] = useState(0);
+    const [filtro, setFiltro] = useState("todos"); // Estado para almacenar el filtro seleccionado ('todos', 'pendientes' o 'pagadas')
+    const [facturasFiltradas, setFacturasFiltradas] = useState([]); // Estado para almacenar las facturas filtradas
 
     const [consolaSeleccionada, setConsolaSeleccionada] = useState({
         tipoCedula: "",
@@ -91,6 +95,22 @@ const FacturasCliente = () => {
         } catch (error) {
             console.log(error);
         }
+    };
+
+    //funcion para filtrar
+    useEffect(() => {
+        // Filtrar las facturas según el filtro seleccionado
+        if (filtro === "todos") {
+            setFacturasFiltradas(facturas);
+        } else if (filtro === "pendientes") {
+            setFacturasFiltradas(facturas.filter((factura) => !factura.estado));
+        } else if (filtro === "pagadas") {
+            setFacturasFiltradas(facturas.filter((factura) => factura.estado));
+        }
+    }, [facturas, filtro]);
+
+    const handleFiltroChange = (e) => {
+        setFiltro(e.target.value);
     };
 
     useEffect(() => {
@@ -181,6 +201,16 @@ const FacturasCliente = () => {
         // const imgData = "ruta_de_tu_imagen.jpg";
         // doc.addImage(imgData, "JPEG", 15, 40, 180, 180);
         // Agregar tabla
+        const datosTabla = facturasFiltradas.map((factura) => [
+            factura.id,
+            new Date(factura.fechaEmision).toLocaleDateString(),
+            new Date(factura.fechaVencimiento).toLocaleDateString(),
+            factura.iva,
+            factura.subtotal,
+            factura.iva + factura.subtotal,
+            factura.estado,
+        ]);
+
         doc.autoTable({
             head: [
                 [
@@ -193,15 +223,7 @@ const FacturasCliente = () => {
                     "Estado",
                 ],
             ],
-            body: facturas.map((factura) => [
-                factura.id,
-                new Date(factura.fechaEmision).toLocaleDateString(),
-                new Date(factura.fechaVencimiento).toLocaleDateString(),
-                factura.iva,
-                factura.subtotal,
-                factura.iva + factura.subtotal,
-                factura.estado,
-            ]),
+            body: datosTabla,
             margin: { top: 80 },
         });
 
@@ -210,6 +232,15 @@ const FacturasCliente = () => {
         const url = URL.createObjectURL(pdfOutput);
         window.open(url, "_blank");
     };
+
+    //montoTotal
+    useEffect(() => {
+        const totalMonto = facturasFiltradas.reduce(
+            (total, factura) => total + factura.iva + factura.subtotal,
+            0
+        );
+        setMontoTotal(totalMonto);
+    }, [facturasFiltradas]);
 
     return (
         <>
@@ -231,6 +262,14 @@ const FacturasCliente = () => {
                 <Button variant="contained" onClick={exportarPDF}>
                     Exportar a PDF
                 </Button>
+            </div>
+            <div className="flex justify-start m-10 ">
+                <label className="mr-2">Filtrar:</label>
+                <select value={filtro} onChange={handleFiltroChange}>
+                    <option value="todos">Todos</option>
+                    <option value="pendientes">Pendientes</option>
+                    <option value="pagadas">Pagadas</option>
+                </select>
             </div>
 
             <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
@@ -257,7 +296,7 @@ const FacturasCliente = () => {
                                     </TableHead>
 
                                     <TableBody>
-                                        {facturas.map((consola) => (
+                                        {facturasFiltradas.map((consola) => (
                                             <TableRow key={consola.id}>
                                                 <TableCell>{"N.A"}</TableCell>
                                                 <TableCell>
@@ -337,6 +376,18 @@ const FacturasCliente = () => {
                                                 </TableCell>
                                             </TableRow>
                                         ))}
+                                        <TableRow>
+                                            <TableCell
+                                                className={styles.total}
+                                                colSpan={5}
+                                            >
+                                                Total
+                                            </TableCell>
+                                            <TableCell className={styles.total}>
+                                                {montoTotal}
+                                            </TableCell>
+                                            <TableCell></TableCell>
+                                        </TableRow>
                                     </TableBody>
                                 </Table>
                             </TableContainer>
