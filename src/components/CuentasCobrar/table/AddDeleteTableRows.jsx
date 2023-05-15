@@ -9,7 +9,7 @@ function AddDeleteTableRows({rowsData,setRowsData}) {
     const addTableRows = () => {
         const rowsInput = {
             producto: "",
-            precio: "",
+            precioUnitario: "",
             cantidad: "",
         };
         setRowsData([...rowsData, rowsInput]);
@@ -25,18 +25,18 @@ function AddDeleteTableRows({rowsData,setRowsData}) {
         const rowsInput = [...rowsData];
         rowsInput[index][name] = value;
         const newValues = [...rowsData];
-        const selectedProduct = productos.find((prod) => prod.nombre === value);
+        const selectedProduct = productos.find((prod) => prod._id === value);
         //setRowsData(rowsInput);
+        
 
-        console.log(name + " valor: " + value);
+        //console.log(name + " valor: " + value);
         newValues[index] = {
             ...newValues[index],
             [name]: value,
-            precio: selectedProduct
+            precioUnitario: selectedProduct
                 ? selectedProduct.precio
-                : newValues[index].precio,
+                : newValues[index].precioUnitario,
         };
-        console.log(newValues);
         setRowsData(newValues);
         //console.log(rowsData);
     };

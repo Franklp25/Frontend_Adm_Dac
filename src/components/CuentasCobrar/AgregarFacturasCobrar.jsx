@@ -1,19 +1,36 @@
 import { useState, useEffect, button } from "react";
 import Navbar from "../Navbar";
 import clienteAxios from "../../config/clienteAxios";
+import { useParams } from "react-router-dom";
 import EditModal from "../modales/EditModal";
 import axios from "axios";
 import moment from "moment/moment";
 import AddDeleteTableRows from "./table/AddDeleteTableRows.jsx";
 
 const AgregarFacturasCobrar = () => {
+    const params = useParams();
+
+    const [cliente, setCliente] = useState("");
     const [numFacturaCobrar, setNumFacturaCobrar] = useState("");
     const [fechaEmision, setFechaEmision] = useState("");
     const [diasCredito, setDiasCredito] = useState("");
     const [fechaVencimiento, setFechaVencimiento] = useState("");
     const [rowsData, setRowsData] = useState([]);
 
-    //Este useEffecto nos permitira calcular la fecha de vencimiento de manera dinamica
+    useEffect(() => {
+        // Obtener los datos desde el servidor utilizando axios
+        clienteAxios
+            .get(`/clientes/${params.id}`)
+            .then((response) => {
+                setCliente(response.data);
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
+    //Este useEffect nos permitira calcular la fecha de vencimiento de manera dinamica
     useEffect(() => {
         setFechaVencimiento(
             moment(moment(fechaEmision).add(diasCredito, "days"), "x").format(
@@ -30,7 +47,7 @@ const AgregarFacturasCobrar = () => {
     //Verificara que ningun campo quede vacio para luego crear la factura
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        
         if (
             [
                 numFacturaCobrar,
@@ -43,17 +60,14 @@ const AgregarFacturasCobrar = () => {
             console.log("hay campos vacios");
             return;
         }
-        console.log("Se presiono el boton");
 
         try {
-            const { data } = await clienteAxios.post("/clientes", {
-                tipoCedula,
-                cedula,
-                nombre,
-                apellidos,
-                telefono,
-                email,
-                direccion,
+            const { data } = await clienteAxios.post("/facturas", {
+                numFacturaCobrar,
+                fechaEmision,
+                diasCredito,
+                fechaVencimiento,
+                cliente,
             });
 
             setNumFacturaCobrar("");
@@ -61,9 +75,10 @@ const AgregarFacturasCobrar = () => {
             setDiasCredito("");
             setFechaVencimiento("");
             setRowsData([]);
+            agregarDetalles(data._id);
             Swal.fire({
                 icon: "success",
-                title: "Cliente agregado correctamente",
+                title: "Factura agregada correctamente",
                 // text: "Gracias por enviar el formulario",
             });
         } catch (error) {
@@ -72,15 +87,42 @@ const AgregarFacturasCobrar = () => {
                 title: JSON.stringify(error.response.data.msg),
                 // text: "Digite un nuevo número de cédula",
             });
+            return;
         }
+        
     };
+
+    //Esta funcion agregara los productos en la lista a detalle factura
+    async function agregarDetalles(factura) {
+        console.log("esta es la factura: " + factura);
+        try {
+            rowsData.forEach( (prod) => {
+                prod.cantidad=Number(prod.cantidad)
+                agregarLinea(prod,factura);
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function agregarLinea(prod,factura) {
+        const { producto, precioUnitario, cantidad } = prod;
+        
+        const { data } = await clienteAxios.post("/detalle_factura", {
+            producto,
+            precioUnitario, 
+            cantidad,
+            factura,
+        });
+    }
+
     return (
         <>
             <Navbar />
 
             <div className="flex justify-between p-2">
                 <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
-                    Agregar Factura Por Cliente
+                    Agregar Factura a nombre de {cliente.nombre}
                 </h1>
             </div>
             <div className="flex items-center justify-center px-6 py-8 space-x-4">
@@ -157,7 +199,7 @@ const AgregarFacturasCobrar = () => {
                     className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full md:w-1/4 uppercase text-gray-200 bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xs md:text-sm px-4 md:px-5 py-2 text-center dark:bg-green-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                     onClick={handleSubmit}
                 >
-                    Guardar Cliente
+                    Guardar Factura
                 </button>
             </div>
         </>

@@ -1,6 +1,6 @@
 function TableRows({ rowsData, deleteTableRows, productos,productoSeleccionado, handleChange }) {
     return rowsData.map((data, index) => {
-        const { producto, precio, cantidad } = data;
+        const { producto, precioUnitario, cantidad } = data;
         return (
             <tr key={index} className="bg-gray-100 hover:bg-gray-200">
                 <td className="p-2">
@@ -12,7 +12,7 @@ function TableRows({ rowsData, deleteTableRows, productos,productoSeleccionado, 
                     >
                         <option value="">Selecciona un producto</option>
                         {productos.map((prod) => (
-                            <option key={prod.id} value={prod.nombre}>
+                            <option key={prod.id} value={prod._id}>
                                 {prod.nombre}
                             </option>
                         ))}
@@ -21,7 +21,7 @@ function TableRows({ rowsData, deleteTableRows, productos,productoSeleccionado, 
                 <td className="p-2">
                     <input
                         type="number"
-                        value={precio}
+                        value={precioUnitario}
                         onChange={(evnt) => handleChange(index, evnt)}
                         name="precio"
                         className="px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
