@@ -63,7 +63,7 @@ const AgregarProducto = () => {
 
             <section className="px-4 py-8">
                 <div className="flex flex-col items-center justify-center md:flex md:flex-col md:items-center md:justify-center px-6 py-8">
-                    <div className="w-full bg-slate-50 rounded-2xl shadow-xl dark:border md:w-7/12 sm:w-2/3 xl:w-2/4 :2-3/">
+                    <div className="w-full  rounded-2xl shadow-xl dark:border md:w-7/12 sm:w-2/3 xl:w-2/4 :2-3/">
                         <div className=" p-6 space-y-6 md:p-6 ">
                             <form
                                 className="grid grid-cols-1 gap-4 md:grid md:grid-cols-3 md:gap-6"
