@@ -11,7 +11,7 @@ const AgregaFacturasPagar = () => {
 
     const [numFacturaPagar, setNumFacturaPagar] = useState("");
     const [fechaEmision, setFechaEmision] = useState("");
-    const [fechaVencimiento, setFechaVenciemto] = useState("");
+    const [fechaVencimiento, setFechaVencimiento] = useState("");
     const [diasCredito, setDiasCredito] = useState("");
     const [total, setTotal] = useState("");
 
@@ -32,13 +32,6 @@ const AgregaFacturasPagar = () => {
             });
     }, []);
 
-    const obtenerFechaVencimiento = (emision, credito) => {
-        const fecha = new Date(emision);
-        const nuevaFecha = new Date(fecha.setDate(fecha.getDate() + credito));
-
-        console.log(nuevaFecha);
-        return nuevaFecha;
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -207,7 +200,7 @@ const AgregaFacturasPagar = () => {
                                         required=""
                                         value={fechaVencimiento}
                                         onChange={(e) =>
-                                            setFechaVenciemto(e.target.value)
+                                            setFechaVencimiento(e.target.value)
                                         }
                                     />
                                 </div>
