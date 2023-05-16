@@ -30,14 +30,14 @@ function ListarEstadisticas() {
 
     return (
         <>
-            <div className="flex flex-col md:flex-row justify-center items-center">
+            <div className="flex flex-col md:flex-row justify-center items-center md:mt-20 mx-4 md:mr-40">
                 <div className="w-full md:w-1/2 p-8 text-center">
-                    <h1 class=" mt-20 ml-20 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
+                    <h1 className="ml-4 md:ml-20 text-2xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white">
+                        <span className="bg-gradient-to-r from-sky-400 to-emerald-600 text-transparent bg-clip-text">
                             DAC Bio&Gen
-                        </span>{" "}
+                        </span>
                     </h1>
-                    <p class="ml-20 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
+                    <p className="mt-4 text-lg lg:text-xl font-normal text-gray-500 dark:text-gray-400">
                         Bienvenido al Sistema Administrador
                     </p>
                 </div>
@@ -45,17 +45,17 @@ function ListarEstadisticas() {
                     <h2 className="text-2xl font-bold text-green-700 mb-3 text-center">
                         Estadísticas de ventas
                     </h2>
-                    <div className="flex justify-center mt-9 md:mt-0 mb-2">
+                    <div className="flex justify-center mt-4 md:mt-0 mb-2">
                         <input
                             type="text"
                             placeholder="Buscar producto"
-                            className="border-2 border-gray-400 rounded-full py-1 px-3 w-full md:w-1/2"
+                            className="w-full md:w-1/2 px-3 py-1 rounded-full border-2 border-gray-400"
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
                         />
                     </div>
                     <div className="overflow-x-auto mt-4">
-                        <div className="shadow overflow-hidden rounded-lg border-gray-300  border-8">
+                        <div className="border-8 border-gray-300 rounded-lg shadow overflow-hidden">
                             <table className="table-auto w-full">
                                 <thead>
                                     <tr>
@@ -87,20 +87,22 @@ function ListarEstadisticas() {
                                                 {dato.ventas}
                                             </td>
                                             <td className="border px-4 py-2">
-                                                <div className="bg-gray-300 h-4 w-full rounded-lg overflow-hidden">
-                                                    <div
-                                                        className="h-full bg-green-600 text-center text-xs text-white font-bold"
-                                                        style={{
-                                                            width: `${(
+                                                <div className="flex items-center">
+                                                    <div className="bg-gray-300 h-4 flex-grow rounded-lg overflow-hidden">
+                                                        <div
+                                                            className="h-full bg-green-600 text-center text-xs text-white font-bold"
+                                                            style={{
+                                                                width: `${(
+                                                                    dato.ventas *
+                                                                    porcentajeMaximo
+                                                                ).toFixed(2)}%`,
+                                                            }}
+                                                        >
+                                                            {`${(
                                                                 dato.ventas *
                                                                 porcentajeMaximo
-                                                            ).toFixed(2)}%`,
-                                                        }}
-                                                    >
-                                                        {`${(
-                                                            dato.ventas *
-                                                            porcentajeMaximo
-                                                        ).toFixed(2)}%`}
+                                                            ).toFixed(2)}%`}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </td>
