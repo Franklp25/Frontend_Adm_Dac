@@ -1,13 +1,11 @@
 import Navbar from "./Navbar";
+import ListarEstadisticas from "./Estadisticas/ListarEstadisticas";
 
 const Home = () => {
     return (
         <>
             <Navbar />
-
-            <h1 className=" text-5xl font-bold p-16 mt-32 text-left ">
-                Sistema Administrador <br /> DAC-BIO&GEN{" "}
-            </h1>
+            <ListarEstadisticas />
         </>
     );
 };
