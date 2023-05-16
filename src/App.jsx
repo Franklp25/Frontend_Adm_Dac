@@ -18,7 +18,7 @@ import {
     FacturasProveedor,
     AgregarProducto,
     Inventario,
-    Estadistica,
+    ListarEstadisticas
 } from "./components";
 
 import { Routes, Route, BrowserRouter } from "react-router-dom";
@@ -47,7 +47,7 @@ function App() {
                     </Routes>
                     <Protected>
                         <Routes>
-                            <Route path="/home" element={<Home />} />
+                            <Route path="home" element={<Home />} />
                             <Route
                                 path="agregarCliente"
                                 element={<AgregarCliente />}
@@ -102,12 +102,9 @@ function App() {
                             />
                             <Route path="inventario" element={<Inventario />} />
 
-                            {/* Estadiscticas */}
-                            <Route
-                                path="estadistica"
-                                element={<Estadistica />}
-                            />
                             <Route path="registrar" element={<Registrar />} />
+
+
                         </Routes>
                     </Protected>
 

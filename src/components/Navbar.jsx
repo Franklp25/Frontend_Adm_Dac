@@ -81,6 +81,7 @@ export default function Navbar() {
                                     </Link>
 
                                     {/* Estadistica */}
+
                                     <div className="flex justify-end">
                                         <button
                                             type="button"
@@ -201,8 +202,6 @@ export default function Navbar() {
                             >
                                 Productos
                             </Link>
-
-                            {/* Estadistica */}
 
                             <button
                                 type="button"

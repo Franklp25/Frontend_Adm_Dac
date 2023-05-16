@@ -7,6 +7,8 @@ import Swal from "sweetalert2";
 const AgregarProducto = () => {
     const [codigo, setCodigo] = useState("");
     const [nombre, setNombre] = useState("");
+    const [unidadMedida, setUnidadMedida] = useState("");
+    const [cantidad, setCantidad] = useState("");
     const [precio, setPrecio] = useState("");
     const [descripcion, setDescripcion] = useState("");
 
@@ -15,7 +17,16 @@ const AgregarProducto = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if ([codigo, nombre, precio, descripcion].includes("")) {
+        if (
+            [
+                codigo,
+                nombre,
+                unidadMedida,
+                cantidad,
+                precio,
+                descripcion,
+            ].includes("")
+        ) {
             setAlerta({
                 msg: "Todos los campos son obligatorios",
                 error: true,
@@ -30,12 +41,16 @@ const AgregarProducto = () => {
             const { data } = await clienteAxios.post("/productos", {
                 codigo,
                 nombre,
+                unidadMedida,
+                cantidad,
                 precio,
                 descripcion,
             });
 
             setCodigo("");
             setNombre("");
+            setUnidadMedida("");
+            setCantidad("");
             setPrecio("");
             setDescripcion("");
             Swal.fire({
@@ -109,6 +124,52 @@ const AgregarProducto = () => {
                                         }
                                     />
                                 </div>
+                                <div className="md:col-span-1">
+                                    <label
+                                        htmlFor="unidadMedida"
+                                        className=" uppercase text-gray-600 block text-sm font-bold pb-2"
+                                    >
+                                        Unidad Medida
+                                    </label>
+                                    <select
+                                        type="text"
+                                        id="unidadMedida"
+                                        value={unidadMedida}
+                                        onChange={(e) =>
+                                            setUnidadMedida(e.target.value)
+                                        }
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    >
+                                        <option selected>
+                                            Unidad de Medida
+                                        </option>
+                                        <option value="Kg">Kilogramo</option>
+                                        <option value="Litros">Litros</option>
+                                        <option value="Unidad">Unidad</option>
+                                        <option value="Servicio">Servicio</option>
+                                    </select>
+                                </div>
+                                <div className="md:col-span-1">
+                                    <label
+                                        htmlFor="cantidad"
+                                        className=" uppercase text-gray-600 block text-sm font-bold pb-2"
+                                    >
+                                        Cantidad
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        id="cantidad"
+                                        placeholder="Digite cantidad del producto"
+                                        className="block w-full px-4 py-2 mt-1 md:border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 md:block md:w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required=""
+                                        value={cantidad}
+                                        onChange={(e) =>
+                                            setCantidad(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className=" flex"></div>
                                 <div className="md:col-span-1">
                                     <label
                                         htmlFor="precio"

@@ -31,5 +31,7 @@ export { default as ListaCuentasPagar } from "./CuentasPagar/ListaCuentasPagar.j
 export { default as AgregarProducto } from "./Inventario/AgregarProducto.jsx";
 export { default as Inventario } from "./Inventario/Inventario.jsx";
 
-//Estadistica
-export { default as Estadistica } from "./Estadisctica/Estadistica.jsx";
+// Estadistica
+export { default as ListarEstadisticas } from "./Estadisticas/ListarEstadisticas"
+
+
