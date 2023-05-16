@@ -59,6 +59,7 @@ const Inventario = () => {
 
     const [consolaSeleccionada, setConsolaSeleccionada] = useState({
         nombre: "",
+        cantidad:"",
         precio: "",
         descripcion: "",
         categoria: "",
@@ -93,6 +94,7 @@ const Inventario = () => {
                 dataNueva.map((consola) => {
                     if (consolaSeleccionada._id == consola._id) {
                         consola.nombre = consolaSeleccionada.nombre;
+                        consola.cantidad = consolaSeleccionada.cantidad;
                         consola.precio = consolaSeleccionada.precio;
                         consola.descripcion = consolaSeleccionada.descripcion;
                     }
@@ -173,6 +175,14 @@ const Inventario = () => {
                 InputProps={{ notched: false }}
             />
             <TextField
+                name="cantidad"
+                className={styles.inputMaterial}
+                label="Cantidad"
+                onChange={handleChange}
+                value={consolaSeleccionada && consolaSeleccionada.cantidad}
+                InputProps={{ notched: false }}
+            />
+            <TextField
                 name="precio"
                 className={styles.inputMaterial}
                 label="Precio"
@@ -188,14 +198,7 @@ const Inventario = () => {
                 value={consolaSeleccionada && consolaSeleccionada.descripcion}
                 InputProps={{ notched: false }}
             />
-            <TextField
-                name="codigo"
-                className={styles.inputMaterial}
-                label="Categoria"
-                onChange={handleChange}
-                value={consolaSeleccionada && consolaSeleccionada.codigo}
-                InputProps={{ notched: false }}
-            />
+
             <div className=" text-right ">
                 <Button className={styles.boton} onClick={peticionPut}>
                     Editar
@@ -232,9 +235,10 @@ const Inventario = () => {
                                         <TableRow>
                                             <TableCell>Código</TableCell>
                                             <TableCell>Nombre</TableCell>
+                                            <TableCell>Unidad Medida</TableCell>
+                                            <TableCell>Cantidad</TableCell>
                                             <TableCell>Precio</TableCell>
                                             <TableCell>Descripción</TableCell>
-                                            {/* <TableCell>Categoria</TableCell> */}
                                             <TableCell>Acciones</TableCell>
                                         </TableRow>
                                     </TableHead>
@@ -249,14 +253,17 @@ const Inventario = () => {
                                                     {consola.nombre}
                                                 </TableCell>
                                                 <TableCell>
+                                                    {consola.unidadMedida}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {consola.cantidad}
+                                                </TableCell>
+                                                <TableCell>
                                                     {consola.precio}
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.descripcion}
                                                 </TableCell>
-                                                {/* <TableCell>
-                                                    {consola.categoria}
-                                                </TableCell> */}
                                                 <TableCell>
                                                     <EditIcon
                                                         className={
