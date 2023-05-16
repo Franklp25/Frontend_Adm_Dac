@@ -2,15 +2,17 @@ import { useState, useEffect } from "react";
 import clienteAxios from "../../../config/clienteAxios";
 import TableRows from "./TableRows";
 
-function AddDeleteTableRows({rowsData,setRowsData}) {
+function AddDeleteTableRows({ rowsData, setRowsData }) {
     const [productos, setProductos] = useState([]);
     const [productoSeleccionado, setProductoSeleccionado] = useState("");
+    const tarifas=[1,13];
 
     const addTableRows = () => {
         const rowsInput = {
             producto: "",
             precioUnitario: "",
             cantidad: "",
+            tarifa: "",
         };
         setRowsData([...rowsData, rowsInput]);
     };
@@ -27,7 +29,6 @@ function AddDeleteTableRows({rowsData,setRowsData}) {
         const newValues = [...rowsData];
         const selectedProduct = productos.find((prod) => prod._id === value);
         //setRowsData(rowsInput);
-        
 
         //console.log(name + " valor: " + value);
         newValues[index] = {
@@ -70,6 +71,9 @@ function AddDeleteTableRows({rowsData,setRowsData}) {
                                     <th className="px-4 py-2 text-center text-gray-600">
                                         Cantidad
                                     </th>
+                                    <th className="px-4 py-2 text-center text-gray-600">
+                                        Tarifa
+                                    </th>
                                     <th className="px-4 py-2"></th>
                                 </tr>
                             </thead>
@@ -80,6 +84,7 @@ function AddDeleteTableRows({rowsData,setRowsData}) {
                                     handleChange={handleChange}
                                     productos={productos}
                                     productoSeleccionado={productoSeleccionado}
+                                    tarifas= {tarifas}
                                 />
                             </tbody>
                         </table>
