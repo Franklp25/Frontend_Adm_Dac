@@ -197,6 +197,10 @@ const FacturasCliente = () => {
     const exportarPDF = () => {
         const doc = new jsPDF();
         doc.setFont("helvetica", "normal");
+
+        // Establecer orientación horizontal
+        // doc.setOrientation("landscape");
+
         //Texto de pdf
         const empresa = "Bio&Gen S.A";
         const nomCliente = `Estado de cuenta de ${
@@ -219,13 +223,15 @@ const FacturasCliente = () => {
             factura.id,
             new Date(factura.fechaEmision).toLocaleDateString(),
             new Date(factura.fechaVencimiento).toLocaleDateString(),
-            factura.iva,
-            factura.subtotal,
-            factura.iva +
-                factura.subtotal.toLocaleString("es-ES", {
-                    style: "currency",
-                    currency: "CRC",
-                }),
+            factura.iva.toLocaleString("es-ES", {
+                style: "currency",
+                currency: "CRC",
+            }),
+            factura.subtotal.toLocaleString("es-ES", {
+                style: "currency",
+                currency: "CRC",
+            }),
+            factura.iva + factura.subtotal,
             ,
             factura.estado,
         ]);
@@ -343,10 +349,22 @@ const FacturasCliente = () => {
                                                     ).toLocaleDateString()}
                                                 </TableCell>
                                                 <TableCell>
-                                                    {consola.iva}
+                                                    {consola.iva.toLocaleString(
+                                                        "es-ES",
+                                                        {
+                                                            style: "currency",
+                                                            currency: "CRC",
+                                                        }
+                                                    )}
                                                 </TableCell>
                                                 <TableCell>
-                                                    {consola.subtotal}
+                                                    {consola.subtotal.toLocaleString(
+                                                        "es-ES",
+                                                        {
+                                                            style: "currency",
+                                                            currency: "CRC",
+                                                        }
+                                                    )}
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.iva +
