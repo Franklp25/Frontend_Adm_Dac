@@ -53,6 +53,7 @@ const FacturasCliente = () => {
     // console.log(params);
     const styles = useStyles();
     const [facturas, setFacturas] = useState([]);
+    const [cliente, setCliente] = useState("");
     const [modalEditar, setModalEditar] = useState(false);
     const [modalEliminar, setModalEliminar] = useState(false);
     //const [userId, setUserId] = useState(match.params.id);
@@ -182,32 +183,50 @@ const FacturasCliente = () => {
         caso === "Editar" ? setModalEditar(true) : "";
         caso === "Eliminar" ? confirmarDelete() : "";
     };
+    useEffect(() => {
+        // Obtener los datos desde el servidor utilizando axios
+        clienteAxios
+            .get(`/clientes/${params.id}`)
+            .then((response) => {
+                setCliente(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
     const exportarPDF = () => {
         const doc = new jsPDF();
-
+        doc.setFont("helvetica", "normal");
         //Texto de pdf
         const empresa = "Bio&Gen S.A";
-        const cliente = `Estado de cuenta de `;
+        const nomCliente = `Estado de cuenta de ${
+            cliente.nombre + " " + cliente.apellidos
+        } `;
         const cedJuridica = "Ced: 3-101-753268";
+
+        // Agregar imagen
+        const imgData = "../../../public/Logotipo_Bio&Gen.png";
+        doc.addImage(imgData, "JPEG", 10, 10, 39, 30);
 
         // Agregar título
 
         doc.setFontSize(16);
         doc.text(empresa, 80, 20);
         doc.text(cedJuridica, 80, 30);
-        doc.text(cliente, 80, 40);
+        doc.text(nomCliente, 80, 40);
 
-        // Agregar imagen
-        // const imgData = "ruta_de_tu_imagen.jpg";
-        // doc.addImage(imgData, "JPEG", 15, 40, 180, 180);
-        // Agregar tabla
         const datosTabla = facturasFiltradas.map((factura) => [
             factura.id,
             new Date(factura.fechaEmision).toLocaleDateString(),
             new Date(factura.fechaVencimiento).toLocaleDateString(),
             factura.iva,
             factura.subtotal,
-            factura.iva + factura.subtotal,
+            factura.iva +
+                factura.subtotal.toLocaleString("es-ES", {
+                    style: "currency",
+                    currency: "CRC",
+                }),
+            ,
             factura.estado,
         ]);
 
@@ -225,8 +244,22 @@ const FacturasCliente = () => {
             ],
             body: datosTabla,
             margin: { top: 80 },
+            styles: {
+                lineColor: [128, 128, 128],
+                lineWidth: 0.5,
+                fontSize: 10,
+                cellPadding: 3,
+            },
+            align: "center",
         });
-
+        doc.text(
+            `Monto Total: ${montoTotal.toLocaleString("es-ES", {
+                style: "currency",
+                currency: "CRC",
+            })}`,
+            68,
+            doc.autoTable.previous.finalY + 10
+        );
         // Descargar archivo PDF
         const pdfOutput = doc.output("blob");
         const url = URL.createObjectURL(pdfOutput);
@@ -384,7 +417,13 @@ const FacturasCliente = () => {
                                                 Total
                                             </TableCell>
                                             <TableCell className={styles.total}>
-                                                {montoTotal}
+                                                {montoTotal.toLocaleString(
+                                                    "es-ES",
+                                                    {
+                                                        style: "currency",
+                                                        currency: "CRC",
+                                                    }
+                                                )}
                                             </TableCell>
                                             <TableCell></TableCell>
                                         </TableRow>
