@@ -53,6 +53,7 @@ const FacturasProveedor = () => {
     const params = useParams();
     const styles = useStyles();
     const [facturasProveedor, setFacturasProveedor] = useState([]);
+    const [proveedor, setProveedor] = useState("");
     const [montoTotal, setMontoTotal] = useState(0);
     const [modalEditar, setModalEditar] = useState(false);
     const [modalEliminar, setModalEliminar] = useState(false);
@@ -192,14 +193,35 @@ const FacturasProveedor = () => {
         caso === "Eliminar" ? confirmarDelete() : "";
     };
 
+    useEffect(() => {
+        // Obtener los datos desde el servidor utilizando axios
+        clienteAxios
+            .get(`/proveedor/${params.id}`)
+            .then((response) => {
+                setProveedor(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
     //pdf
     const exportarPDF = () => {
         const doc = new jsPDF();
 
-        //Texto de pdf
+        // Establecer fuente
+        doc.setFont("helvetica", "normal");
+
+        // Texto de pdf
         const empresa = "Bio&Gen S.A";
-        const cliente = `Estado de cuenta de `;
+        const cliente = `Estado de cuenta de ${
+            proveedor.nombre + " " + proveedor.apellidos
+        } `;
         const cedJuridica = "Ced: 3-101-753268";
+
+        // Agregar imagen
+        const imgData = "../../../public/Logotipo_Bio&Gen.png";
+        doc.addImage(imgData, "JPEG", 10, 10, 39, 30);
 
         // Agregar título
         doc.setFontSize(16);
@@ -207,9 +229,8 @@ const FacturasProveedor = () => {
         doc.text(cedJuridica, 80, 30);
         doc.text(cliente, 80, 40);
 
-        // Agregar imagen
-        // const imgData = "ruta_de_tu_imagen.jpg";
-        // doc.addImage(imgData, "JPEG", 15, 40, 180, 180);
+        // Añadir márgenes
+        // doc.setMargin(20, 20, 20, 20);
 
         // Agregar tabla
         const datosTabla = facturasFiltradas.map((factura) => [
@@ -217,7 +238,10 @@ const FacturasProveedor = () => {
             new Date(factura.fechaEmision).toLocaleDateString(),
             factura.diasCredito,
             new Date(factura.fechaVencimiento).toLocaleDateString(),
-            factura.total,
+            factura.total.toLocaleString("es-ES", {
+                style: "currency",
+                currency: "CRC",
+            }),
             factura.estado,
         ]);
 
@@ -234,10 +258,25 @@ const FacturasProveedor = () => {
             ],
             body: datosTabla,
             margin: { top: 80 },
+            styles: {
+                lineColor: [128, 128, 128],
+                lineWidth: 0.5,
+                fontSize: 10,
+                cellPadding: 3,
+            },
+            align: "center",
         });
+
+        // Alinear contenido al centro
+        // doc.setTextAlignment("center");
+
+        // Añadir total de facturas
         doc.text(
-            `Total de facturas: ${montoTotal}`,
-            80,
+            `Monto Total: ${montoTotal.toLocaleString("es-ES", {
+                style: "currency",
+                currency: "CRC",
+            })}`,
+            68,
             doc.autoTable.previous.finalY + 10
         );
 
@@ -329,7 +368,13 @@ const FacturasProveedor = () => {
                                                     ).toLocaleDateString()}
                                                 </TableCell>
                                                 <TableCell>
-                                                    {consola.total}
+                                                    {consola.total.toLocaleString(
+                                                        "es-ES",
+                                                        {
+                                                            style: "currency",
+                                                            currency: "CRC",
+                                                        }
+                                                    )}
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.estado ? (
@@ -396,7 +441,13 @@ const FacturasProveedor = () => {
                                                 Total
                                             </TableCell>
                                             <TableCell className={styles.total}>
-                                                {montoTotal}
+                                                {montoTotal.toLocaleString(
+                                                    "es-ES",
+                                                    {
+                                                        style: "currency",
+                                                        currency: "CRC",
+                                                    }
+                                                )}
                                             </TableCell>
                                             <TableCell></TableCell>
                                         </TableRow>

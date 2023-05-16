@@ -96,13 +96,15 @@ const AgregarFacturasCobrar = () => {
         try {
             for (const prod of rowsData) {
                 prod.cantidad = Number(prod.cantidad);
-                const { producto, precioUnitario, cantidad } = prod;
+                const { producto, precioUnitario, cantidad,tarifa } = prod;
                 await clienteAxios.post("/detalle_factura", {
                     producto,
                     precioUnitario,
                     cantidad,
                     factura,
+                    tarifa,
                 });
+                //await clilenteAxios.put(`/productos/${producto._id}`,)
             }
         } catch (error) {
             console.log(error);
@@ -129,76 +131,82 @@ const AgregarFacturasCobrar = () => {
                     Agregar Factura a nombre de {cliente.nombre}
                 </h1>
             </div>
-            <div className="flex items-center justify-center px-6 py-8 space-x-4">
-                <div className="text-center">
-                    <label
-                        htmlFor="numFactura"
-                        className="block uppercase text-gray-600 text-sm font-bold pb-2"
-                    >
-                        Numero de Factura
-                    </label>
-                    <input
-                        type="number"
-                        id="numFactura"
-                        className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-32 md:w-48 p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        required=""
-                        value={numFacturaCobrar}
-                        onChange={(e) => setNumFacturaCobrar(e.target.value)}
-                    />
-                </div>
-                <div className="text-center">
-                    <label
-                        htmlFor="fechaEmision"
-                        className="block uppercase text-gray-600 text-sm font-bold pb-2"
-                    >
-                        Fecha Emitida
-                    </label>
-                    <input
-                        type="date"
-                        id="fechaEmision"
-                        className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-32 md:w-48 p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        required=""
-                        value={fechaEmision}
-                        onChange={(e) => setFechaEmision(e.target.value)}
-                    />
-                </div>
-                <div className="text-center">
-                    <label
-                        htmlFor="diasCredito"
-                        className="block uppercase text-gray-600 text-sm font-bold pb-2"
-                    >
-                        Días de crédito
-                    </label>
-                    <input
-                        type="number"
-                        id="diasCredito"
-                        className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-32 md:w-48 p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        required=""
-                        value={diasCredito}
-                        onChange={(e) => setDiasCredito(e.target.value)}
-                    />
-                </div>
-                <div className="text-center">
-                    <label
-                        htmlFor="fechaVencimiento"
-                        className="block uppercase text-gray-600 text-sm font-bold pb-2"
-                    >
-                        Fecha Vencimiento
-                    </label>
-                    <input
-                        type="text"
-                        id="fechaVencimiento"
-                        className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-32 md:w-48 p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        required=""
-                        value={fechaVencimiento}
-                        onChange={(e) => setFechaVencimiento(e.target.value)}
-                        readOnly
-                    />
+            <div className="w-5/6 border rounded-lg shadow-lg md:w-7/12 sm:w-2/3 xl:w-3/4 :2-3/ mx-auto">
+                <div className="flex flex-wrap justify-center p-4">
+                    <div className="text-center px-5 py-2">
+                        <label
+                            htmlFor="numFactura"
+                            className="block uppercase text-gray-600 text-sm font-bold pb-2"
+                        >
+                            Numero de Factura
+                        </label>
+                        <input
+                            type="number"
+                            id="numFactura"
+                            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block  md:w-48 p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-auto"
+                            required=""
+                            value={numFacturaCobrar}
+                            onChange={(e) =>
+                                setNumFacturaCobrar(e.target.value)
+                            }
+                        />
+                    </div>
+                    <div className="text-center px-5 py-2">
+                        <label
+                            htmlFor="fechaEmision"
+                            className="block uppercase text-gray-600 text-sm font-bold pb-2"
+                        >
+                            Fecha Emitida
+                        </label>
+                        <input
+                            type="date"
+                            id="fechaEmision"
+                            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block md:w-48 p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-auto"
+                            required=""
+                            value={fechaEmision}
+                            onChange={(e) => setFechaEmision(e.target.value)}
+                        />
+                    </div>
+                    <div className="text-center px-5 py-2">
+                        <label
+                            htmlFor="diasCredito"
+                            className="block uppercase text-gray-600 text-sm font-bold pb-2"
+                        >
+                            Días de crédito
+                        </label>
+                        <input
+                            type="number"
+                            id="diasCredito"
+                            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block md:w-48 p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-auto"
+                            required=""
+                            value={diasCredito}
+                            onChange={(e) => setDiasCredito(e.target.value)}
+                        />
+                    </div>
+                    <div className="text-center px-5 py-2">
+                        <label
+                            htmlFor="fechaVencimiento"
+                            className="block uppercase text-gray-600 text-sm font-bold pb-2"
+                        >
+                            Fecha Vencimiento
+                        </label>
+                        <input
+                            type="text"
+                            id="fechaVencimiento"
+                            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block md:w-48 p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-auto"
+                            required=""
+                            value={fechaVencimiento}
+                            onChange={(e) =>
+                                setFechaVencimiento(e.target.value)
+                            }
+                            readOnly
+                        />
+                    </div>
                 </div>
             </div>
 
             <AddDeleteTableRows rowsData={rowsData} setRowsData={setRowsData} />
-            <div className="mt-10 flex justify-center">
+            <div className="mt-10 flex justify-center gap-4 ">
                 <button
                     className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full md:w-1/4 uppercase text-gray-200 bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xs md:text-sm px-4 md:px-5 py-2 text-center dark:bg-green-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                     onClick={handleSubmit}
