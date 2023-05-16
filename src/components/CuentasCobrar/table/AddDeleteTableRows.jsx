@@ -5,12 +5,15 @@ import TableRows from "./TableRows";
 function AddDeleteTableRows({ rowsData, setRowsData }) {
     const [productos, setProductos] = useState([]);
     const [productoSeleccionado, setProductoSeleccionado] = useState("");
-    const tarifas=[1,13];
+    const tarifas = [1, 13];
+    const [total, setTotal] = useState(0);
+    const [subTotal, setSubTotal] = useState(0);
 
     const addTableRows = () => {
         const rowsInput = {
             producto: "",
             precioUnitario: "",
+            unidadMedida: "",
             cantidad: "",
             tarifa: "",
         };
@@ -31,14 +34,19 @@ function AddDeleteTableRows({ rowsData, setRowsData }) {
         //setRowsData(rowsInput);
 
         //console.log(name + " valor: " + value);
+
         newValues[index] = {
             ...newValues[index],
             [name]: value,
             precioUnitario: selectedProduct
                 ? selectedProduct.precio
-                : newValues[index].precio,
+                : newValues[index].precioUnitario,
+            unidadMedida: selectedProduct
+                ? selectedProduct.unidadMedida
+                : newValues[index].unidadMedida,
         };
         setRowsData(newValues);
+
         //console.log(rowsData);
     };
 
@@ -54,6 +62,41 @@ function AddDeleteTableRows({ rowsData, setRowsData }) {
                 console.log(error);
             });
     }, []);
+
+    //Este useffect actualizara el total y el subtotal
+    useEffect(() => {
+        if (rowsData.length > 0) {
+            let subTotalAux = 0;
+            setSubTotal(0);
+            rowsData.forEach((row) => {
+                if (Number(row.precioUnitario)) {
+                    subTotalAux +=
+                        Number(row.precioUnitario) * Number(row.cantidad);
+                }
+            });
+            setSubTotal(subTotalAux);
+
+            let totalAux = 0;
+            setTotal(0);
+            rowsData.forEach((row) => {
+                if (Number(row.precioUnitario)) {
+                    totalAux +=
+                        Number(row.precioUnitario) * Number(row.cantidad) +
+                        (Number(row.precioUnitario) *
+                            Number(row.cantidad) *
+                            Number(row.tarifa)) /
+                            100;
+                }
+            });
+            setTotal(totalAux);
+        } else {
+            setTotal(0);
+            setSubTotal(0)
+        }
+    }, [rowsData]);
+
+    //funcion que calcula el total de la tabla
+
     return (
         <div className="container mx-auto px-4 py-6 flex justify-center items-center">
             <div className="w-full max-w-lg">
@@ -67,6 +110,9 @@ function AddDeleteTableRows({ rowsData, setRowsData }) {
                                     </th>
                                     <th className="px-4 py-2 text-center text-gray-600">
                                         Precio
+                                    </th>
+                                    <th className="px-4 py-2 text-center text-gray-600">
+                                        Unidad de medida
                                     </th>
                                     <th className="px-4 py-2 text-center text-gray-600">
                                         Cantidad
@@ -84,10 +130,16 @@ function AddDeleteTableRows({ rowsData, setRowsData }) {
                                     handleChange={handleChange}
                                     productos={productos}
                                     productoSeleccionado={productoSeleccionado}
-                                    tarifas= {tarifas}
+                                    tarifas={tarifas}
                                 />
                             </tbody>
                         </table>
+                    </div>
+                    <div className="flex justify-center mt-4">
+                        <p className="text-xl font-bold">Subtotal: {subTotal}</p>
+                    </div>
+                    <div className="flex justify-center mt-4">
+                        <p className="text-xl font-bold">Total: {total}</p>
                     </div>
 
                     <div className="mt-4 flex">

@@ -7,8 +7,7 @@ function TableRows({
     handleChange,
 }) {
     return rowsData.map((data, index) => {
-        const { producto, precioUnitario, cantidad, tarifa } = data;
-        console.log(tarifas);
+        const { producto, precioUnitario,unidadMedida, cantidad, tarifa } = data;
         return (
             <tr key={index} className="bg-gray-100 hover:bg-gray-200">
                 <td className="p-2">
@@ -31,7 +30,16 @@ function TableRows({
                         type="number"
                         value={precioUnitario}
                         onChange={(evnt) => handleChange(index, evnt)}
-                        name="precio"
+                        name="precioUnitario"
+                        className="px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    />
+                </td>
+                <td className="p-2">
+                    <input
+                        type="text"
+                        value={unidadMedida||"N.A"}
+                        onChange={(evnt) => handleChange(index, evnt)}
+                        name="unidadMedidad"
                         className="px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </td>

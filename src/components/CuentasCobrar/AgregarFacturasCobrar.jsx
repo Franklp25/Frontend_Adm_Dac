@@ -96,13 +96,15 @@ const AgregarFacturasCobrar = () => {
         try {
             for (const prod of rowsData) {
                 prod.cantidad = Number(prod.cantidad);
-                const { producto, precioUnitario, cantidad } = prod;
+                const { producto, precioUnitario, cantidad,tarifa } = prod;
                 await clienteAxios.post("/detalle_factura", {
                     producto,
                     precioUnitario,
                     cantidad,
                     factura,
+                    tarifa,
                 });
+                //await clilenteAxios.put(`/productos/${producto._id}`,)
             }
         } catch (error) {
             console.log(error);
