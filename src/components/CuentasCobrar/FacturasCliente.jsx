@@ -367,8 +367,14 @@ const FacturasCliente = () => {
                                                     )}
                                                 </TableCell>
                                                 <TableCell>
-                                                    {consola.iva +
-                                                        consola.subtotal}
+                                                    {(consola.iva +
+                                                        consola.subtotal).toLocaleString(
+                                                            "es-ES",
+                                                        {
+                                                            style: "currency",
+                                                            currency: "CRC",
+                                                        }
+                                                        )}
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.estado ? (
