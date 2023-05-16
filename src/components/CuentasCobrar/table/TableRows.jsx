@@ -1,6 +1,13 @@
-function TableRows({ rowsData, deleteTableRows, productos,productoSeleccionado, handleChange }) {
+function TableRows({
+    rowsData,
+    deleteTableRows,
+    productos,
+    productoSeleccionado,
+    tarifas,
+    handleChange,
+}) {
     return rowsData.map((data, index) => {
-        const { producto, precioUnitario, cantidad } = data;
+        const { producto, precioUnitario,unidadMedida, cantidad, tarifa } = data;
         return (
             <tr key={index} className="bg-gray-100 hover:bg-gray-200">
                 <td className="p-2">
@@ -10,7 +17,7 @@ function TableRows({ rowsData, deleteTableRows, productos,productoSeleccionado, 
                         name="producto"
                         className="px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     >
-                        <option value="">Selecciona un producto</option>
+                        <option value="">Seleccione un producto</option>
                         {productos.map((prod) => (
                             <option key={prod.id} value={prod._id}>
                                 {prod.nombre}
@@ -23,7 +30,16 @@ function TableRows({ rowsData, deleteTableRows, productos,productoSeleccionado, 
                         type="number"
                         value={precioUnitario}
                         onChange={(evnt) => handleChange(index, evnt)}
-                        name="precio"
+                        name="precioUnitario"
+                        className="px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    />
+                </td>
+                <td className="p-2">
+                    <input
+                        type="text"
+                        value={unidadMedida||"N.A"}
+                        onChange={(evnt) => handleChange(index, evnt)}
+                        name="unidadMedidad"
                         className="px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
                 </td>
@@ -35,6 +51,20 @@ function TableRows({ rowsData, deleteTableRows, productos,productoSeleccionado, 
                         name="cantidad"
                         className="px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
+                </td>
+                <td className="p-2 ">
+                    <select
+                        value={tarifa}
+                        onChange={(evnt) => handleChange(index, evnt)}
+                        name="tarifa"
+                        className="px-1 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                        
+                    >
+                        <option value="">Seleccione una tarifa</option>
+                        {tarifas.map((tar) => (
+                            <option value={tar}>{tar + "%"}</option>
+                        ))}
+                    </select>
                 </td>
                 <td className="p-2">
                     <button

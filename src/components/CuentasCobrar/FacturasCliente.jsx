@@ -337,7 +337,7 @@ const FacturasCliente = () => {
                                     <TableBody>
                                         {facturasFiltradas.map((consola) => (
                                             <TableRow key={consola.id}>
-                                                <TableCell>{"N.A"}</TableCell>
+                                                <TableCell>{consola.numFacturaCobrar||"N.A"}</TableCell>
                                                 <TableCell>
                                                     {new Date(
                                                         consola.fechaEmision
