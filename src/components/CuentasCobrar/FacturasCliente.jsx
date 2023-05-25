@@ -194,33 +194,40 @@ const FacturasCliente = () => {
                 console.log(error);
             });
     }, []);
+
     const exportarPDF = () => {
         const doc = new jsPDF();
-        doc.setFont("helvetica", "normal");
-
-        // Establecer orientación horizontal
-        // doc.setOrientation("landscape");
+        doc.setFont("times");
+        let currentDate = new Date();
+        let formattedDate =
+            currentDate.getDate() +
+            "-" +
+            (currentDate.getMonth() + 1) +
+            "-" +
+            currentDate.getFullYear();
 
         //Texto de pdf
         const empresa = "Bio&Gen S.A";
-        const nomCliente = `Estado de cuenta de ${
-            cliente.nombre + " " + cliente.apellidos
-        } `;
+        const nomCliente = `${cliente.nombre + " " + cliente.apellidos} `;
         const cedJuridica = "Ced: 3-101-753268";
 
         // Agregar imagen
         const imgData = "../../../public/Logotipo_Bio&Gen.png";
-        doc.addImage(imgData, "JPEG", 10, 10, 39, 30);
+        doc.addImage(imgData, "JPEG", 10, 10, 48, 30);
 
         // Agregar título
 
+        doc.setFontSize(14);
+        doc.text(empresa, 83, 21);
+        doc.text(cedJuridica, 83, 28);
+        doc.text("Fecha: " + formattedDate, 83, 35);
+
         doc.setFontSize(16);
-        doc.text(empresa, 80, 20);
-        doc.text(cedJuridica, 80, 30);
-        doc.text(nomCliente, 80, 40);
+        doc.text("ESTADO DE CUENTA", 78, 68);
+        doc.text(nomCliente, 89, 74);
 
         const datosTabla = facturasFiltradas.map((factura) => [
-            factura.id,
+            factura.numFacturaCobrar,
             new Date(factura.fechaEmision).toLocaleDateString(),
             new Date(factura.fechaVencimiento).toLocaleDateString(),
             factura.iva.toLocaleString("es-ES", {
@@ -232,7 +239,6 @@ const FacturasCliente = () => {
                 currency: "CRC",
             }),
             factura.iva + factura.subtotal,
-            ,
             factura.estado,
         ]);
 
@@ -251,13 +257,29 @@ const FacturasCliente = () => {
             body: datosTabla,
             margin: { top: 80 },
             styles: {
-                lineColor: [128, 128, 128],
-                lineWidth: 0.5,
-                fontSize: 10,
-                cellPadding: 3,
+                lineColor: [44, 62, 80], // Color de línea más oscuro
+                lineWidth: 0.75, // Líneas un poco más gruesas
+                fontSize: 8, // Fuente más pequeña
+                cellPadding: { top: 2, right: 5, bottom: 2, left: 5 }, // Aumenta el relleno de celdas para mejorar la legibilidad
+                valign: "middle", // Alineación vertical en el medio
             },
-            align: "center",
+            columnStyles: {
+                0: { cellWidth: "wrap" }, // Ajusta automáticamente el ancho de la celda al contenido
+                1: { cellWidth: "wrap" },
+                2: { cellWidth: "wrap" },
+                3: { cellWidth: "wrap" },
+                4: { cellWidth: "wrap" },
+                5: { cellWidth: "wrap" },
+                6: { cellWidth: "wrap" },
+            },
+            headStyles: {
+                fillColor: [24, 171, 58], // Color de fondo gris claro para la fila de encabezado
+                textColor: [44, 62, 80], // Color de texto oscuro para la fila de encabezado
+                fontStyle: "bold", // Fuente en negrita para la fila de encabezado
+            },
+            theme: "striped", // Utiliza el tema "striped" para alternar el color de fondo de las filas
         });
+
         doc.text(
             `Monto Total: ${montoTotal.toLocaleString("es-ES", {
                 style: "currency",
@@ -266,6 +288,14 @@ const FacturasCliente = () => {
             68,
             doc.autoTable.previous.finalY + 10
         );
+
+        doc.setFontSize(12);
+        doc.text(
+            "Estimado cliente, le remitimos la información de nuestras cuentas bancarias.",
+            37,
+            130
+        );
+
         // Descargar archivo PDF
         const pdfOutput = doc.output("blob");
         const url = URL.createObjectURL(pdfOutput);
@@ -337,7 +367,10 @@ const FacturasCliente = () => {
                                     <TableBody>
                                         {facturasFiltradas.map((consola) => (
                                             <TableRow key={consola.id}>
-                                                <TableCell>{consola.numFacturaCobrar||"N.A"}</TableCell>
+                                                <TableCell>
+                                                    {consola.numFacturaCobrar ||
+                                                        "N.A"}
+                                                </TableCell>
                                                 <TableCell>
                                                     {new Date(
                                                         consola.fechaEmision
@@ -367,14 +400,13 @@ const FacturasCliente = () => {
                                                     )}
                                                 </TableCell>
                                                 <TableCell>
-                                                    {(consola.iva +
-                                                        consola.subtotal).toLocaleString(
-                                                            "es-ES",
-                                                        {
-                                                            style: "currency",
-                                                            currency: "CRC",
-                                                        }
-                                                        )}
+                                                    {(
+                                                        consola.iva +
+                                                        consola.subtotal
+                                                    ).toLocaleString("es-ES", {
+                                                        style: "currency",
+                                                        currency: "CRC",
+                                                    })}
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.estado ? (
