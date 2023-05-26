@@ -99,9 +99,15 @@ const AgregarProducto = () => {
                                         className="block w-full px-4 py-2 mt-1 md:border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 md:block md:w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         required=""
                                         value={codigo}
-                                        onChange={(e) =>
-                                            setCodigo(e.target.value)
-                                        }
+                                        onChange={(e) => {
+                                            // Chequear si el valor introducido es un número y si tiene menos de 7 caracteres
+                                            if (
+                                                !isNaN(e.target.value) &&
+                                                e.target.value.length <= 15
+                                            ) {
+                                                setCodigo(e.target.value);
+                                            }
+                                        }}
                                     />
                                 </div>
                                 <div className="md:col-span-1">
@@ -146,7 +152,9 @@ const AgregarProducto = () => {
                                         <option value="Kg">Kilogramo</option>
                                         <option value="Litros">Litros</option>
                                         <option value="Unidad">Unidad</option>
-                                        <option value="Servicio">Servicio</option>
+                                        <option value="Servicio">
+                                            Servicio
+                                        </option>
                                     </select>
                                 </div>
                                 <div className="md:col-span-1">
@@ -164,9 +172,15 @@ const AgregarProducto = () => {
                                         className="block w-full px-4 py-2 mt-1 md:border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 md:block md:w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         required=""
                                         value={cantidad}
-                                        onChange={(e) =>
-                                            setCantidad(e.target.value)
-                                        }
+                                        onChange={(e) => {
+                                            // Chequear si el valor introducido es un número y si tiene menos de 7 caracteres
+                                            if (
+                                                !isNaN(e.target.value) &&
+                                                e.target.value.length <= 6
+                                            ) {
+                                                setCantidad(e.target.value);
+                                            }
+                                        }}
                                     />
                                 </div>
                                 <div className=" flex"></div>
@@ -185,9 +199,15 @@ const AgregarProducto = () => {
                                         className="block w-full px-4 py-2 mt-1 md:border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 md:block md:w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         required=""
                                         value={precio}
-                                        onChange={(e) =>
-                                            setPrecio(e.target.value)
-                                        }
+                                        onChange={(e) => {
+                                            // Chequear si el valor introducido es un número y si tiene menos de 7 caracteres
+                                            if (
+                                                !isNaN(e.target.value) &&
+                                                e.target.value.length <= 10
+                                            ) {
+                                                setPrecio(e.target.value);
+                                            }
+                                        }}
                                     />
                                 </div>
                                 <div className="md:col-span-3">

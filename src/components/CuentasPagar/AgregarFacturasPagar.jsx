@@ -103,7 +103,7 @@ const AgregaFacturasPagar = () => {
                             >
                                 <div>
                                     <label
-                                        htmlFor="tipoCedula"
+                                        htmlFor="numFacturaPagar"
                                         className="mt-4 uppercase text-gray-600 block text-sm font-bold pb-2"
                                     >
                                         Numero de Factura
@@ -115,9 +115,17 @@ const AgregaFacturasPagar = () => {
                                         className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         required=""
                                         value={numFacturaPagar}
-                                        onChange={(e) =>
-                                            setNumFacturaPagar(e.target.value)
-                                        }
+                                        onChange={(e) => {
+                                            // Chequear si el valor introducido es un número y si tiene menos de 7 caracteres
+                                            if (
+                                                !isNaN(e.target.value) &&
+                                                e.target.value.length <= 6
+                                            ) {
+                                                setNumFacturaPagar(
+                                                    e.target.value
+                                                );
+                                            }
+                                        }}
                                     />
                                 </div>
                                 <div>
@@ -179,9 +187,15 @@ const AgregaFacturasPagar = () => {
                                         className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         required=""
                                         value={diasCredito}
-                                        onChange={(e) =>
-                                            setDiasCredito(e.target.value)
-                                        }
+                                        onChange={(e) => {
+                                            // Chequear si el valor introducido es un número y si tiene menos de 7 caracteres
+                                            if (
+                                                !isNaN(e.target.value) &&
+                                                e.target.value.length <= 3
+                                            ) {
+                                                setDiasCredito(e.target.value);
+                                            }
+                                        }}
                                     />
                                 </div>
                                 <div>
@@ -219,11 +233,18 @@ const AgregaFacturasPagar = () => {
                                         required=""
                                         step="0.01" // permite valores decimales con dos lugares decimales (centavos)
                                         value={total}
-                                        onChange={(e) =>
-                                            setTotal(parseFloat(e.target.value))
-                                        }
+                                        onChange={(e) => {
+                                            // Chequear si el valor introducido es un número y si tiene menos de 7 caracteres
+                                            if (
+                                                !isNaN(e.target.value) &&
+                                                e.target.value.length <= 10
+                                            ) {
+                                                setTotal(
+                                                    parseFloat(e.target.value)
+                                                );
+                                            }
+                                        }}
                                     />
-                                    
                                 </div>
                                 <div className=" xl:col-span-3">
                                     <button
