@@ -96,7 +96,7 @@ const AgregarFacturasCobrar = () => {
         try {
             for (const prod of rowsData) {
                 prod.cantidad = Number(prod.cantidad);
-                const { producto, precioUnitario, cantidad,tarifa } = prod;
+                const { producto, precioUnitario, cantidad, tarifa } = prod;
                 await clienteAxios.post("/detalle_factura", {
                     producto,
                     precioUnitario,
@@ -141,14 +141,20 @@ const AgregarFacturasCobrar = () => {
                             Numero de Factura
                         </label>
                         <input
-                            type="number"
+                            type="text"
                             id="numFactura"
-                            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block  md:w-48 p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-auto"
-                            required=""
+                            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block md:w-48 p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-auto"
+                            required
                             value={numFacturaCobrar}
-                            onChange={(e) =>
-                                setNumFacturaCobrar(e.target.value)
-                            }
+                            onChange={(e) => {
+                                // Chequear si el valor introducido es un número y si tiene menos de 7 caracteres
+                                if (
+                                    !isNaN(e.target.value) &&
+                                    e.target.value.length <= 6
+                                ) {
+                                    setNumFacturaCobrar(e.target.value);
+                                }
+                            }}
                         />
                     </div>
                     <div className="text-center px-5 py-2">
