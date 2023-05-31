@@ -5,20 +5,51 @@ function ListarEstadisticas() {
   const [detalles, setDetalles] = useState([]);
   const [datos, setDatos] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [fechaInicio, setFechaInicio] = useState("");
+  const [fechaFin, setFechaFin] = useState(""); 
 
   useEffect(() => {
-    // Obtener los datos desde el servidor utilizando axios
     clienteAxios
-        .get("/detalle_factura/")
+      .get("/detalle_factura/")
+      .then((response) => {
+        const uniqueData = Array.from(new Set(response.data.map(dato => dato.nombre)))
+          .map(nombre => {
+            return response.data.find(dato => dato.nombre === nombre);
+          });
+  
+        setDetalles(uniqueData);
+        setDatos(uniqueData);
+        console.log(uniqueData);
+      })
+      .catch((error) => {
+        console.log('Error loading data:', error);
+      });
+  }, []);
+  
+  useEffect(() => {
+    if (fechaInicio && fechaFin) {
+      const params = {
+        fechaInicio: fechaInicio,
+        fechaFin: fechaFin,
+      };
+  
+      clienteAxios
+        .get("/detalle_factura/", { params })
         .then((response) => {
-            setDetalles(response.data);
-            setDatos(response.data)
-            console.log(response.data);
+          const uniqueData = Array.from(new Set(response.data.map(dato => dato.nombre)))
+            .map(nombre => {
+              return response.data.find(dato => dato.nombre === nombre);
+            });
+  
+          setDetalles(uniqueData);
+          setDatos(uniqueData);
+          console.log(uniqueData);
         })
         .catch((error) => {
-            console.log(error);
+          console.log(error);
         });
-}, []);
+    }
+  }, [fechaInicio, fechaFin]);
 
   const sumaVentas = datos.reduce((suma, dato) => suma + dato.ventas, 0);
   const sortedDatos = [...datos].sort((a, b) => b.ventas - a.ventas);
@@ -28,7 +59,7 @@ function ListarEstadisticas() {
     .filter((dato) =>
       dato.nombre.toLowerCase().includes(searchValue.toLowerCase())
     )
- 
+    .slice(0, 5);
 
   return (
     <>
@@ -48,6 +79,21 @@ function ListarEstadisticas() {
               className="border-2 border-gray-400 rounded-full py-1 px-3 w-full md:w-1/2"
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
+            />
+
+            {/* Aquí es donde los componentes de entrada de fecha deben ir */}
+            <input
+              type="date"
+              className="border-2 border-gray-400 rounded-full py-1 px-3 w-full md:w-1/2"
+              value={fechaInicio}
+              onChange={(e) => setFechaInicio(e.target.value)}
+            />
+
+            <input
+              type="date"
+              className="border-2 border-gray-400 rounded-full py-1 px-3 w-full md:w-1/2"
+              value={fechaFin}
+              onChange={(e) => setFechaFin(e.target.value)}
             />
           </div>
           <div className="overflow-x-auto mt-4">
@@ -90,4 +136,3 @@ function ListarEstadisticas() {
   };
   
   export default ListarEstadisticas;
-  
