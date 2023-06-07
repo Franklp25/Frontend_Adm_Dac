@@ -132,8 +132,15 @@ const ListaCuentasPagar = () => {
                                                     <TableCell>
                                                         {obtenertotalDeuda(
                                                             proveedor._id
+                                                        ).toLocaleString(
+                                                            "en-US",
+                                                            {
+                                                                style: "currency",
+                                                                currency: "CRC",
+                                                            }
                                                         )}
                                                     </TableCell>
+
                                                     <TableCell>
                                                         <Link
                                                             to={`/facturasProveedor/${proveedor._id}`}

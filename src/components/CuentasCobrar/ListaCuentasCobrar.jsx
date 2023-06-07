@@ -133,8 +133,15 @@ const ListaCuentasCobrar = () => {
                                                     <TableCell>
                                                         {obtenertotalDeuda(
                                                             cliente._id
+                                                        ).toLocaleString(
+                                                            "en-US",
+                                                            {
+                                                                style: "currency",
+                                                                currency: "CRC",
+                                                            }
                                                         )}
                                                     </TableCell>
+
                                                     <TableCell>
                                                         <Link
                                                             to={`/facturasCliente/${cliente._id}`}
