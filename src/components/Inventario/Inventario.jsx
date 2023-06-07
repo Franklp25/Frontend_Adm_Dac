@@ -59,7 +59,7 @@ const Inventario = () => {
 
     const [consolaSeleccionada, setConsolaSeleccionada] = useState({
         nombre: "",
-        cantidad: "",
+        cantidad:"",
         precio: "",
         descripcion: "",
         categoria: "",
@@ -259,13 +259,7 @@ const Inventario = () => {
                                                     {consola.cantidad}
                                                 </TableCell>
                                                 <TableCell>
-                                                    {consola.precio.toLocaleString(
-                                                        "en-US",
-                                                        {
-                                                            style: "currency",
-                                                            currency: "CRC",
-                                                        }
-                                                    )}
+                                                    {consola.precio}
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.descripcion}

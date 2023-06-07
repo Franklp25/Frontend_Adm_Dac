@@ -291,7 +291,7 @@ const FacturasProveedor = () => {
 
         // Añadir total de facturas
         doc.text(
-            `Monto Total: ${montoTotal.toLocaleString("es-US", {
+            `Monto Total: ${montoTotal.toLocaleString("es-ES", {
                 style: "currency",
                 currency: "CRC",
             })}`,
@@ -395,7 +395,7 @@ const FacturasProveedor = () => {
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.total.toLocaleString(
-                                                        "es-US",
+                                                        "es-ES",
                                                         {
                                                             style: "currency",
                                                             currency: "CRC",
@@ -468,7 +468,7 @@ const FacturasProveedor = () => {
                                             </TableCell>
                                             <TableCell className={styles.total}>
                                                 {montoTotal.toLocaleString(
-                                                    "es-US",
+                                                    "es-ES",
                                                     {
                                                         style: "currency",
                                                         currency: "CRC",
