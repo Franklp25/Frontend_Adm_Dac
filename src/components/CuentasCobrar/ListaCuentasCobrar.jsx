@@ -85,7 +85,7 @@ const ListaCuentasCobrar = () => {
             <div className=" flex justify-end mr-10">
                 <input
                     type="text"
-                    className=" p-3 pl-10 text-base rounded-lg bg-gray-50  dark:bg-gray-500 dark:placeholder-gray-400 dark:text-white "
+                    className=" p-3 pl-10 text-base rounded-lg bg-gray-50  bg-gray-500 placeholder-gray-400 text-white "
                     placeholder="Buscar..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}

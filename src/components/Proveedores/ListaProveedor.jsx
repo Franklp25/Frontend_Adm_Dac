@@ -175,7 +175,7 @@ const ListaProveedor = () => {
                     ></path>
                 </svg>
             </button>
-            <h3 className="mb-5 uppercase font-semibold">Editar cliente</h3>
+            <h3 className="mb-5 uppercase font-semibold">Editar proveedor</h3>
             <TextField
                 name="nombre"
                 className={styles.inputMaterial}

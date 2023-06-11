@@ -95,7 +95,7 @@ const AgregaFacturasPagar = () => {
 
             <section className="">
                 <div className="flex flex-col items-center justify-center px-6 py-8">
-                    <div className="w-full rounded-2xl shadow-xl dark:border md:w-7/12 sm:w-2/3 xl:w-2/4 :2-3/">
+                    <div className="w-full rounded-2xl shadow-xl border md:w-7/12 sm:w-2/3 xl:w-2/4 :2-3/">
                         <div className="p-6 ">
                             <form
                                 className="space-y-4 grid grid-cols-1 gap-8 md:grid-cols-3"
@@ -112,7 +112,7 @@ const AgregaFacturasPagar = () => {
                                         type="number"
                                         id="numFacturaPagar"
                                         placeholder="Digite el numero de factura a ingresar"
-                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                         required=""
                                         value={numFacturaPagar}
                                         onChange={(e) => {
@@ -140,7 +140,7 @@ const AgregaFacturasPagar = () => {
                                         type="text"
                                         id="proveedor"
                                         // placeholder="Escriba cedula del cliente"
-                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                         required=""
                                         value={
                                             proveedor.nombre +
@@ -164,7 +164,7 @@ const AgregaFacturasPagar = () => {
                                         type="date"
                                         id="fechaEmision"
                                         // placeholder="Escriba nombre del cliente"
-                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                         required=""
                                         value={fechaEmision}
                                         onChange={(e) =>
@@ -184,7 +184,7 @@ const AgregaFacturasPagar = () => {
                                         type="number"
                                         id="diasCredito"
                                         // placeholder="Escriba nombre del cliente"
-                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                         required=""
                                         value={diasCredito}
                                         onChange={(e) => {
@@ -210,7 +210,7 @@ const AgregaFacturasPagar = () => {
                                         type="text"
                                         id="fechaVencimiento"
                                         // placeholder="Escriba nombre del cliente"
-                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                         value={fechaVencimiento}
                                         onChange={(e) =>
                                             setFechaVencimiento(e.target.value)
@@ -229,7 +229,7 @@ const AgregaFacturasPagar = () => {
                                         type="number"
                                         id="total"
                                         placeholder="Digite el monto de la factura"
-                                        className="border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        className="border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                         required=""
                                         step="0.01" // permite valores decimales con dos lugares decimales (centavos)
                                         value={total}
@@ -249,7 +249,7 @@ const AgregaFacturasPagar = () => {
                                 <div className=" xl:col-span-3">
                                     <button
                                         type="submit"
-                                        className=" transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full uppercase text-blue  bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                        className=" transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full uppercase text-blue  bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-green-700 hover:bg-primary-700 focus:ring-primary-800"
                                     >
                                         Guardar Factura de proveedor
                                     </button>
