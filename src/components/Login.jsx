@@ -51,7 +51,7 @@ const Login = () => {
                 >
                     <img className=" w-53 h-36 mr-2" src={logo} alt="logo" />
                 </a>
-                <div className="w-full rounded-2xl shadow dark:border md:mt-0 sm:max-w-md xl:p-0 bg-slate-300 dark:border-green-600">
+                <div className="w-full rounded-2xl shadow border md:mt-0 sm:max-w-md xl:p-0 bg-slate-300 border-green-600">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 className=" text-2xl text-center font-bold leading-tight tracking-tight md:text-2xl text-blue">
                             Inicio Sesión
@@ -94,7 +94,7 @@ const Login = () => {
                                     }
                                 />
                             </div>
-                            <div className="flex items-center justify-between">
+                            {/* <div className="flex items-center justify-between">
                                 <div className="flex items-start">
                                     <div className="flex items-center h-5">
                                         <input
@@ -116,14 +116,14 @@ const Login = () => {
                                 </div>
                                 <Link
                                     to="./olvidar-password"
-                                    className="text-sm  text-blue font-bold hover:underline dark:text-primary-500"
+                                    className="text-sm  text-blue font-bold hover:underline text-primary-500"
                                 >
                                     ¿Olvidó la contraseña?
                                 </Link>
-                            </div>
+                            </div> */}
                             <button
                                 type="submit"
-                                className="w-full text-blue bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                className="w-full text-blue bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-green-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                             >
                                 Iniciar
                             </button>
