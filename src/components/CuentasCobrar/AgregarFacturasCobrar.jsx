@@ -214,7 +214,7 @@ const AgregarFacturasCobrar = () => {
             <AddDeleteTableRows rowsData={rowsData} setRowsData={setRowsData} />
             <div className="mt-10 flex justify-center gap-4 ">
                 <button
-                    className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full md:w-1/4 uppercase text-gray-200  hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xs md:text-sm px-4 md:px-5 py-2 text-center bg-green-700 hover:bg-primary-700 focus:ring-primary-800"
+                    className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full md:w-1/4 uppercase text-gray-200 bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xs md:text-sm px-4 md:px-5 py-2 text-center bg-green-700 hover:bg-primary-700 focus:ring-primary-800"
                     onClick={handleSubmit}
                 >
                     Guardar Factura

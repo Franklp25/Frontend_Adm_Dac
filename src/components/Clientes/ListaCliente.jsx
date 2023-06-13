@@ -152,7 +152,7 @@ const ListaCliente = () => {
             <button
                 onClick={abrirCerrarModal}
                 type="button"
-                className="absolute top-3 right-2.5 text-gray-400 bg-transparent dark:hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-800 dark:hover:text-white"
+                className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-800 hover:text-white"
                 data-modal-hide="authentication-modal"
             >
                 <svg
@@ -238,7 +238,7 @@ const ListaCliente = () => {
             <div className=" flex justify-end mt-12 mr-10">
                 <input
                     type="text"
-                    className=" p-3 pl-10 text-base rounded-lg  bg-gray-500 placeholder-gray-400 text-white "
+                    className=" p-3 pl-10 text-base rounded-lg bg-gray-50  bg-gray-500 placeholder-gray-400 text-white "
                     placeholder="Buscar..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
