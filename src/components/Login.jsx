@@ -1,24 +1,21 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Alerta from "./Alerta";
 import clienteAxios from "../config/clienteAxios";
 import useAuth from "../hooks/useAuth";
 import logo from "../assets/images/Logotipo_Bio&Gen.png";
-import Spinner from "./Spinner";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [alerta, setAlerta] = useState({});
-    const [loading, setLoading] = useState(false); // <-- añade este estado
 
     const { setAuth } = useAuth();
-    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!email || !password) {
+        if ([email, password].includes("")) {
             setAlerta({
                 msg: "Todos los campos son obligatorios",
                 error: true,
@@ -27,7 +24,6 @@ const Login = () => {
         }
 
         try {
-            setLoading(true); // <-- activa el estado de carga antes de iniciar la petición
             const { data } = await clienteAxios.post("/usuarios/login", {
                 email,
                 password,
@@ -35,21 +31,19 @@ const Login = () => {
             setAlerta({});
             localStorage.setItem("token", data.token);
             setAuth(data);
-            navigate("/home");
+            window.location = "/home";
         } catch (error) {
             setAlerta({
                 msg: error.response.data.msg,
                 error: true,
             });
-        } finally {
-            setLoading(false); // <-- desactiva el estado de carga al terminar la petición
         }
     };
 
     const { msg } = alerta;
 
     return (
-        <section className="bg-gray-50 h-screen overflow-hidden">
+        <section className="bg-gray-50">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <a
                     href="#"
@@ -57,7 +51,7 @@ const Login = () => {
                 >
                     <img className=" w-53 h-36 mr-2" src={logo} alt="logo" />
                 </a>
-                <div className="w-full rounded-2xl shadow border md:mt-0 sm:max-w-md xl:p-0 bg-slate-300 border-green-600">
+                <div className="w-full rounded-2xl shadow dark:border md:mt-0 sm:max-w-md xl:p-0 bg-slate-300 dark:border-green-600">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 className=" text-2xl text-center font-bold leading-tight tracking-tight md:text-2xl text-blue">
                             Inicio Sesión
@@ -75,7 +69,7 @@ const Login = () => {
                                     type="email"
                                     name="email"
                                     id="email"
-                                    className="border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Usuario"
                                     required=""
                                     value={email}
@@ -92,7 +86,7 @@ const Login = () => {
                                     name="password"
                                     id="password"
                                     placeholder="Contraseña"
-                                    className="border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     required=""
                                     value={password}
                                     onChange={(e) =>
@@ -100,12 +94,38 @@ const Login = () => {
                                     }
                                 />
                             </div>
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-start">
+                                    <div className="flex items-center h-5">
+                                        <input
+                                            id="remember"
+                                            aria-describedby="remember"
+                                            type="checkbox"
+                                            className="w-4 h-4 border border-gray-300 rounded bg-blue focus:ring-3 focus:ring-primary-300 "
+                                            required=""
+                                        />
+                                    </div>
+                                    <div className="ml-3 text-sm">
+                                        <label
+                                            htmlFor="remember"
+                                            className="dark:text-blue font-bold"
+                                        >
+                                            Recordar
+                                        </label>
+                                    </div>
+                                </div>
+                                <Link
+                                    to="./olvidar-password"
+                                    className="text-sm  text-blue font-bold hover:underline dark:text-primary-500"
+                                >
+                                    ¿Olvidó la contraseña?
+                                </Link>
+                            </div>
                             <button
                                 type="submit"
-                                className="w-full text-blue bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-green-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                disabled={loading}
+                                className="w-full text-blue bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                             >
-                                {loading ? <Spinner /> : "Iniciar"}
+                                Iniciar
                             </button>
                             {msg && <Alerta alerta={alerta} />}
                         </form>
