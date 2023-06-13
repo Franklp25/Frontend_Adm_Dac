@@ -4,11 +4,13 @@ import Alerta from "./Alerta";
 import clienteAxios from "../config/clienteAxios";
 import useAuth from "../hooks/useAuth";
 import logo from "../assets/images/Logotipo_Bio&Gen.png";
+import Spinner from "./Spinner";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [alerta, setAlerta] = useState({});
+    const [loading, setLoading] = useState(false); // <-- añade este estado
 
     const { setAuth } = useAuth();
     const navigate = useNavigate();
@@ -25,6 +27,7 @@ const Login = () => {
         }
 
         try {
+            setLoading(true); // <-- activa el estado de carga antes de iniciar la petición
             const { data } = await clienteAxios.post("/usuarios/login", {
                 email,
                 password,
@@ -38,6 +41,8 @@ const Login = () => {
                 msg: error.response.data.msg,
                 error: true,
             });
+        } finally {
+            setLoading(false); // <-- desactiva el estado de carga al terminar la petición
         }
     };
 
@@ -98,8 +103,9 @@ const Login = () => {
                             <button
                                 type="submit"
                                 className="w-full text-blue bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-green-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                disabled={loading}
                             >
-                                Iniciar
+                                {loading ? <Spinner /> : "Iniciar"}
                             </button>
                             {msg && <Alerta alerta={alerta} />}
                         </form>
