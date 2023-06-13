@@ -230,11 +230,11 @@ const FacturasCliente = () => {
             factura.numFacturaCobrar,
             new Date(factura.fechaEmision).toLocaleDateString(),
             new Date(factura.fechaVencimiento).toLocaleDateString(),
-            factura.iva.toLocaleString("es-ES", {
+            factura.iva.toLocaleString("es-US", {
                 style: "currency",
                 currency: "CRC",
             }),
-            factura.subtotal.toLocaleString("es-ES", {
+            factura.subtotal.toLocaleString("es-US", {
                 style: "currency",
                 currency: "CRC",
             }),
@@ -281,7 +281,7 @@ const FacturasCliente = () => {
         });
 
         doc.text(
-            `Monto Total: ${montoTotal.toLocaleString("es-ES", {
+            `Monto Total: ${montoTotal.toLocaleString("es-US", {
                 style: "currency",
                 currency: "CRC",
             })}`,
@@ -383,7 +383,7 @@ const FacturasCliente = () => {
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.iva.toLocaleString(
-                                                        "es-ES",
+                                                        "es-US",
                                                         {
                                                             style: "currency",
                                                             currency: "CRC",
@@ -392,7 +392,7 @@ const FacturasCliente = () => {
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.subtotal.toLocaleString(
-                                                        "es-ES",
+                                                        "es-US",
                                                         {
                                                             style: "currency",
                                                             currency: "CRC",
@@ -403,7 +403,7 @@ const FacturasCliente = () => {
                                                     {(
                                                         consola.iva +
                                                         consola.subtotal
-                                                    ).toLocaleString("es-ES", {
+                                                    ).toLocaleString("es-US", {
                                                         style: "currency",
                                                         currency: "CRC",
                                                     })}
@@ -474,7 +474,7 @@ const FacturasCliente = () => {
                                             </TableCell>
                                             <TableCell className={styles.total}>
                                                 {montoTotal.toLocaleString(
-                                                    "es-ES",
+                                                    "es-US",
                                                     {
                                                         style: "currency",
                                                         currency: "CRC",
