@@ -79,7 +79,7 @@ const AgregarProveedor = () => {
 
             <section className="">
                 <div className="flex flex-col items-center justify-center px-6 py-8">
-                    <div className="w-full rounded-2xl shadow-xl dark:border md:w-7/12 sm:w-2/3 xl:w-2/4">
+                    <div className="w-full rounded-2xl shadow-xl border md:w-7/12 sm:w-2/3 xl:w-2/4">
                         <div className="p-6 ">
                             <form
                                 className="space-y-4 grid grid-cols-1 gap-8 md:grid-cols-2"
@@ -96,7 +96,7 @@ const AgregarProveedor = () => {
                                     <select
                                         type="text"
                                         id="tipoCedula"
-                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                         required=""
                                         value={tipoCedula}
                                         onChange={(e) =>
@@ -124,7 +124,7 @@ const AgregarProveedor = () => {
                                         type="text"
                                         id="cedula"
                                         placeholder="Escriba cedula del proveedor"
-                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                         required=""
                                         value={cedula}
                                         onChange={(e) =>
@@ -144,7 +144,7 @@ const AgregarProveedor = () => {
                                         type="text"
                                         id="nombre"
                                         placeholder="Escriba nombre del proveedor"
-                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                         required=""
                                         value={nombre}
                                         onChange={(e) =>
@@ -164,7 +164,7 @@ const AgregarProveedor = () => {
                                         type="text"
                                         id="apellidos"
                                         placeholder="Escriba apellidos del proveedor"
-                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                         required=""
                                         value={apellidos}
                                         onChange={(e) =>
@@ -184,7 +184,7 @@ const AgregarProveedor = () => {
                                         type="text"
                                         id="telefono"
                                         placeholder="Escriba numero de telefono"
-                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                         required=""
                                         value={telefono}
                                         onChange={(e) =>
@@ -205,7 +205,7 @@ const AgregarProveedor = () => {
                                         name="email"
                                         id="email"
                                         placeholder="Escriba correo electronico del proveedor"
-                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                         required=""
                                         value={email}
                                         onChange={(e) =>
@@ -226,7 +226,7 @@ const AgregarProveedor = () => {
                                             type="text"
                                             id="direccion"
                                             placeholder="Escribe direccion"
-                                            className="  border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600  w-full p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            className="  border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600  w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                             required=""
                                             value={direccion}
                                             onChange={(e) =>
@@ -235,7 +235,7 @@ const AgregarProveedor = () => {
                                         />
                                         <button
                                             type="submit"
-                                            className="max-[768px]:hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full uppercase text-blue  bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                            className="max-[768px]:hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full uppercase text-blue   hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-green-700 hover:bg-primary-700 focus:ring-primary-800"
                                         >
                                             Guardar Proveedor
                                         </button>
@@ -244,7 +244,7 @@ const AgregarProveedor = () => {
 
                                 <button
                                     type="submit"
-                                    className="md:hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full uppercase text-blue  bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                    className="md:hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full uppercase text-blue   hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-green-700 hover:bg-primary-700 focus:ring-primary-800"
                                 >
                                     Guardar Proveedor
                                 </button>

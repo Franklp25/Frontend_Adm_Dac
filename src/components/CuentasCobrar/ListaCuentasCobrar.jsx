@@ -65,14 +65,18 @@ const ListaCuentasCobrar = () => {
             });
     }, []);
 
-    const obtenertotalDeuda = (idCliente) => {
+    const obtenertotalDeudaFormateado = (idCliente) => {
         let total = 0;
         facturas.forEach((factura) => {
             if (factura.cliente == idCliente) {
                 total += factura.subtotal + factura.iva;
             }
         });
-        return total;
+        const formattedTotal = total.toLocaleString("es-US", {
+            style: "currency",
+            currency: "CRC",
+        });
+        return formattedTotal;
     };
 
     return (
@@ -85,14 +89,14 @@ const ListaCuentasCobrar = () => {
             <div className=" flex justify-end mr-10">
                 <input
                     type="text"
-                    className=" p-3 pl-10 text-base rounded-lg bg-gray-50  dark:bg-gray-500 dark:placeholder-gray-400 dark:text-white "
+                    className=" p-3 pl-10 text-base rounded-lg  bg-gray-500 placeholder-gray-400 text-white "
                     placeholder="Buscar..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
             </div>
 
-            <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
+            <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg mb-20">
                 <div className="overflow-x-auto w-full text-sm text-left">
                     <div className="w-full inline-block align-middle">
                         <div className="rounded-lg overflow-x-auto">
@@ -131,7 +135,7 @@ const ListaCuentasCobrar = () => {
                                                         {cliente.cedula}
                                                     </TableCell>
                                                     <TableCell>
-                                                        {obtenertotalDeuda(
+                                                        {obtenertotalDeudaFormateado(
                                                             cliente._id
                                                         )}
                                                     </TableCell>

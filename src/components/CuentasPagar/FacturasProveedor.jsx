@@ -245,7 +245,7 @@ const FacturasProveedor = () => {
             new Date(factura.fechaEmision).toLocaleDateString(),
             factura.diasCredito,
             new Date(factura.fechaVencimiento).toLocaleDateString(),
-            factura.total.toLocaleString("es-ES", {
+            factura.total.toLocaleString("es-US", {
                 style: "currency",
                 currency: "CRC",
             }),
@@ -291,7 +291,7 @@ const FacturasProveedor = () => {
 
         // Añadir total de facturas
         doc.text(
-            `Monto Total: ${montoTotal.toLocaleString("es-ES", {
+            `Monto Total: ${montoTotal.toLocaleString("es-US", {
                 style: "currency",
                 currency: "CRC",
             })}`,
@@ -352,7 +352,7 @@ const FacturasProveedor = () => {
                 </select>
             </div>
 
-            <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
+            <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg mb-20">
                 <div className="overflow-x-auto w-full text-sm text-left">
                     <div className="w-full inline-block align-middle">
                         <div className="rounded-lg overflow-x-auto">
@@ -395,7 +395,7 @@ const FacturasProveedor = () => {
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.total.toLocaleString(
-                                                        "es-ES",
+                                                        "es-US",
                                                         {
                                                             style: "currency",
                                                             currency: "CRC",
@@ -468,7 +468,7 @@ const FacturasProveedor = () => {
                                             </TableCell>
                                             <TableCell className={styles.total}>
                                                 {montoTotal.toLocaleString(
-                                                    "es-ES",
+                                                    "es-US",
                                                     {
                                                         style: "currency",
                                                         currency: "CRC",

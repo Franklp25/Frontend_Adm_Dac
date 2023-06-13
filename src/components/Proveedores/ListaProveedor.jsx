@@ -175,7 +175,7 @@ const ListaProveedor = () => {
                     ></path>
                 </svg>
             </button>
-            <h3 className="mb-5 uppercase font-semibold">Editar cliente</h3>
+            <h3 className="mb-5 uppercase font-semibold">Editar proveedor</h3>
             <TextField
                 name="nombre"
                 className={styles.inputMaterial}
@@ -251,7 +251,7 @@ const ListaProveedor = () => {
                     onChange={(e) => setSearch(e.target.value)}
                 />
             </div>
-            <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
+            <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg mb-20">
                 <div className="overflow-x-auto w-full text-sm text-left">
                     <div className="w-full inline-block align-middle">
                         <div className="rounded-lg overflow-x-auto">

@@ -59,7 +59,7 @@ const Inventario = () => {
 
     const [consolaSeleccionada, setConsolaSeleccionada] = useState({
         nombre: "",
-        cantidad:"",
+        cantidad: "",
         precio: "",
         descripcion: "",
         categoria: "",
@@ -225,7 +225,7 @@ const Inventario = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
+            <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg mb-20">
                 <div className="overflow-x-auto w-full text-sm text-left">
                     <div className="w-full inline-block align-middle">
                         <div className="rounded-lg overflow-x-auto">
@@ -259,7 +259,13 @@ const Inventario = () => {
                                                     {consola.cantidad}
                                                 </TableCell>
                                                 <TableCell>
-                                                    {consola.precio}
+                                                    {consola.precio.toLocaleString(
+                                                        "es-US",
+                                                        {
+                                                            style: "currency",
+                                                            currency: "CRC",
+                                                        }
+                                                    )}
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.descripcion}

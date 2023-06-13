@@ -143,7 +143,7 @@ const AgregarFacturasCobrar = () => {
                         <input
                             type="text"
                             id="numFactura"
-                            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block md:w-48 p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-auto"
+                            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block md:w-48 p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mx-auto"
                             required
                             value={numFacturaCobrar}
                             onChange={(e) => {
@@ -167,7 +167,7 @@ const AgregarFacturasCobrar = () => {
                         <input
                             type="date"
                             id="fechaEmision"
-                            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block md:w-48 p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-auto"
+                            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block md:w-48 p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mx-auto"
                             required=""
                             value={fechaEmision}
                             onChange={(e) => setFechaEmision(e.target.value)}
@@ -183,7 +183,7 @@ const AgregarFacturasCobrar = () => {
                         <input
                             type="number"
                             id="diasCredito"
-                            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block md:w-48 p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-auto"
+                            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block md:w-48 p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mx-auto"
                             required=""
                             value={diasCredito}
                             onChange={(e) => setDiasCredito(e.target.value)}
@@ -199,7 +199,7 @@ const AgregarFacturasCobrar = () => {
                         <input
                             type="text"
                             id="fechaVencimiento"
-                            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block md:w-48 p-2.5 dark:bg-blue dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mx-auto"
+                            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block md:w-48 p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 mx-auto"
                             required=""
                             value={fechaVencimiento}
                             onChange={(e) =>
@@ -214,7 +214,7 @@ const AgregarFacturasCobrar = () => {
             <AddDeleteTableRows rowsData={rowsData} setRowsData={setRowsData} />
             <div className="mt-10 flex justify-center gap-4 ">
                 <button
-                    className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full md:w-1/4 uppercase text-gray-200 bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xs md:text-sm px-4 md:px-5 py-2 text-center dark:bg-green-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full md:w-1/4 uppercase text-gray-200  hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xs md:text-sm px-4 md:px-5 py-2 text-center bg-green-700 hover:bg-primary-700 focus:ring-primary-800"
                     onClick={handleSubmit}
                 >
                     Guardar Factura

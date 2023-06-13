@@ -64,16 +64,20 @@ const ListaCuentasPagar = () => {
             });
     }, []);
 
-    const obtenertotalDeuda = (idProveedor) => {
+    const obtenertotalDeudaFormateado = (idProveedor) => {
         let total = 0;
-        // console.log(facturasPagar);
         facturasPagar.forEach((factura) => {
             if (factura.proveedor == idProveedor) {
                 total += factura.total;
             }
         });
-        return total;
+        const formattedTotal = total.toLocaleString("es-US", {
+            style: "currency",
+            currency: "CRC",
+        });
+        return formattedTotal;
     };
+    
 
     return (
         <>
@@ -91,7 +95,7 @@ const ListaCuentasPagar = () => {
                 />
             </div>
 
-            <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
+            <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg mb-20">
                 <div className="overflow-x-auto w-full text-sm text-left">
                     <div className="w-full inline-block align-middle">
                         <div className="rounded-lg overflow-x-auto">
@@ -130,7 +134,7 @@ const ListaCuentasPagar = () => {
                                                         {proveedor.cedula}
                                                     </TableCell>
                                                     <TableCell>
-                                                        {obtenertotalDeuda(
+                                                        {obtenertotalDeudaFormateado(
                                                             proveedor._id
                                                         )}
                                                     </TableCell>

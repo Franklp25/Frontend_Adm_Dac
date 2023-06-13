@@ -230,11 +230,11 @@ const FacturasCliente = () => {
             factura.numFacturaCobrar,
             new Date(factura.fechaEmision).toLocaleDateString(),
             new Date(factura.fechaVencimiento).toLocaleDateString(),
-            factura.iva.toLocaleString("es-ES", {
+            factura.iva.toLocaleString("es-US", {
                 style: "currency",
                 currency: "CRC",
             }),
-            factura.subtotal.toLocaleString("es-ES", {
+            factura.subtotal.toLocaleString("es-US", {
                 style: "currency",
                 currency: "CRC",
             }),
@@ -281,7 +281,7 @@ const FacturasCliente = () => {
         });
 
         doc.text(
-            `Monto Total: ${montoTotal.toLocaleString("es-ES", {
+            `Monto Total: ${montoTotal.toLocaleString("es-US", {
                 style: "currency",
                 currency: "CRC",
             })}`,
@@ -323,7 +323,7 @@ const FacturasCliente = () => {
                         to={`/agregarFacturasCobrar/${params.id}`}
                         className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2  text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold"
                     >
-                        Agregar Factura Proveedor
+                        Agregar factura cliente
                     </Link>
                 </div>
             </div>
@@ -341,7 +341,7 @@ const FacturasCliente = () => {
                 </select>
             </div>
 
-            <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg">
+            <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg mb-20">
                 <div className="overflow-x-auto w-full text-sm text-left">
                     <div className="w-full inline-block align-middle">
                         <div className="rounded-lg overflow-x-auto">
@@ -383,7 +383,7 @@ const FacturasCliente = () => {
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.iva.toLocaleString(
-                                                        "es-ES",
+                                                        "es-US",
                                                         {
                                                             style: "currency",
                                                             currency: "CRC",
@@ -392,7 +392,7 @@ const FacturasCliente = () => {
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.subtotal.toLocaleString(
-                                                        "es-ES",
+                                                        "es-US",
                                                         {
                                                             style: "currency",
                                                             currency: "CRC",
@@ -403,7 +403,7 @@ const FacturasCliente = () => {
                                                     {(
                                                         consola.iva +
                                                         consola.subtotal
-                                                    ).toLocaleString("es-ES", {
+                                                    ).toLocaleString("es-US", {
                                                         style: "currency",
                                                         currency: "CRC",
                                                     })}
@@ -474,7 +474,7 @@ const FacturasCliente = () => {
                                             </TableCell>
                                             <TableCell className={styles.total}>
                                                 {montoTotal.toLocaleString(
-                                                    "es-ES",
+                                                    "es-US",
                                                     {
                                                         style: "currency",
                                                         currency: "CRC",
