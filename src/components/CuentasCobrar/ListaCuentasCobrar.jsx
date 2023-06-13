@@ -65,14 +65,18 @@ const ListaCuentasCobrar = () => {
             });
     }, []);
 
-    const obtenertotalDeuda = (idCliente) => {
+    const obtenertotalDeudaFormateado = (idCliente) => {
         let total = 0;
         facturas.forEach((factura) => {
             if (factura.cliente == idCliente) {
                 total += factura.subtotal + factura.iva;
             }
         });
-        return total;
+        const formattedTotal = total.toLocaleString("es-US", {
+            style: "currency",
+            currency: "CRC",
+        });
+        return formattedTotal;
     };
 
     return (
@@ -131,7 +135,7 @@ const ListaCuentasCobrar = () => {
                                                         {cliente.cedula}
                                                     </TableCell>
                                                     <TableCell>
-                                                        {obtenertotalDeuda(
+                                                        {obtenertotalDeudaFormateado(
                                                             cliente._id
                                                         )}
                                                     </TableCell>
