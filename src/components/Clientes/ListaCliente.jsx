@@ -111,17 +111,23 @@ const ListaCliente = () => {
             });
     };
 
-    const peticionDelete = async () => {
+    const peticionDelete = async (eliminarID) => {
         await clienteAxios
-            .delete(`/clientes/${consolaSeleccionada._id}`, consolaSeleccionada)
+            .delete(`/clientes/${eliminarID._id}`, consolaSeleccionada)
             .then((response) => {
-                var dataNueva = clientes;
+                var dataNueva = clientes.filter((consola) => {
+                    // Verifica si el ID del cliente es igual al ID del cliente seleccionado
+                    if (eliminarID._id === consola._id) {
+                        return false; // Excluye el elemento del nuevo array
+                    }
+                    return true; // Incluye el elemento en el nuevo array
+                });
                 setClientes(dataNueva);
             });
     };
 
-    //Confirma mediante sweetAlert si se desea eliminar el elemento
-    const confirmarDelete = async () => {
+    const confirmarDelete = async (consola) => {
+        console.log("Consola seleccionada: "+consola._id)
         Swal.fire({
             title: "¿Deseas eliminar este Cliente?",
             // text: "You won't be able to revert this!",
@@ -132,7 +138,7 @@ const ListaCliente = () => {
             confirmButtonText: "Si, Eliminar!",
         }).then(async (result) => {
             if (result.isConfirmed) {
-                peticionDelete();
+                peticionDelete(consola);
             }
         });
     };
@@ -144,7 +150,7 @@ const ListaCliente = () => {
     const seleccionarConsola = (consola, caso) => {
         setConsolaSeleccionada(consola);
         caso === "Editar" ? setModalEditar(true) : "";
-        caso === "Eliminar" ? confirmarDelete() : "";
+        caso === "Eliminar" ? confirmarDelete(consola) : "";
     };
 
     const bodyEditar = (
@@ -274,7 +280,7 @@ const ListaCliente = () => {
                                                     )
                                             )
                                             .map((consola) => (
-                                                <TableRow key={consola.id}>
+                                                <TableRow key={consola._id}>
                                                     <TableCell>
                                                         {consola.tipoCedula}
                                                     </TableCell>
