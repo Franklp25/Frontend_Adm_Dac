@@ -114,33 +114,48 @@ const ListaProveedor = () => {
             });
     };
 
-    const peticionDelete = async () => {
-        await clienteAxios
-            .delete(
-                `/proveedor/${consolaSeleccionada._id}`,
+    const peticionDelete = async (eliminarID) => {
+        try {
+            await clienteAxios.delete(
+                `/proveedor/${eliminarID._id}`,
                 consolaSeleccionada
-            )
-            .then((response) => {
-                var dataNueva = clientes;
-                setProveedor(dataNueva);
+            );
+            var dataNueva = proveedor.filter((consola) => {
+                if (eliminarID._id === consola._id) {
+                    return false;
+                }
+                return true;
             });
+            setProveedor(dataNueva);
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: JSON.stringify(error.response.data.msg),
+                // text: "Digite un nuevo número de cédula",
+            });
+        }
     };
 
     //Confirma mediante sweetAlert si se desea eliminar el elemento
-    const confirmarDelete = async () => {
-        Swal.fire({
-            title: "¿Deseas eliminar este Proveedor?",
-            // text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Si, Eliminar!",
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                peticionDelete();
-            }
-        });
+    const confirmarDelete = async (consola) => {
+        try {
+            Swal.fire({
+                title: "¿Deseas eliminar este Proveedor?",
+                // text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, Eliminar!",
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    peticionDelete(consola);
+                } else {
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const abrirCerrarModal = () => {
@@ -150,7 +165,7 @@ const ListaProveedor = () => {
     const seleccionarConsola = (consola, caso) => {
         setConsolaSeleccionada(consola);
         caso === "Editar" ? setModalEditar(true) : "";
-        caso === "Eliminar" ? confirmarDelete() : "";
+        caso === "Eliminar" ? confirmarDelete(consola) : "";
     };
 
     const bodyEditar = (
@@ -280,7 +295,7 @@ const ListaProveedor = () => {
                                                     )
                                             )
                                             .map((consola) => (
-                                                <TableRow key={consola.id}>
+                                                <TableRow key={consola._id}>
                                                     <TableCell>
                                                         {consola.tipoCedula}
                                                     </TableCell>

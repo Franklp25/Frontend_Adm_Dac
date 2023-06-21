@@ -1,4 +1,4 @@
-import { useState, useEffect, button } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../Navbar";
 import Alerta from "../Alerta";
@@ -6,7 +6,6 @@ import clienteAxios from "../../config/clienteAxios";
 import EditModal from "../modales/EditModal";
 import axios from "axios";
 import { makeStyles } from "@mui/styles";
-//import { makeStyles } from "@material-ui/core";
 import {
     Table,
     TableHead,
@@ -111,30 +110,48 @@ const ListaCliente = () => {
             });
     };
 
-    const peticionDelete = async () => {
-        await clienteAxios
-            .delete(`/clientes/${consolaSeleccionada._id}`, consolaSeleccionada)
-            .then((response) => {
-                var dataNueva = clientes;
-                setClientes(dataNueva);
+    const peticionDelete = async (eliminarID) => {
+        try {
+            await clienteAxios.delete(
+                `/clientes/${eliminarID._id}`,
+                consolaSeleccionada
+            );
+            var dataNueva = clientes.filter((consola) => {
+                if (eliminarID._id === consola._id) {
+                    return false;
+                }
+                return true;
             });
+            setClientes(dataNueva);
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: JSON.stringify(error.response.data.msg),
+                // text: "Digite un nuevo número de cédula",
+            });
+        }
     };
 
-    //Confirma mediante sweetAlert si se desea eliminar el elemento
-    const confirmarDelete = async () => {
-        Swal.fire({
-            title: "¿Deseas eliminar este Cliente?",
-            // text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Si, Eliminar!",
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                peticionDelete();
-            }
-        });
+    const confirmarDelete = async (consola) => {
+        console.log("Consola seleccionada: " + consola._id);
+        try {
+            Swal.fire({
+                title: "¿Deseas eliminar este Cliente?",
+                // text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, Eliminar!",
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    peticionDelete(consola);
+                } else {
+                }
+            });
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     const abrirCerrarModal = () => {
@@ -144,7 +161,7 @@ const ListaCliente = () => {
     const seleccionarConsola = (consola, caso) => {
         setConsolaSeleccionada(consola);
         caso === "Editar" ? setModalEditar(true) : "";
-        caso === "Eliminar" ? confirmarDelete() : "";
+        caso === "Eliminar" ? confirmarDelete(consola) : "";
     };
 
     const bodyEditar = (
@@ -274,7 +291,7 @@ const ListaCliente = () => {
                                                     )
                                             )
                                             .map((consola) => (
-                                                <TableRow key={consola.id}>
+                                                <TableRow key={consola._id}>
                                                     <TableCell>
                                                         {consola.tipoCedula}
                                                     </TableCell>
@@ -327,17 +344,14 @@ const ListaCliente = () => {
                                     </TableBody>
                                 </Table>
                             </TableContainer>
-
-                            <Modal
-                                open={modalEditar}
-                                onClose={abrirCerrarModal}
-                            >
-                                {bodyEditar}
-                            </Modal>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <Modal open={modalEditar} onClose={abrirCerrarModal}>
+                {bodyEditar}
+            </Modal>
         </>
     );
 };

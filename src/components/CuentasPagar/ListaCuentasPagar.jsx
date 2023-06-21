@@ -124,7 +124,7 @@ const ListaCuentasPagar = () => {
                                                     )
                                             )
                                             .map((proveedor) => (
-                                                <TableRow>
+                                                <TableRow key={proveedor._id}>
                                                     <TableCell>
                                                         {proveedor.nombre +
                                                             " " +
