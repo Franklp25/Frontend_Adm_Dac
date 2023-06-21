@@ -378,18 +378,20 @@ const FacturasCliente = () => {
                         consolaSeleccionada &&
                         consolaSeleccionada.numFacturaCobrar
                     }
-                    InputProps={{ notched: false }}
+                    InputProps={{ readOnly: true, notched: false }}
                 />
+
                 <TextField
                     name="fechaEmision"
                     className={styles.inputMaterial}
                     label="Fecha de emisión"
                     onChange={handleChange}
-                    value={
-                        consolaSeleccionada && consolaSeleccionada.fechaEmision
-                    }
-                    InputProps={{ notched: false }}
+                    value={new Date(
+                        consolaSeleccionada.fechaVencimiento
+                    ).toLocaleDateString()}
+                    InputProps={{ readOnly: true, notched: false }}
                 />
+
                 <TextField
                     name="diasCredito"
                     className={styles.inputMaterial}
@@ -398,7 +400,7 @@ const FacturasCliente = () => {
                     value={
                         consolaSeleccionada && consolaSeleccionada.diasCredito
                     }
-                    InputProps={{ notched: false }}
+                    InputProps={{ readOnly: true, notched: false }}
                 />
             </div>
             {consolaSeleccionada && consolaSeleccionada.pagoParciales && (

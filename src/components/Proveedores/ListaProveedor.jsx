@@ -115,35 +115,47 @@ const ListaProveedor = () => {
     };
 
     const peticionDelete = async (eliminarID) => {
-        await clienteAxios
-            .delete(`/proveedor/${eliminarID._id}`, consolaSeleccionada)
-            .then((response) => {
-                var dataNueva = proveedor.filter((consola) => {
-                    // Verifica si el ID del cliente es igual al ID del cliente seleccionado
-                    if (eliminarID._id === consola._id) {
-                        return false; // Excluye el elemento del nuevo array
-                    }
-                    return true; // Incluye el elemento en el nuevo array
-                });
-                setProveedor(dataNueva);
+        try {
+            await clienteAxios.delete(
+                `/proveedor/${eliminarID._id}`,
+                consolaSeleccionada
+            );
+            var dataNueva = proveedor.filter((consola) => {
+                if (eliminarID._id === consola._id) {
+                    return false;
+                }
+                return true;
             });
+            setProveedor(dataNueva);
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: JSON.stringify(error.response.data.msg),
+                // text: "Digite un nuevo número de cédula",
+            });
+        }
     };
 
     //Confirma mediante sweetAlert si se desea eliminar el elemento
     const confirmarDelete = async (consola) => {
-        Swal.fire({
-            title: "¿Deseas eliminar este Proveedor?",
-            // text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Si, Eliminar!",
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                peticionDelete(consola);
-            }
-        });
+        try {
+            Swal.fire({
+                title: "¿Deseas eliminar este Proveedor?",
+                // text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, Eliminar!",
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    peticionDelete(consola);
+                } else {
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const abrirCerrarModal = () => {
