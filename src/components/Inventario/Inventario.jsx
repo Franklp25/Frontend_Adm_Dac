@@ -59,7 +59,7 @@ const Inventario = () => {
 
     const [consolaSeleccionada, setConsolaSeleccionada] = useState({
         nombre: "",
-        cantidad:"",
+        cantidad: "",
         precio: "",
         descripcion: "",
         categoria: "",
@@ -245,7 +245,7 @@ const Inventario = () => {
 
                                     <TableBody>
                                         {productos.map((consola) => (
-                                            <TableRow key={consola.id}>
+                                            <TableRow key={consola._id}>
                                                 <TableCell>
                                                     {consola.codigo}
                                                 </TableCell>
@@ -259,7 +259,13 @@ const Inventario = () => {
                                                     {consola.cantidad}
                                                 </TableCell>
                                                 <TableCell>
-                                                    {consola.precio}
+                                                    {consola.precio.toLocaleString(
+                                                        "es-US",
+                                                        {
+                                                            style: "currency",
+                                                            currency: "CRC",
+                                                        }
+                                                    )}
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.descripcion}

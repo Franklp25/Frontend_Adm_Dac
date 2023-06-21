@@ -26,18 +26,17 @@ import "jspdf-autotable";
 
 const useStyles = makeStyles({
     modal: {
-        position: "absolute",
-        width: 400,
-        background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-        border: 0,
-        borderRadius: 3,
-        boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-        color: "white",
-        height: 48,
-        padding: "0 30px",
+        position: "relative",
+        width: 600,
+        height: 570,
+        padding: 20,
+        paddingBottom: 2,
+        backgroundColor: "white",
+        borderRadius: "0.5rem",
         top: "50%",
         left: "50%",
         transform: "translate(-50%,-50%)",
+        boxShadow: " 0 25px 50px -12px rgb(0 0 0 / 0.25)",
     },
     iconos: {
         cursor: "pointer",
@@ -45,6 +44,14 @@ const useStyles = makeStyles({
     inputMaterial: {
         padding: "15px",
         width: "100%",
+        marginBottom: "5px",
+    },
+    boton: {
+        color: "white",
+        backgroundColor: "green",
+        "&:hover": {
+            backgroundColor: "gray",
+        },
     },
 });
 
@@ -148,17 +155,23 @@ const FacturasCliente = () => {
             });
     };
 
-    const peticionDelete = async () => {
+    const peticionDelete = async (eliminarID) => {
         await clienteAxios
-            .delete(`/clientes/${consolaSeleccionada._id}`, consolaSeleccionada)
+            .delete(`/clientes/${eliminarID._id}`, consolaSeleccionada)
             .then((response) => {
-                var dataNueva = clientes;
+                var dataNueva = facturas.filter((consola) => {
+                    if (eliminarID._id === consola._id) {
+                        return false;
+                    }
+                    return true;
+                });
                 setClientes(dataNueva);
             });
     };
 
     //Confirma mediante sweetAlert si se desea eliminar el elemento
-    const confirmarDelete = async () => {
+    const confirmarDelete = async (consola) => {
+        console.log("consola seleccionada" + consola._id);
         Swal.fire({
             title: "¿Deseas eliminar este Cliente?",
             // text: "You won't be able to revert this!",
@@ -169,7 +182,7 @@ const FacturasCliente = () => {
             confirmButtonText: "Si, Eliminar!",
         }).then(async (result) => {
             if (result.isConfirmed) {
-                peticionDelete();
+                peticionDelete(consola);
             }
         });
     };
@@ -181,7 +194,7 @@ const FacturasCliente = () => {
     const seleccionarConsola = (consola, caso) => {
         setConsolaSeleccionada(consola);
         caso === "Editar" ? setModalEditar(true) : "";
-        caso === "Eliminar" ? confirmarDelete() : "";
+        caso === "Eliminar" ? confirmarDelete(consola) : "";
     };
     useEffect(() => {
         // Obtener los datos desde el servidor utilizando axios
@@ -230,11 +243,11 @@ const FacturasCliente = () => {
             factura.numFacturaCobrar,
             new Date(factura.fechaEmision).toLocaleDateString(),
             new Date(factura.fechaVencimiento).toLocaleDateString(),
-            factura.iva.toLocaleString("es-ES", {
+            factura.iva.toLocaleString("es-US", {
                 style: "currency",
                 currency: "CRC",
             }),
-            factura.subtotal.toLocaleString("es-ES", {
+            factura.subtotal.toLocaleString("es-US", {
                 style: "currency",
                 currency: "CRC",
             }),
@@ -281,7 +294,7 @@ const FacturasCliente = () => {
         });
 
         doc.text(
-            `Monto Total: ${montoTotal.toLocaleString("es-ES", {
+            `Monto Total: ${montoTotal.toLocaleString("es-US", {
                 style: "currency",
                 currency: "CRC",
             })}`,
@@ -311,6 +324,146 @@ const FacturasCliente = () => {
         setMontoTotal(totalMonto);
     }, [facturasFiltradas]);
 
+    
+    // Función para agregar una nueva fila a la lista de pagos parciales
+    const agregarFila = () => {
+        const nuevoPagoParcial = { fecha: "", monto: "" };
+        setConsolaSeleccionada((prevState) => ({
+            ...prevState,
+            pagoParciales: [...prevState.pagoParciales, nuevoPagoParcial],
+        }));
+    };
+
+    // Función para eliminar una fila de la lista de pagos parciales
+    const eliminarFila = (index) => {
+        setConsolaSeleccionada((prevState) => {
+            const nuevosPagosParciales = prevState.pagoParciales.filter(
+                (_, i) => i !== index
+            );
+            return { ...prevState, pagoParciales: nuevosPagosParciales };
+        });
+    };
+
+    const bodyEditar = (
+        <div className={styles.modal}>
+            <button
+                onClick={abrirCerrarModal}
+                type="button"
+                className="absolute top-3 right-2.5 text-gray-400 bg-transparent dark:hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-800 dark:hover:text-white"
+                data-modal-hide="authentication-modal"
+            >
+                <svg
+                    aria-hidden="true"
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        fillRule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                    ></path>
+                </svg>
+            </button>
+            <h3 className="mb-5 uppercase font-semibold">
+                Agregar pagos parciales
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+                <TextField
+                    name="numFacturaCobrar"
+                    className={styles.inputMaterial}
+                    label="Número de factura a cobrar"
+                    onChange={handleChange}
+                    value={
+                        consolaSeleccionada &&
+                        consolaSeleccionada.numFacturaCobrar
+                    }
+                    InputProps={{ notched: false }}
+                />
+                <TextField
+                    name="fechaEmision"
+                    className={styles.inputMaterial}
+                    label="Fecha de emisión"
+                    onChange={handleChange}
+                    value={
+                        consolaSeleccionada && consolaSeleccionada.fechaEmision
+                    }
+                    InputProps={{ notched: false }}
+                />
+                <TextField
+                    name="diasCredito"
+                    className={styles.inputMaterial}
+                    label="Días de crédito"
+                    onChange={handleChange}
+                    value={
+                        consolaSeleccionada && consolaSeleccionada.diasCredito
+                    }
+                    InputProps={{ notched: false }}
+                />
+            </div>
+            {consolaSeleccionada && consolaSeleccionada.pagoParciales && (
+                <div className="my-4">
+                    <h4 className="mb-2 font-semibold">Pagos parciales</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Monto</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {consolaSeleccionada.pagoParciales.map(
+                                (pago, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            <TextField
+                                                name={`pagoParciales[${index}].fecha`}
+                                                className={styles.inputMaterial}
+                                                value={pago.fecha}
+                                                onChange={handleChange}
+                                                InputProps={{ notched: false }}
+                                            />
+                                        </td>
+                                        <td>
+                                            <TextField
+                                                name={`pagoParciales[${index}].monto`}
+                                                className={styles.inputMaterial}
+                                                value={pago.monto}
+                                                onChange={handleChange}
+                                                InputProps={{ notched: false }}
+                                            />
+                                        </td>
+                                        <td>
+                                            <Button
+                                                className={styles.botonEliminar}
+                                                onClick={() =>
+                                                    eliminarFila(index)
+                                                }
+                                            >
+                                                Eliminar
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                )
+                            )}
+                        </tbody>
+                    </table>
+                    <Button
+                        className={styles.botonAgregar}
+                        onClick={agregarFila}
+                    >
+                        Agregar fila
+                    </Button>
+                    <Button className={styles.boton} onClick={peticionPut}>
+                        Editar
+                    </Button>
+                </div>
+            )}
+        </div>
+    );
+
     return (
         <>
             <Navbar />
@@ -323,7 +476,7 @@ const FacturasCliente = () => {
                         to={`/agregarFacturasCobrar/${params.id}`}
                         className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2  text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold"
                     >
-                        Agregar Factura Cliente
+                        Agregar factura cliente
                     </Link>
                 </div>
             </div>
@@ -366,7 +519,7 @@ const FacturasCliente = () => {
 
                                     <TableBody>
                                         {facturasFiltradas.map((consola) => (
-                                            <TableRow key={consola.id}>
+                                            <TableRow key={consola._id}>
                                                 <TableCell>
                                                     {consola.numFacturaCobrar ||
                                                         "N.A"}
@@ -383,7 +536,7 @@ const FacturasCliente = () => {
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.iva.toLocaleString(
-                                                        "es-ES",
+                                                        "es-US",
                                                         {
                                                             style: "currency",
                                                             currency: "CRC",
@@ -392,7 +545,7 @@ const FacturasCliente = () => {
                                                 </TableCell>
                                                 <TableCell>
                                                     {consola.subtotal.toLocaleString(
-                                                        "es-ES",
+                                                        "es-US",
                                                         {
                                                             style: "currency",
                                                             currency: "CRC",
@@ -403,7 +556,7 @@ const FacturasCliente = () => {
                                                     {(
                                                         consola.iva +
                                                         consola.subtotal
-                                                    ).toLocaleString("es-ES", {
+                                                    ).toLocaleString("es-US", {
                                                         style: "currency",
                                                         currency: "CRC",
                                                     })}
@@ -474,7 +627,7 @@ const FacturasCliente = () => {
                                             </TableCell>
                                             <TableCell className={styles.total}>
                                                 {montoTotal.toLocaleString(
-                                                    "es-ES",
+                                                    "es-US",
                                                     {
                                                         style: "currency",
                                                         currency: "CRC",
@@ -487,12 +640,14 @@ const FacturasCliente = () => {
                                 </Table>
                             </TableContainer>
 
-                            {/* <Modal
-                                open={modalEditar}
-                                onClose={abrirCerrarModal}
-                            >
-                                {bodyEditar}
-                            </Modal> */}
+                            {
+                                <Modal
+                                    open={modalEditar}
+                                    onClose={abrirCerrarModal}
+                                >
+                                    {bodyEditar}
+                                </Modal>
+                            }
                         </div>
                     </div>
                 </div>

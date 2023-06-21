@@ -91,7 +91,7 @@ function AddDeleteTableRows({ rowsData, setRowsData }) {
             setTotal(totalAux);
         } else {
             setTotal(0);
-            setSubTotal(0)
+            setSubTotal(0);
         }
     }, [rowsData]);
 
@@ -136,10 +136,22 @@ function AddDeleteTableRows({ rowsData, setRowsData }) {
                         </table>
                     </div>
                     <div className="flex justify-center mt-4">
-                        <p className="text-xl font-bold">Subtotal: {subTotal}</p>
+                        <p className="text-xl font-bold">
+                            Subtotal:{" "}
+                            {subTotal.toLocaleString("es-US", {
+                                style: "currency",
+                                currency: "CRC",
+                            })}
+                        </p>
                     </div>
                     <div className="flex justify-center mt-4">
-                        <p className="text-xl font-bold">Total: {total}</p>
+                        <p className="text-xl font-bold">
+                            Total:{" "}
+                            {total.toLocaleString("es-US", {
+                                style: "currency",
+                                currency: "CRC",
+                            })}
+                        </p>
                     </div>
 
                     <div className="mt-4 flex">
