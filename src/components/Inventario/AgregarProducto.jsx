@@ -128,7 +128,6 @@ const AgregarProducto = () => {
                                         onChange={(e) =>
                                             setNombre(e.target.value)
                                         }
-                                        maxLength={30} // Límite de 30 caracteres para nombre
                                     />
                                 </div>
                                 <div className="md:col-span-1">
@@ -145,9 +144,9 @@ const AgregarProducto = () => {
                                         onChange={(e) =>
                                             setUnidadMedida(e.target.value)
                                         }
-                                        className="text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                                        className=" text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-gray-400 focus:ring-blue-500 focus:border-blue-500"
                                     >
-                                        <option value="">
+                                        <option selected>
                                             Unidad de Medida
                                         </option>
                                         <option value="Kg">Kilogramo</option>

@@ -125,7 +125,7 @@ const ListaCuentasCobrar = () => {
                                                     )
                                             )
                                             .map((cliente) => (
-                                                <TableRow key={cliente._id}>
+                                                <TableRow>
                                                     <TableCell>
                                                         {cliente.nombre +
                                                             " " +

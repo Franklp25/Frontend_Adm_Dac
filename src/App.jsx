@@ -18,7 +18,7 @@ import {
     FacturasProveedor,
     AgregarProducto,
     Inventario,
-    ListarEstadisticas,
+    ListarEstadisticas
 } from "./components";
 
 import { Routes, Route, BrowserRouter } from "react-router-dom";
@@ -32,79 +32,79 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Login />} />
                         <Route
-                            path="/olvidar-password"
+                            path="olvidar-password"
                             element={<OlvidePassword />}
                         />
+
                         <Route
-                            path="/olvidar-password/:token"
+                            path="olvidar-password/:token"
                             element={<NuevoPassword />}
                         />
                         <Route
-                            path="/confirmar/:id"
+                            path="confirmar/:id"
                             element={<ConfirmarCuenta />}
                         />
                     </Routes>
                     <Protected>
                         <Routes>
-                            <Route path="/home" element={<Home />} />
+                            <Route path="home" element={<Home />} />
                             <Route
-                                path="/agregarCliente"
+                                path="agregarCliente"
                                 element={<AgregarCliente />}
                             />
                             <Route
-                                path="/listaCliente"
+                                path="listaCliente"
                                 element={<ListaCliente />}
                             />
 
                             {/* Proveedores */}
                             <Route
-                                path="/agregarProveedor"
+                                path="agregarProveedor"
                                 element={<AgregarProveedor />}
                             />
                             <Route
-                                path="/listaProveedor"
+                                path="listaProveedor"
                                 element={<ListaProveedor />}
                             />
 
                             {/* Cuentas Por Cobrar */}
                             <Route
-                                path="/agregarFacturasCobrar/:id"
+                                path="agregarFacturasCobrar/:id"
                                 element={<AgregarFacturasCobrar />}
                             />
                             <Route
-                                path="/listaCuentasCobrar"
+                                path="listaCuentasCobrar"
                                 element={<ListaCuentasCobrar />}
                             />
                             <Route
-                                path="/facturasCliente/:id"
+                                path="facturasCliente/:id"
                                 element={<FacturasCliente />}
                             />
 
                             {/* Cuentas Por Pagar */}
                             <Route
-                                path="/agregarFacturasPagar/:id"
+                                path="agregarFacturasPagar/:id"
                                 element={<AgregaFacturasPagar />}
                             />
                             <Route
-                                path="/listaCuentasPagar"
+                                path="listaCuentasPagar"
                                 element={<ListaCuentasPagar />}
                             />
                             <Route
-                                path="/facturasProveedor/:id"
+                                path="facturasProveedor/:id"
                                 element={<FacturasProveedor />}
                             />
 
                             {/* Inventario */}
                             <Route
-                                path="/agregarProducto"
+                                path="agregarProducto"
                                 element={<AgregarProducto />}
                             />
-                            <Route
-                                path="/inventario"
-                                element={<Inventario />}
-                            />
+                            <Route path="inventario" element={<Inventario />} />
 
-                            <Route path="/registrar" element={<Registrar />} />
+                            <Route path="registrar" element={<Registrar />} />
+
+
                         </Routes>
                     </Protected>
 

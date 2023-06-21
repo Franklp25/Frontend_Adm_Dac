@@ -245,7 +245,7 @@ const Inventario = () => {
 
                                     <TableBody>
                                         {productos.map((consola) => (
-                                            <TableRow key={consola._id}>
+                                            <TableRow key={consola.id}>
                                                 <TableCell>
                                                     {consola.codigo}
                                                 </TableCell>

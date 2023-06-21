@@ -376,7 +376,7 @@ const FacturasProveedor = () => {
 
                                     <TableBody>
                                         {facturasFiltradas.map((consola) => (
-                                            <TableRow key={consola._id}>
+                                            <TableRow key={consola.id}>
                                                 <TableCell>
                                                     {consola.numFacturaPagar}
                                                 </TableCell>
