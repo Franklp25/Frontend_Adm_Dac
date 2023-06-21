@@ -324,7 +324,6 @@ const FacturasCliente = () => {
         setMontoTotal(totalMonto);
     }, [facturasFiltradas]);
 
-    
     // Función para agregar una nueva fila a la lista de pagos parciales
     const agregarFila = () => {
         const nuevoPagoParcial = { fecha: "", monto: "" };
@@ -405,51 +404,63 @@ const FacturasCliente = () => {
             {consolaSeleccionada && consolaSeleccionada.pagoParciales && (
                 <div className="my-4">
                     <h4 className="mb-2 font-semibold">Pagos parciales</h4>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Monto</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {consolaSeleccionada.pagoParciales.map(
-                                (pago, index) => (
-                                    <tr key={index}>
-                                        <td>
-                                            <TextField
-                                                name={`pagoParciales[${index}].fecha`}
-                                                className={styles.inputMaterial}
-                                                value={pago.fecha}
-                                                onChange={handleChange}
-                                                InputProps={{ notched: false }}
-                                            />
-                                        </td>
-                                        <td>
-                                            <TextField
-                                                name={`pagoParciales[${index}].monto`}
-                                                className={styles.inputMaterial}
-                                                value={pago.monto}
-                                                onChange={handleChange}
-                                                InputProps={{ notched: false }}
-                                            />
-                                        </td>
-                                        <td>
-                                            <Button
-                                                className={styles.botonEliminar}
-                                                onClick={() =>
-                                                    eliminarFila(index)
-                                                }
-                                            >
-                                                Eliminar
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                )
-                            )}
-                        </tbody>
-                    </table>
+                    <div className="max-h-48 overflow-y-auto">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Monto</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {consolaSeleccionada.pagoParciales.map(
+                                    (pago, index) => (
+                                        <tr key={index}>
+                                            <td>
+                                                <TextField
+                                                    name={`pagoParciales[${index}].fecha`}
+                                                    className={
+                                                        styles.inputMaterial
+                                                    }
+                                                    value={pago.fecha}
+                                                    onChange={handleChange}
+                                                    InputProps={{
+                                                        notched: false,
+                                                    }}
+                                                />
+                                            </td>
+                                            <td>
+                                                <TextField
+                                                    name={`pagoParciales[${index}].monto`}
+                                                    className={
+                                                        styles.inputMaterial
+                                                    }
+                                                    value={pago.monto}
+                                                    onChange={handleChange}
+                                                    InputProps={{
+                                                        notched: false,
+                                                    }}
+                                                />
+                                            </td>
+                                            <td>
+                                                <Button
+                                                    className={
+                                                        styles.botonEliminar
+                                                    }
+                                                    onClick={() =>
+                                                        eliminarFila(index)
+                                                    }
+                                                >
+                                                    Eliminar
+                                                </Button>
+                                            </td>
+                                        </tr>
+                                    )
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                     <Button
                         className={styles.botonAgregar}
                         onClick={agregarFila}
