@@ -111,17 +111,36 @@ const ListaCliente = () => {
             });
     };
 
+<<<<<<< HEAD
     const peticionDelete = async () => {
         await clienteAxios
             .delete(`/clientes/${consolaSeleccionada._id}`, consolaSeleccionada)
             .then((response) => {
                 var dataNueva = clientes;
+=======
+    const peticionDelete = async (eliminarID) => {
+        await clienteAxios
+            .delete(`/clientes/${eliminarID._id}`, consolaSeleccionada)
+            .then((response) => {
+                var dataNueva = clientes.filter((consola) => {
+                    // Verifica si el ID del cliente es igual al ID del cliente seleccionado
+                    if (eliminarID._id === consola._id) {
+                        return false; // Excluye el elemento del nuevo array
+                    }
+                    return true; // Incluye el elemento en el nuevo array
+                });
+>>>>>>> parent of 4ac7185 (modal para pagos parciales)
                 setClientes(dataNueva);
             });
     };
 
+<<<<<<< HEAD
     //Confirma mediante sweetAlert si se desea eliminar el elemento
     const confirmarDelete = async () => {
+=======
+    const confirmarDelete = async (consola) => {
+        console.log("Consola seleccionada: "+consola._id)
+>>>>>>> parent of 4ac7185 (modal para pagos parciales)
         Swal.fire({
             title: "¿Deseas eliminar este Cliente?",
             // text: "You won't be able to revert this!",
@@ -132,7 +151,11 @@ const ListaCliente = () => {
             confirmButtonText: "Si, Eliminar!",
         }).then(async (result) => {
             if (result.isConfirmed) {
+<<<<<<< HEAD
                 peticionDelete();
+=======
+                peticionDelete(consola);
+>>>>>>> parent of 4ac7185 (modal para pagos parciales)
             }
         });
     };
@@ -144,7 +167,11 @@ const ListaCliente = () => {
     const seleccionarConsola = (consola, caso) => {
         setConsolaSeleccionada(consola);
         caso === "Editar" ? setModalEditar(true) : "";
+<<<<<<< HEAD
         caso === "Eliminar" ? confirmarDelete() : "";
+=======
+        caso === "Eliminar" ? confirmarDelete(consola) : "";
+>>>>>>> parent of 4ac7185 (modal para pagos parciales)
     };
 
     const bodyEditar = (
@@ -274,7 +301,11 @@ const ListaCliente = () => {
                                                     )
                                             )
                                             .map((consola) => (
+<<<<<<< HEAD
                                                 <TableRow key={consola.id}>
+=======
+                                                <TableRow key={consola._id}>
+>>>>>>> parent of 4ac7185 (modal para pagos parciales)
                                                     <TableCell>
                                                         {consola.tipoCedula}
                                                     </TableCell>

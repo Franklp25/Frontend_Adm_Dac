@@ -152,13 +152,27 @@ const FacturasCliente = () => {
         await clienteAxios
             .delete(`/clientes/${consolaSeleccionada._id}`, consolaSeleccionada)
             .then((response) => {
+<<<<<<< HEAD
                 var dataNueva = clientes;
+=======
+                var dataNueva = facturas.filter((consola) => {
+                    if (eliminarID._id === consola._id) {
+                        return false; 
+                    }
+                    return true; 
+                });
+>>>>>>> parent of 4ac7185 (modal para pagos parciales)
                 setClientes(dataNueva);
             });
     };
 
     //Confirma mediante sweetAlert si se desea eliminar el elemento
+<<<<<<< HEAD
     const confirmarDelete = async () => {
+=======
+    const confirmarDelete = async (consola) => {
+        console.log("consola seleccionada"+consola._id)
+>>>>>>> parent of 4ac7185 (modal para pagos parciales)
         Swal.fire({
             title: "¿Deseas eliminar este Cliente?",
             // text: "You won't be able to revert this!",
