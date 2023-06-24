@@ -102,7 +102,7 @@ const ListaCuentasCobrar = () => {
                         <div className="rounded-lg overflow-x-auto">
                             <TableContainer>
                                 <Table>
-                                    <TableHead className="text-xl uppercase bg-gray-500 font-bold">
+                                    <TableHead className="text-xl uppercase bg-gray-600 font-bold">
                                         <TableRow>
                                             <TableCell style={{ color: "white" }}>
                                                 Nombre de Cliente

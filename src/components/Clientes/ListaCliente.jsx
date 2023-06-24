@@ -223,7 +223,7 @@ const ListaCliente = () => {
             <Navbar />
             <div className="flex justify-between p-2">
                 <h1 className=" text-gray-600 p-3 font-bold text-2xl">
-                    Lista de clientes
+                    Lista de Clientes
                 </h1>
 
                 <div className="m-2 sm:m-5">
@@ -251,7 +251,7 @@ const ListaCliente = () => {
                         <div className="rounded-lg overflow-x-auto">
                             <TableContainer>
                                 <Table>
-                                    <TableHead className="text-xl uppercase bg-gray-500 font-bold">
+                                    <TableHead className="text-xl uppercase bg-gray-600 font-bold">
                                         <TableRow>
                                             <TableCell style={{ color: "white" }}>Tipo Cedula</TableCell>
                                             <TableCell style={{ color: "white" }}>Cedula</TableCell>
