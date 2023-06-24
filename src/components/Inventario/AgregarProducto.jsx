@@ -128,7 +128,6 @@ const AgregarProducto = () => {
                                         onChange={(e) =>
                                             setNombre(e.target.value)
                                         }
-                                        maxLength={30} // Límite de 30 caracteres para nombre
                                     />
                                 </div>
                                 <div className="md:col-span-1">
@@ -145,9 +144,9 @@ const AgregarProducto = () => {
                                         onChange={(e) =>
                                             setUnidadMedida(e.target.value)
                                         }
-                                        className="text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-gray-400 focus:ring-blue-500 focus:border-blue-500"
+                                        className=" text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-blue border-gray-600 placeholder-gray-400 text-gray-400 focus:ring-blue-500 focus:border-blue-500"
                                     >
-                                        <option value="">
+                                        <option selected>
                                             Unidad de Medida
                                         </option>
                                         <option value="Kg">Kilogramo</option>
@@ -240,7 +239,7 @@ const AgregarProducto = () => {
                                 </div>
                                 <button
                                     type="submit"
-                                    className=" md:hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full uppercase text-blue  bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-primary-700 focus:ring-primary-800 "
+                                    className=" md:hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full uppercase text-gray-100  bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-primary-700 focus:ring-primary-800 "
                                 >
                                     Guardar Producto
                                 </button>

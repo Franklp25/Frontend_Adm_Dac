@@ -77,6 +77,7 @@ const ListaCuentasPagar = () => {
         });
         return formattedTotal;
     };
+    
 
     return (
         <>
@@ -87,7 +88,7 @@ const ListaCuentasPagar = () => {
             <div className=" flex justify-end mr-10">
                 <input
                     type="text"
-                    className=" p-3 pl-10 text-base rounded-lg bg-gray-50  dark:bg-gray-500 dark:placeholder-gray-400 dark:text-white "
+                    className=" p-3 pl-10 text-base rounded-lg bg-gray-50  dark:bg-gray-500 dark:placeholder-gray-300 dark:text-white "
                     placeholder="Buscar..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
@@ -100,16 +101,16 @@ const ListaCuentasPagar = () => {
                         <div className="rounded-lg overflow-x-auto">
                             <TableContainer>
                                 <Table>
-                                    <TableHead className="text-xl uppercase bg-gray-500 font-bold">
+                                    <TableHead className="text-xl uppercase bg-gray-600 font-bold">
                                         <TableRow>
-                                            <TableCell>
+                                            <TableCell style={{ color: "white" }}>
                                                 Nombre de Proveedor
                                             </TableCell>
-                                            <TableCell>Cedula</TableCell>
-                                            <TableCell>
+                                            <TableCell style={{ color: "white" }}>Cedula</TableCell>
+                                            <TableCell style={{ color: "white" }}>
                                                 Total de deuda
-                                            </TableCell>
-                                            <TableCell>Acciones</TableCell>
+                                            </TableCell >
+                                            <TableCell style={{ color: "white" }}>Acciones</TableCell>
                                         </TableRow>
                                     </TableHead>
 

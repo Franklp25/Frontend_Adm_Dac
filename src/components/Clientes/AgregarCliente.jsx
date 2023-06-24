@@ -124,7 +124,6 @@ const AgregarCliente = () => {
                                         onChange={(e) =>
                                             setCedula(e.target.value)
                                         }
-                                        maxLength={20} // Límite de 20 caracteres para cedula
                                     />
                                 </div>
                                 <div>
@@ -145,7 +144,6 @@ const AgregarCliente = () => {
                                         onChange={(e) =>
                                             setNombre(e.target.value)
                                         }
-                                        maxLength={30} // Límite de 30 caracteres para nombre
                                     />
                                 </div>
                                 <div>
@@ -166,7 +164,6 @@ const AgregarCliente = () => {
                                         onChange={(e) =>
                                             setApellidos(e.target.value)
                                         }
-                                        maxLength={45} // Límite de 45 caracteres para apellidos
                                     />
                                 </div>
                                 <div>
@@ -187,7 +184,6 @@ const AgregarCliente = () => {
                                         onChange={(e) =>
                                             setTelefono(e.target.value)
                                         }
-                                        maxLength={15} // Límite de 15 caracteres para telefono
                                     />
                                 </div>
                                 <div>
@@ -209,7 +205,6 @@ const AgregarCliente = () => {
                                         onChange={(e) =>
                                             setEmail(e.target.value)
                                         }
-                                        maxLength={25} // Límite de 25 caracteres para email
                                     />
                                 </div>
 
@@ -231,11 +226,10 @@ const AgregarCliente = () => {
                                             onChange={(e) =>
                                                 setDireccion(e.target.value)
                                             }
-                                            maxLength={60} // Límite de 60 caracteres para direccion
                                         />
                                         <button
                                             type="submit"
-                                            className="max-[768px]:hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full uppercase text-blue   hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-green-700 hover:bg-primary-700 focus:ring-primary-800"
+                                            className="max-[768px]:hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full uppercase text-gray-100   hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-green-700 hover:bg-primary-700 focus:ring-primary-800"
                                         >
                                             Guardar Cliente
                                         </button>
@@ -244,7 +238,7 @@ const AgregarCliente = () => {
 
                                 <button
                                     type="submit"
-                                    className="md:hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full uppercase text-blue  hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-green-700 hover:bg-primary-700 focus:ring-primary-800"
+                                    className="md:hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 w-full uppercase text-gray-100  hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-green-700 hover:bg-primary-700 focus:ring-primary-800"
                                 >
                                     Guardar Cliente
                                 </button>
