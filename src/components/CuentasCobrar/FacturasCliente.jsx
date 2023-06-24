@@ -293,7 +293,7 @@ const FacturasCliente = () => {
         doc.text(
             "Estimado cliente, le remitimos la información de nuestras cuentas bancarias.",
             37,
-            130
+            doc.autoTable.previous.finalY + 20
         );
 
         // Descargar archivo PDF
