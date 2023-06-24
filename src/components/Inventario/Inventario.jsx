@@ -215,10 +215,10 @@ const Inventario = () => {
                     Lista de Productos
                 </h1>
 
-                <div className="m-5">
+                <div className="m-2 sm:m-5">
                     <Link
                         to="/agregarProducto"
-                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2  text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold"
+                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2 text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold block text-center"
                     >
                         Agregar Producto
                     </Link>
@@ -231,7 +231,7 @@ const Inventario = () => {
                         <div className="rounded-lg overflow-x-auto">
                             <TableContainer>
                                 <Table>
-                                    <TableHead className="text-xl uppercase bg-gray-500 font-bold">
+                                    <TableHead className="text-xl uppercase bg-gray-600 font-bold">
                                         <TableRow>
                                             <TableCell
                                                 style={{ color: "white" }}
@@ -273,7 +273,7 @@ const Inventario = () => {
 
                                     <TableBody>
                                         {productos.map((consola) => (
-                                            <TableRow key={consola._id}>
+                                            <TableRow key={consola.id}>
                                                 <TableCell>
                                                     {consola.codigo}
                                                 </TableCell>
