@@ -318,14 +318,15 @@ const FacturasCliente = () => {
                 <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
                     Facturas por Cliente
                 </h1>
-                <div className="m-5">
+                <div className="m-2 sm:m-5">
                     <Link
                         to={`/agregarFacturasCobrar/${params.id}`}
-                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2  text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold"
+                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2 text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold block text-center"
                     >
-                        Agregar factura cliente
+                        Agregar Factura Cliente
                     </Link>
                 </div>
+
             </div>
             <div className=" ml-10">
                 <Button variant="contained" onClick={exportarPDF}>
@@ -349,18 +350,18 @@ const FacturasCliente = () => {
                                 <Table>
                                     <TableHead className="text-xl uppercase bg-gray-500 font-bold">
                                         <TableRow>
-                                            <TableCell>N°Factura</TableCell>
-                                            <TableCell>
+                                            <TableCell style={{ color: "white" }}>N°Factura</TableCell>
+                                            <TableCell style={{ color: "white" }}>
                                                 Fecha de Emision
                                             </TableCell>
-                                            <TableCell>
+                                            <TableCell style={{ color: "white" }}>
                                                 Fecha de Vencimiento
                                             </TableCell>
-                                            <TableCell>IVA</TableCell>
-                                            <TableCell>Subtotal</TableCell>
-                                            <TableCell>Total</TableCell>
-                                            <TableCell>Estado</TableCell>
-                                            <TableCell>Acciones</TableCell>
+                                            <TableCell style={{ color: "white" }}>IVA</TableCell>
+                                            <TableCell style={{ color: "white" }}>Subtotal</TableCell>
+                                            <TableCell style={{ color: "white" }}>Total</TableCell>
+                                            <TableCell style={{ color: "white" }}>Estado</TableCell>
+                                            <TableCell style={{ color: "white" }}>Acciones</TableCell>
                                         </TableRow>
                                     </TableHead>
 

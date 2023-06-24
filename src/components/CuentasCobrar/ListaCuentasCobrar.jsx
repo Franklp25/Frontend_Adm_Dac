@@ -89,7 +89,7 @@ const ListaCuentasCobrar = () => {
             <div className=" flex justify-end mr-10">
                 <input
                     type="text"
-                    className=" p-3 pl-10 text-base rounded-lg  bg-gray-500 placeholder-gray-400 text-white "
+                    className=" p-3 pl-10 text-base rounded-lg  bg-gray-500 placeholder-gray-300 text-white "
                     placeholder="Buscar..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
@@ -104,14 +104,14 @@ const ListaCuentasCobrar = () => {
                                 <Table>
                                     <TableHead className="text-xl uppercase bg-gray-500 font-bold">
                                         <TableRow>
-                                            <TableCell>
+                                            <TableCell style={{ color: "white" }}>
                                                 Nombre de Cliente
                                             </TableCell>
-                                            <TableCell>Cedula</TableCell>
-                                            <TableCell>
+                                            <TableCell style={{ color: "white" }}>Cedula</TableCell>
+                                            <TableCell style={{ color: "white" }}>
                                                 Total de deuda
                                             </TableCell>
-                                            <TableCell>Acciones</TableCell>
+                                            <TableCell style={{ color: "white" }}>Acciones</TableCell>
                                         </TableRow>
                                     </TableHead>
 

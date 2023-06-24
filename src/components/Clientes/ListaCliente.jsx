@@ -226,19 +226,19 @@ const ListaCliente = () => {
                     Lista de clientes
                 </h1>
 
-                <div className="m-5">
+                <div className="m-2 sm:m-5">
                     <Link
                         to="/agregarCliente"
-                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2  text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold"
+                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2 text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold block text-center"
                     >
-                        Agregar cliente
+                        Agregar Clientes
                     </Link>
                 </div>
             </div>
             <div className=" flex justify-end mt-12 mr-10">
                 <input
                     type="text"
-                    className=" p-3 pl-10 text-base rounded-lg  bg-gray-500 placeholder-gray-400 text-white "
+                    className=" p-3 pl-10 text-base rounded-lg  bg-gray-500 placeholder-gray-300 text-white "
                     placeholder="Buscar..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
@@ -253,14 +253,14 @@ const ListaCliente = () => {
                                 <Table>
                                     <TableHead className="text-xl uppercase bg-gray-500 font-bold">
                                         <TableRow>
-                                            <TableCell>Tipo Cedula</TableCell>
-                                            <TableCell>Cedula</TableCell>
-                                            <TableCell>Nombre</TableCell>
-                                            <TableCell>Apellidos</TableCell>
-                                            <TableCell>Telefono</TableCell>
-                                            <TableCell>Correo</TableCell>
-                                            <TableCell>Direccion</TableCell>
-                                            <TableCell>Acciones</TableCell>
+                                            <TableCell style={{ color: "white" }}>Tipo Cedula</TableCell>
+                                            <TableCell style={{ color: "white" }}>Cedula</TableCell>
+                                            <TableCell style={{ color: "white" }}>Nombre</TableCell>
+                                            <TableCell style={{ color: "white" }}>Apellidos</TableCell>
+                                            <TableCell style={{ color: "white" }}>Telefono</TableCell>
+                                            <TableCell style={{ color: "white" }}>Correo</TableCell>
+                                            <TableCell style={{ color: "white" }}>Direccion</TableCell>
+                                            <TableCell style={{ color: "white" }}>Acciones</TableCell>
                                         </TableRow>
                                     </TableHead>
 
