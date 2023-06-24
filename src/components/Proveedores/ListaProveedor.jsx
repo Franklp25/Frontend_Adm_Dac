@@ -115,35 +115,47 @@ const ListaProveedor = () => {
     };
 
     const peticionDelete = async (eliminarID) => {
-        await clienteAxios
-            .delete(`/proveedor/${eliminarID._id}`, consolaSeleccionada)
-            .then((response) => {
-                var dataNueva = proveedor.filter((consola) => {
-                    // Verifica si el ID del cliente es igual al ID del cliente seleccionado
-                    if (eliminarID._id === consola._id) {
-                        return false; // Excluye el elemento del nuevo array
-                    }
-                    return true; // Incluye el elemento en el nuevo array
-                });
-                setProveedor(dataNueva);
+        try {
+            await clienteAxios.delete(
+                `/proveedor/${eliminarID._id}`,
+                consolaSeleccionada
+            );
+            var dataNueva = proveedor.filter((consola) => {
+                if (eliminarID._id === consola._id) {
+                    return false;
+                }
+                return true;
             });
+            setProveedor(dataNueva);
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: JSON.stringify(error.response.data.msg),
+                // text: "Digite un nuevo número de cédula",
+            });
+        }
     };
 
     //Confirma mediante sweetAlert si se desea eliminar el elemento
     const confirmarDelete = async (consola) => {
-        Swal.fire({
-            title: "¿Deseas eliminar este Proveedor?",
-            // text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Si, Eliminar!",
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                peticionDelete(consola);
-            }
-        });
+        try {
+            Swal.fire({
+                title: "¿Deseas eliminar este Proveedor?",
+                // text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, Eliminar!",
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    peticionDelete(consola);
+                } else {
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const abrirCerrarModal = () => {
@@ -236,10 +248,10 @@ const ListaProveedor = () => {
                     Lista de Proveedores
                 </h1>
 
-                <div className="m-5">
+                <div className="m-2 sm:m-5">
                     <Link
                         to="/agregarProveedor"
-                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2  text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold"
+                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2 text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold block text-center"
                     >
                         Agregar Proveedor
                     </Link>
@@ -248,7 +260,7 @@ const ListaProveedor = () => {
             <div className=" flex justify-end mt-12 mr-10">
                 <input
                     type="text"
-                    className=" p-3 pl-10 text-base rounded-lg bg-gray-50  dark:bg-gray-500 dark:placeholder-gray-400 dark:text-white "
+                    className=" p-3 pl-10 text-base rounded-lg bg-gray-50  dark:bg-gray-500 dark:placeholder-gray-300 dark:text-white "
                     placeholder="Buscar..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
@@ -260,16 +272,48 @@ const ListaProveedor = () => {
                         <div className="rounded-lg overflow-x-auto">
                             <TableContainer>
                                 <Table>
-                                    <TableHead className="text-xl uppercase bg-gray-500 font-bold">
+                                    <TableHead className="text-xl uppercase bg-gray-600 font-bold">
                                         <TableRow>
-                                            <TableCell>Tipo Cedula</TableCell>
-                                            <TableCell>Cedula</TableCell>
-                                            <TableCell>Nombre</TableCell>
-                                            <TableCell>Apellidos</TableCell>
-                                            <TableCell>Telefono</TableCell>
-                                            <TableCell>Correo</TableCell>
-                                            <TableCell>Direccion</TableCell>
-                                            <TableCell>Acciones</TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Tipo Cedula
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Cedula
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Nombre
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Apellidos
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Telefono
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Correo
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Direccion
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Acciones
+                                            </TableCell>
                                         </TableRow>
                                     </TableHead>
 
@@ -283,7 +327,7 @@ const ListaProveedor = () => {
                                                     )
                                             )
                                             .map((consola) => (
-                                                <TableRow key={consola._id}>
+                                                <TableRow key={consola.id}>
                                                     <TableCell>
                                                         {consola.tipoCedula}
                                                     </TableCell>

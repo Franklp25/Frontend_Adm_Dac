@@ -324,7 +324,6 @@ const FacturasCliente = () => {
         setMontoTotal(totalMonto);
     }, [facturasFiltradas]);
 
-    
     // Función para agregar una nueva fila a la lista de pagos parciales
     const agregarFila = () => {
         const nuevoPagoParcial = { fecha: "", monto: "" };
@@ -379,18 +378,20 @@ const FacturasCliente = () => {
                         consolaSeleccionada &&
                         consolaSeleccionada.numFacturaCobrar
                     }
-                    InputProps={{ notched: false }}
+                    InputProps={{ readOnly: true, notched: false }}
                 />
+
                 <TextField
                     name="fechaEmision"
                     className={styles.inputMaterial}
                     label="Fecha de emisión"
                     onChange={handleChange}
-                    value={
-                        consolaSeleccionada && consolaSeleccionada.fechaEmision
-                    }
-                    InputProps={{ notched: false }}
+                    value={new Date(
+                        consolaSeleccionada.fechaVencimiento
+                    ).toLocaleDateString()}
+                    InputProps={{ readOnly: true, notched: false }}
                 />
+
                 <TextField
                     name="diasCredito"
                     className={styles.inputMaterial}
@@ -399,57 +400,69 @@ const FacturasCliente = () => {
                     value={
                         consolaSeleccionada && consolaSeleccionada.diasCredito
                     }
-                    InputProps={{ notched: false }}
+                    InputProps={{ readOnly: true, notched: false }}
                 />
             </div>
             {consolaSeleccionada && consolaSeleccionada.pagoParciales && (
                 <div className="my-4">
                     <h4 className="mb-2 font-semibold">Pagos parciales</h4>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Monto</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {consolaSeleccionada.pagoParciales.map(
-                                (pago, index) => (
-                                    <tr key={index}>
-                                        <td>
-                                            <TextField
-                                                name={`pagoParciales[${index}].fecha`}
-                                                className={styles.inputMaterial}
-                                                value={pago.fecha}
-                                                onChange={handleChange}
-                                                InputProps={{ notched: false }}
-                                            />
-                                        </td>
-                                        <td>
-                                            <TextField
-                                                name={`pagoParciales[${index}].monto`}
-                                                className={styles.inputMaterial}
-                                                value={pago.monto}
-                                                onChange={handleChange}
-                                                InputProps={{ notched: false }}
-                                            />
-                                        </td>
-                                        <td>
-                                            <Button
-                                                className={styles.botonEliminar}
-                                                onClick={() =>
-                                                    eliminarFila(index)
-                                                }
-                                            >
-                                                Eliminar
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                )
-                            )}
-                        </tbody>
-                    </table>
+                    <div className="max-h-48 overflow-y-auto">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Monto</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {consolaSeleccionada.pagoParciales.map(
+                                    (pago, index) => (
+                                        <tr key={index}>
+                                            <td>
+                                                <TextField
+                                                    name={`pagoParciales[${index}].fecha`}
+                                                    className={
+                                                        styles.inputMaterial
+                                                    }
+                                                    value={pago.fecha}
+                                                    onChange={handleChange}
+                                                    InputProps={{
+                                                        notched: false,
+                                                    }}
+                                                />
+                                            </td>
+                                            <td>
+                                                <TextField
+                                                    name={`pagoParciales[${index}].monto`}
+                                                    className={
+                                                        styles.inputMaterial
+                                                    }
+                                                    value={pago.monto}
+                                                    onChange={handleChange}
+                                                    InputProps={{
+                                                        notched: false,
+                                                    }}
+                                                />
+                                            </td>
+                                            <td>
+                                                <Button
+                                                    className={
+                                                        styles.botonEliminar
+                                                    }
+                                                    onClick={() =>
+                                                        eliminarFila(index)
+                                                    }
+                                                >
+                                                    Eliminar
+                                                </Button>
+                                            </td>
+                                        </tr>
+                                    )
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                     <Button
                         className={styles.botonAgregar}
                         onClick={agregarFila}
@@ -471,12 +484,12 @@ const FacturasCliente = () => {
                 <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
                     Facturas por Cliente
                 </h1>
-                <div className="m-5">
+                <div className="m-2 sm:m-5">
                     <Link
                         to={`/agregarFacturasCobrar/${params.id}`}
-                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2  text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold"
+                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2 text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold block text-center"
                     >
-                        Agregar factura cliente
+                        Agregar Factura Cliente
                     </Link>
                 </div>
             </div>
@@ -500,26 +513,54 @@ const FacturasCliente = () => {
                         <div className="rounded-lg overflow-x-auto">
                             <TableContainer>
                                 <Table>
-                                    <TableHead className="text-xl uppercase bg-gray-500 font-bold">
+                                    <TableHead className="text-xl uppercase bg-gray-600 font-bold">
                                         <TableRow>
-                                            <TableCell>N°Factura</TableCell>
-                                            <TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                N°Factura
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
                                                 Fecha de Emision
                                             </TableCell>
-                                            <TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
                                                 Fecha de Vencimiento
                                             </TableCell>
-                                            <TableCell>IVA</TableCell>
-                                            <TableCell>Subtotal</TableCell>
-                                            <TableCell>Total</TableCell>
-                                            <TableCell>Estado</TableCell>
-                                            <TableCell>Acciones</TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                IVA
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Subtotal
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Total
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Estado
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Acciones
+                                            </TableCell>
                                         </TableRow>
                                     </TableHead>
 
                                     <TableBody>
                                         {facturasFiltradas.map((consola) => (
-                                            <TableRow key={consola._id}>
+                                            <TableRow key={consola.id}>
                                                 <TableCell>
                                                     {consola.numFacturaCobrar ||
                                                         "N.A"}
