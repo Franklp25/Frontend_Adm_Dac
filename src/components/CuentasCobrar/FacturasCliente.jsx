@@ -152,27 +152,13 @@ const FacturasCliente = () => {
         await clienteAxios
             .delete(`/clientes/${consolaSeleccionada._id}`, consolaSeleccionada)
             .then((response) => {
-<<<<<<< HEAD
                 var dataNueva = clientes;
-=======
-                var dataNueva = facturas.filter((consola) => {
-                    if (eliminarID._id === consola._id) {
-                        return false; 
-                    }
-                    return true; 
-                });
->>>>>>> parent of 4ac7185 (modal para pagos parciales)
                 setClientes(dataNueva);
             });
     };
 
     //Confirma mediante sweetAlert si se desea eliminar el elemento
-<<<<<<< HEAD
     const confirmarDelete = async () => {
-=======
-    const confirmarDelete = async (consola) => {
-        console.log("consola seleccionada"+consola._id)
->>>>>>> parent of 4ac7185 (modal para pagos parciales)
         Swal.fire({
             title: "¿Deseas eliminar este Cliente?",
             // text: "You won't be able to revert this!",
@@ -307,7 +293,7 @@ const FacturasCliente = () => {
         doc.text(
             "Estimado cliente, le remitimos la información de nuestras cuentas bancarias.",
             37,
-            130
+            doc.autoTable.previous.finalY + 20
         );
 
         // Descargar archivo PDF
@@ -332,14 +318,15 @@ const FacturasCliente = () => {
                 <h1 className=" text-gray-600 p-5 font-bold text-2xl pl-6 ">
                     Facturas por Cliente
                 </h1>
-                <div className="m-5">
+                <div className="m-2 sm:m-5">
                     <Link
                         to={`/agregarFacturasCobrar/${params.id}`}
-                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2  text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold"
+                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2 text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold block text-center"
                     >
-                        Agregar factura cliente
+                        Agregar Factura Cliente
                     </Link>
                 </div>
+
             </div>
             <div className=" ml-10">
                 <Button variant="contained" onClick={exportarPDF}>
@@ -361,20 +348,20 @@ const FacturasCliente = () => {
                         <div className="rounded-lg overflow-x-auto">
                             <TableContainer>
                                 <Table>
-                                    <TableHead className="text-xl uppercase bg-gray-500 font-bold">
+                                    <TableHead className="text-xl uppercase bg-gray-600 font-bold">
                                         <TableRow>
-                                            <TableCell>N°Factura</TableCell>
-                                            <TableCell>
+                                            <TableCell style={{ color: "white" }}>N°Factura</TableCell>
+                                            <TableCell style={{ color: "white" }}>
                                                 Fecha de Emision
                                             </TableCell>
-                                            <TableCell>
+                                            <TableCell style={{ color: "white" }}>
                                                 Fecha de Vencimiento
                                             </TableCell>
-                                            <TableCell>IVA</TableCell>
-                                            <TableCell>Subtotal</TableCell>
-                                            <TableCell>Total</TableCell>
-                                            <TableCell>Estado</TableCell>
-                                            <TableCell>Acciones</TableCell>
+                                            <TableCell style={{ color: "white" }}>IVA</TableCell>
+                                            <TableCell style={{ color: "white" }}>Subtotal</TableCell>
+                                            <TableCell style={{ color: "white" }}>Total</TableCell>
+                                            <TableCell style={{ color: "white" }}>Estado</TableCell>
+                                            <TableCell style={{ color: "white" }}>Acciones</TableCell>
                                         </TableRow>
                                     </TableHead>
 
