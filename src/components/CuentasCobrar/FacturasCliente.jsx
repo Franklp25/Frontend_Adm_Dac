@@ -143,7 +143,7 @@ const FacturasCliente = () => {
                         consola.direccion = consolaSeleccionada.direccion;
                     }
                 });
-                setClientes(dataNueva);
+                setCliente(dataNueva);
                 abrirCerrarModal();
             });
     };
@@ -153,7 +153,7 @@ const FacturasCliente = () => {
             .delete(`/clientes/${consolaSeleccionada._id}`, consolaSeleccionada)
             .then((response) => {
                 var dataNueva = clientes;
-                setClientes(dataNueva);
+                setCliente(dataNueva);
             });
     };
 
@@ -326,7 +326,6 @@ const FacturasCliente = () => {
                         Agregar Factura Cliente
                     </Link>
                 </div>
-
             </div>
             <div className=" ml-10">
                 <Button variant="contained" onClick={exportarPDF}>
@@ -350,18 +349,46 @@ const FacturasCliente = () => {
                                 <Table>
                                     <TableHead className="text-xl uppercase bg-gray-600 font-bold">
                                         <TableRow>
-                                            <TableCell style={{ color: "white" }}>N°Factura</TableCell>
-                                            <TableCell style={{ color: "white" }}>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                N°Factura
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
                                                 Fecha de Emision
                                             </TableCell>
-                                            <TableCell style={{ color: "white" }}>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
                                                 Fecha de Vencimiento
                                             </TableCell>
-                                            <TableCell style={{ color: "white" }}>IVA</TableCell>
-                                            <TableCell style={{ color: "white" }}>Subtotal</TableCell>
-                                            <TableCell style={{ color: "white" }}>Total</TableCell>
-                                            <TableCell style={{ color: "white" }}>Estado</TableCell>
-                                            <TableCell style={{ color: "white" }}>Acciones</TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                IVA
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Subtotal
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Total
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Estado
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Acciones
+                                            </TableCell>
                                         </TableRow>
                                     </TableHead>
 
