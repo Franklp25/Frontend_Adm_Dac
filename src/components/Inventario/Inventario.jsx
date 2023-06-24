@@ -215,10 +215,10 @@ const Inventario = () => {
                     Lista de Productos
                 </h1>
 
-                <div className="m-2 sm:m-5">
+                <div className="m-5">
                     <Link
                         to="/agregarProducto"
-                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2 text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold block text-center"
+                        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-200 p-2  text-white bg-green-600 hover:bg-green-800 rounded-md text-lg font-semibold"
                     >
                         Agregar Producto
                     </Link>
@@ -231,21 +231,49 @@ const Inventario = () => {
                         <div className="rounded-lg overflow-x-auto">
                             <TableContainer>
                                 <Table>
-                                    <TableHead className="text-xl uppercase bg-gray-600 font-bold">
+                                    <TableHead className="text-xl uppercase bg-gray-500 font-bold">
                                         <TableRow>
-                                            <TableCell style={{ color: "white" }} >Código</TableCell>
-                                            <TableCell style={{ color: "white" }}>Nombre</TableCell>
-                                            <TableCell style={{ color: "white" }}>Unidad Medida</TableCell>
-                                            <TableCell style={{ color: "white" }}>Cantidad</TableCell>
-                                            <TableCell style={{ color: "white" }}>Precio</TableCell>
-                                            <TableCell style={{ color: "white" }}>Descripción</TableCell>
-                                            <TableCell style={{ color: "white" }}>Acciones</TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Código
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Nombre
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Unidad Medida
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Cantidad
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Precio
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Descripción
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Acciones
+                                            </TableCell>
                                         </TableRow>
                                     </TableHead>
 
                                     <TableBody>
                                         {productos.map((consola) => (
-                                            <TableRow key={consola.id}>
+                                            <TableRow key={consola._id}>
                                                 <TableCell>
                                                     {consola.codigo}
                                                 </TableCell>
