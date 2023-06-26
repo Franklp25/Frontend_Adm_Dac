@@ -2,58 +2,52 @@ import React, { useState, useEffect } from "react";
 import clienteAxios from "../../config/clienteAxios";
 
 function ListarEstadisticas() {
-    const [detalles, setDetalles] = useState([]);
-    const [datos, setDatos] = useState([]);
-    const [searchValue, setSearchValue] = useState("");
-    const [fechaInicio, setFechaInicio] = useState("");
-    const [fechaFin, setFechaFin] = useState("");
+  const [detalles, setDetalles] = useState([]);
+  const [datos, setDatos] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  const [fechaInicio, setFechaInicio] = useState("");
+  const [fechaFin, setFechaFin] = useState("");
 
-    useEffect(() => {
-        clienteAxios
-            .get("/detalle_factura/")
-            .then((response) => {
-                const uniqueData = Array.from(
-                    new Set(response.data.map((dato) => dato.nombre))
-                ).map((nombre) => {
-                    return response.data.find((dato) => dato.nombre === nombre);
-                });
+  useEffect(() => {
+    const fechaActual = new Date();
+    // Aquí ponemos los dias que queremos restar a la fecha actual(La tengo en un año 365)
+    const fechaInicioPredeterminada = new Date(
+      fechaActual.getTime() - 365 * 24 * 60 * 60 * 1000
+    ).toISOString().split('T')[0];
+    const fechaFinPredeterminada = fechaActual.toISOString().split('T')[0];
 
-                setDetalles(uniqueData);
-                setDatos(uniqueData);
-                console.log(uniqueData);
-            })
-            .catch((error) => {
-                console.log("Error loading data:", error);
-            });
-    }, []);
+    setFechaInicio(fechaInicioPredeterminada);
+    setFechaFin(fechaFinPredeterminada);
 
-    useEffect(() => {
-        if (fechaInicio && fechaFin) {
-            const params = {
-                fechaInicio: fechaInicio,
-                fechaFin: fechaFin,
-            };
+  }, []);
 
-            clienteAxios
-                .get("/detalle_factura/", { params })
-                .then((response) => {
-                    const uniqueData = Array.from(
-                        new Set(response.data.map((dato) => dato.nombre))
-                    ).map((nombre) => {
-                        return response.data.find(
-                            (dato) => dato.nombre === nombre
-                        );
-                    });
+  useEffect(() => {
 
-                    setDetalles(uniqueData);
-                    setDatos(uniqueData);
-                    console.log(uniqueData);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-    }, [fechaInicio, fechaFin]);
+    if (fechaInicio && fechaFin) {
+      const params = {
+        fechaInicio: fechaInicio,
+        fechaFin: fechaFin,
+      };
+
+      clienteAxios
+        .get("/detalle_factura/", { params })
+        .then((response) => {
+          const uniqueData = Array.from(
+            new Set(response.data.map((dato) => dato.nombre))
+          ).map((nombre) => {
+            return response.data.find((dato) => dato.nombre === nombre);
+          });
+
+          setDetalles(uniqueData);
+          setDatos(uniqueData);
+          console.log(uniqueData);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [fechaInicio, fechaFin]); 
+
 
     const sumaVentas = datos.reduce((suma, dato) => suma + dato.ventas, 0);
     const sortedDatos = [...datos].sort((a, b) => b.ventas - a.ventas);
@@ -86,15 +80,14 @@ function ListarEstadisticas() {
                         <input
                             type="text"
                             placeholder="Buscar producto"
-                            className="border-2 border-gray-400 rounded-full py-1 px-3 w-full md:w-1/2 mr-2"
+                            className="border-2 border-gray-400 rounded-full py-1 px-3 w-full md:w-1/2 mr-10"
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
                         />
 
-                        {/* Aquí es donde los componentes de entrada de fecha deben ir */}
                         <input
                             type="date"
-                            className="border-2 border-gray-400 rounded-full py-1 px-3 w-full md:w-1/2 mr-2"
+                            className="border-2 border-gray-400 rounded-full py-1 px-3 w-full md:w-1/2 mr-1"
                             value={fechaInicio}
                             onChange={(e) => setFechaInicio(e.target.value)}
                         />
@@ -106,7 +99,7 @@ function ListarEstadisticas() {
                             onChange={(e) => setFechaFin(e.target.value)}
                         />
                     </div>
-                    <div className="overflow-x-auto mt-4">
+                    <div className="overflow-x-auto mt-3">
                         <div className="shadow overflow-hidden rounded-lg border-gray-300  border-8">
                             <table className="table-auto w-full">
                                 <thead>
