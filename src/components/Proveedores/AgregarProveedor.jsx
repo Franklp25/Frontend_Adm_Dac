@@ -54,13 +54,23 @@ const AgregarProveedor = () => {
             setDireccion("");
             Swal.fire({
                 icon: "success",
-                title: "Proveedor agregado correctamente",
-                // text: "Gracias por enviar el formulario",
+                title: "¡Proveedor agregado correctamente!",
+                text: "El proveedor ha sido registrado en el sistema.",
+                showConfirmButton: false,
+                timer: 5500,
+                timerProgressBar: true,
+                toast: true,
+                position: "top-end",
+                background: "#f8f9fa",
+                iconColor: "#198754",
             });
         } catch (error) {
-            setAlerta({
-                msg: error.response.data.msg,
-                error: true,
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: JSON.stringify(error.response.data.msg),
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Cerrar",
             });
         }
 
