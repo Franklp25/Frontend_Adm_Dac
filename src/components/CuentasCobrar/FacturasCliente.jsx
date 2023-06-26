@@ -660,6 +660,9 @@ const FacturasCliente = () => {
                                                             borderRadius: "2px",
                                                             boxShadow:
                                                                 "2px 2px 4px rgba(0, 0, 0, 0.2)",
+                                                            margin: "0.25rem",
+                                                            width: "2.5rem",
+                                                            height: "2.5rem",
                                                         }}
                                                         onClick={handleMenuOpen}
                                                     >

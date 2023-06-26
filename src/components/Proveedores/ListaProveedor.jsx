@@ -342,6 +342,9 @@ const ListaProveedor = () => {
                                                                     "grey",
                                                                 marginRight:
                                                                     "5px",
+                                                                margin: "0.25rem",
+                                                                width: "2.5rem",
+                                                                height: "2.5rem",
                                                             }}
                                                             onClick={() =>
                                                                 seleccionarConsola(
@@ -360,6 +363,9 @@ const ListaProveedor = () => {
                                                             style={{
                                                                 backgroundColor:
                                                                     "#9E1B1B",
+                                                                margin: "0.25rem",
+                                                                width: "2.5rem",
+                                                                height: "2.5rem",
                                                             }}
                                                             onClick={() =>
                                                                 seleccionarConsola(

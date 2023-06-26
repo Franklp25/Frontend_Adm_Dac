@@ -363,44 +363,58 @@ const ListaCliente = () => {
                                                     </TableCell>
 
                                                     <TableCell>
-                                                        <Button
+                                                        <div
                                                             style={{
-                                                                backgroundColor:
-                                                                    "grey",
-                                                                marginRight:
-                                                                    "5px",
+                                                                display: "flex",
+                                                                flexWrap:
+                                                                    "wrap",
+                                                                justifyContent:
+                                                                    "center",
                                                             }}
-                                                            onClick={() =>
-                                                                seleccionarConsola(
-                                                                    consola,
-                                                                    "Editar"
-                                                                )
-                                                            }
                                                         >
-                                                            <EditIcon
+                                                            <Button
                                                                 style={{
-                                                                    color: "white",
+                                                                    margin: "0.25rem",
+                                                                    width: "2.5rem",
+                                                                    height: "2.5rem",
+                                                                    backgroundColor:
+                                                                        "gray",
                                                                 }}
-                                                            />
-                                                        </Button>
-                                                        <Button
-                                                            style={{
-                                                                backgroundColor:
-                                                                    "#9E1B1B",
-                                                            }}
-                                                            onClick={() =>
-                                                                seleccionarConsola(
-                                                                    consola,
-                                                                    "Eliminar"
-                                                                )
-                                                            }
-                                                        >
-                                                            <DeleteIcon
+                                                                onClick={() =>
+                                                                    seleccionarConsola(
+                                                                        consola,
+                                                                        "Editar"
+                                                                    )
+                                                                }
+                                                            >
+                                                                <EditIcon
+                                                                    style={{
+                                                                        color: "white",
+                                                                    }}
+                                                                />
+                                                            </Button>
+                                                            <Button
                                                                 style={{
-                                                                    color: "white",
+                                                                    margin: "0.25rem",
+                                                                    width: "2.5rem",
+                                                                    height: "2.5rem",
+                                                                    backgroundColor:
+                                                                        "#9E1B1B",
                                                                 }}
-                                                            />
-                                                        </Button>
+                                                                onClick={() =>
+                                                                    seleccionarConsola(
+                                                                        consola,
+                                                                        "Eliminar"
+                                                                    )
+                                                                }
+                                                            >
+                                                                <DeleteIcon
+                                                                    style={{
+                                                                        color: "white",
+                                                                    }}
+                                                                />
+                                                            </Button>
+                                                        </div>
                                                     </TableCell>
                                                 </TableRow>
                                             ))}
