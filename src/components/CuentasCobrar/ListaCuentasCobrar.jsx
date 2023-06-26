@@ -104,14 +104,26 @@ const ListaCuentasCobrar = () => {
                                 <Table>
                                     <TableHead className="text-xl uppercase bg-gray-600 font-bold">
                                         <TableRow>
-                                            <TableCell style={{ color: "white" }}>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
                                                 Nombre de Cliente
                                             </TableCell>
-                                            <TableCell style={{ color: "white" }}>Cedula</TableCell>
-                                            <TableCell style={{ color: "white" }}>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Cedula
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
                                                 Total de deuda
                                             </TableCell>
-                                            <TableCell style={{ color: "white" }}>Acciones</TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Acciones
+                                            </TableCell>
                                         </TableRow>
                                     </TableHead>
 

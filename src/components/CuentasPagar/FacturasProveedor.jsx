@@ -303,7 +303,7 @@ const FacturasProveedor = () => {
         doc.text(
             "Estimado cliente, le remitimos la información de nuestras cuentas bancarias.",
             37,
-            doc.autoTable.previous.finalY + 20
+            130
         );
 
         // Descargar archivo PDF
@@ -336,7 +336,6 @@ const FacturasProveedor = () => {
                         Agregar Factura Proveedor
                     </Link>
                 </div>
-
             </div>
 
             <div className=" ml-10 flex">
@@ -361,17 +360,41 @@ const FacturasProveedor = () => {
                                 <Table>
                                     <TableHead className="text-xl uppercase bg-gray-600 font-bold">
                                         <TableRow>
-                                            <TableCell style={{ color: "white" }}>N°Factura</TableCell>
-                                            <TableCell style={{ color: "white" }}>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                N°Factura
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
                                                 Fecha de Emision
                                             </TableCell>
-                                            <TableCell style={{ color: "white" }}>Crédito</TableCell>
-                                            <TableCell style={{ color: "white" }}>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Crédito
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
                                                 Fecha de Vencimiento
                                             </TableCell>
-                                            <TableCell style={{ color: "white" }}>Total</TableCell>
-                                            <TableCell style={{ color: "white" }}>Estado</TableCell>
-                                            <TableCell style={{ color: "white" }}>Acciones</TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Total
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Estado
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Acciones
+                                            </TableCell>
                                         </TableRow>
                                     </TableHead>
 

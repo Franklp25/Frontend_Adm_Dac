@@ -233,13 +233,41 @@ const Inventario = () => {
                                 <Table>
                                     <TableHead className="text-xl uppercase bg-gray-600 font-bold">
                                         <TableRow>
-                                            <TableCell style={{ color: "white" }} >Código</TableCell>
-                                            <TableCell style={{ color: "white" }}>Nombre</TableCell>
-                                            <TableCell style={{ color: "white" }}>Unidad Medida</TableCell>
-                                            <TableCell style={{ color: "white" }}>Cantidad</TableCell>
-                                            <TableCell style={{ color: "white" }}>Precio</TableCell>
-                                            <TableCell style={{ color: "white" }}>Descripción</TableCell>
-                                            <TableCell style={{ color: "white" }}>Acciones</TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Código
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Nombre
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Unidad Medida
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Cantidad
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Precio
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Descripción
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Acciones
+                                            </TableCell>
                                         </TableRow>
                                     </TableHead>
 

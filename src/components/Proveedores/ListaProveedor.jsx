@@ -259,14 +259,46 @@ const ListaProveedor = () => {
                                 <Table>
                                     <TableHead className="text-xl uppercase bg-gray-600 font-bold">
                                         <TableRow>
-                                            <TableCell style={{ color: "white" }}>Tipo Cedula</TableCell>
-                                            <TableCell style={{ color: "white" }}>Cedula</TableCell>
-                                            <TableCell style={{ color: "white" }}>Nombre</TableCell>
-                                            <TableCell style={{ color: "white" }}>Apellidos</TableCell>
-                                            <TableCell style={{ color: "white" }}>Telefono</TableCell>
-                                            <TableCell style={{ color: "white" }}>Correo</TableCell>
-                                            <TableCell style={{ color: "white" }}>Direccion</TableCell>
-                                            <TableCell style={{ color: "white" }}>Acciones</TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Tipo Cedula
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Cedula
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Nombre
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Apellidos
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Telefono
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Correo
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Direccion
+                                            </TableCell>
+                                            <TableCell
+                                                style={{ color: "white" }}
+                                            >
+                                                Acciones
+                                            </TableCell>
                                         </TableRow>
                                     </TableHead>
 
