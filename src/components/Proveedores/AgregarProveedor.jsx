@@ -220,7 +220,7 @@ const AgregarProveedor = () => {
                                         onChange={(e) =>
                                             setEmail(e.target.value)
                                         }
-                                        maxLength={25} // Límite de 25 caracteres para email
+                                        maxLength={50} // Límite de 25 caracteres para email
                                     />
                                 </div>
 

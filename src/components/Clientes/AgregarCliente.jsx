@@ -49,14 +49,23 @@ const AgregarCliente = () => {
             setDireccion("");
             Swal.fire({
                 icon: "success",
-                title: "Cliente agregado correctamente",
-                // text: "Gracias por enviar el formulario",
+                title: "¡Cliente agregado correctamente!",
+                text: "El cliente ha sido registrado en el sistema.",
+                showConfirmButton: false,
+                timer: 6000,
+                timerProgressBar: true,
+                toast: true,
+                position: "top-end",
+                background: "#f8f9fa",
+                iconColor: "#198754",
             });
         } catch (error) {
             Swal.fire({
                 icon: "error",
-                title: JSON.stringify(error.response.data.msg),
-                // text: "Digite un nuevo número de cédula",
+                title: "Error",
+                text: JSON.stringify(error.response.data.msg),
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Cerrar",
             });
         }
         //Mensaje mediante sweetAlert
@@ -209,7 +218,7 @@ const AgregarCliente = () => {
                                         onChange={(e) =>
                                             setEmail(e.target.value)
                                         }
-                                        maxLength={25} // Límite de 25 caracteres para email
+                                        maxLength={50} // Límite de 25 caracteres para email
                                     />
                                 </div>
 
