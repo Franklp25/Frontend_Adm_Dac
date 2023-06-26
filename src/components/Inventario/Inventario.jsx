@@ -299,29 +299,43 @@ const Inventario = () => {
                                                     {consola.descripcion}
                                                 </TableCell>
                                                 <TableCell>
-                                                    <EditIcon
-                                                        className={
-                                                            styles.iconos
-                                                        }
+                                                    <Button
+                                                        style={{
+                                                            backgroundColor:
+                                                                "grey",
+                                                            marginRight: "5px",
+                                                        }}
                                                         onClick={() =>
                                                             seleccionarConsola(
                                                                 consola,
                                                                 "Editar"
                                                             )
                                                         }
-                                                    />
-                                                    &nbsp;&nbsp;&nbsp;
-                                                    <DeleteIcon
-                                                        className={
-                                                            styles.iconos
-                                                        }
+                                                    >
+                                                        <EditIcon
+                                                            style={{
+                                                                color: "white",
+                                                            }}
+                                                        />
+                                                    </Button>
+                                                    <Button
+                                                        style={{
+                                                            backgroundColor:
+                                                                "#9E1B1B",
+                                                        }}
                                                         onClick={() =>
                                                             seleccionarConsola(
                                                                 consola,
                                                                 "Eliminar"
                                                             )
                                                         }
-                                                    />
+                                                    >
+                                                        <DeleteIcon
+                                                            style={{
+                                                                color: "white",
+                                                            }}
+                                                        />
+                                                    </Button>
                                                 </TableCell>
                                             </TableRow>
                                         ))}

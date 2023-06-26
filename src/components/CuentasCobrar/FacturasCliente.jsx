@@ -20,6 +20,7 @@ import {
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Menu, MenuItem } from "@mui/material";
 //pdf
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -53,6 +54,10 @@ const useStyles = makeStyles({
             backgroundColor: "gray",
         },
     },
+    btnPagosParciales: {
+        backgroundColor: "blue",
+    },
+    btnAnular: {},
 });
 
 const FacturasCliente = () => {
@@ -67,6 +72,20 @@ const FacturasCliente = () => {
     const [montoTotal, setMontoTotal] = useState(0);
     const [filtro, setFiltro] = useState("todos"); // Estado para almacenar el filtro seleccionado ('todos', 'pendientes' o 'pagadas')
     const [facturasFiltradas, setFacturasFiltradas] = useState([]); // Estado para almacenar las facturas filtradas
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const handleMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleOptionSelected = (option) => {
+        seleccionarConsola(consola, option);
+        handleMenuClose();
+    };
 
     const [consolaSeleccionada, setConsolaSeleccionada] = useState({
         tipoCedula: "",
@@ -553,7 +572,7 @@ const FacturasCliente = () => {
                                             <TableCell
                                                 style={{ color: "white" }}
                                             >
-                                                Acciones
+                                                Opciónes
                                             </TableCell>
                                         </TableRow>
                                     </TableHead>
@@ -631,31 +650,60 @@ const FacturasCliente = () => {
                                                         </Button>
                                                     )}
                                                 </TableCell>
-
                                                 <TableCell>
-                                                    <EditIcon
-                                                        className={
-                                                            styles.iconos
+                                                    <Button
+                                                        variant="contained"
+                                                        style={{
+                                                            backgroundColor:
+                                                                "#16A34A",
+                                                            color: "white",
+                                                            borderRadius: "2px",
+                                                            boxShadow:
+                                                                "2px 2px 4px rgba(0, 0, 0, 0.2)",
+                                                        }}
+                                                        onClick={handleMenuOpen}
+                                                    >
+                                                        Más
+                                                    </Button>
+                                                    <Menu
+                                                        anchorEl={anchorEl}
+                                                        open={Boolean(anchorEl)}
+                                                        onClose={
+                                                            handleMenuClose
                                                         }
-                                                        onClick={() =>
-                                                            seleccionarConsola(
-                                                                consola,
-                                                                "Editar"
-                                                            )
+                                                        getContentAnchorEl={
+                                                            null
                                                         }
-                                                    />
-                                                    &nbsp;&nbsp;&nbsp;
-                                                    <DeleteIcon
-                                                        className={
-                                                            styles.iconos
-                                                        }
-                                                        onClick={() =>
-                                                            seleccionarConsola(
-                                                                consola,
-                                                                "Eliminar"
-                                                            )
-                                                        }
-                                                    />
+                                                        anchorOrigin={{
+                                                            vertical: "bottom",
+                                                            horizontal: "right",
+                                                        }}
+                                                        transformOrigin={{
+                                                            vertical: "top",
+                                                            horizontal: "right",
+                                                        }}
+                                                    >
+                                                        <MenuItem
+                                                            onClick={() =>
+                                                                seleccionarConsola(
+                                                                    consola,
+                                                                    "Editar"
+                                                                )
+                                                            }
+                                                        >
+                                                            Pago Parcial
+                                                        </MenuItem>
+                                                        <MenuItem
+                                                            onClick={() =>
+                                                                seleccionarConsola(
+                                                                    consola,
+                                                                    "Eliminar"
+                                                                )
+                                                            }
+                                                        >
+                                                            Anular
+                                                        </MenuItem>
+                                                    </Menu>
                                                 </TableCell>
                                             </TableRow>
                                         ))}

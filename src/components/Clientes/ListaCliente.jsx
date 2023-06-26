@@ -19,6 +19,7 @@ import {
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Menu, MenuItem } from "@mui/material";
 
 const useStyles = makeStyles({
     modal: {
@@ -57,6 +58,21 @@ const ListaCliente = () => {
     const [modalEditar, setModalEditar] = useState(false);
     const [modalEliminar, setModalEliminar] = useState(false);
     const [search, setSearch] = useState("");
+
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleOptionSelected = (option) => {
+        seleccionarConsola(consola, option);
+        handleMenuClose();
+    };
 
     const [consolaSeleccionada, setConsolaSeleccionada] = useState({
         tipoCedula: "",
@@ -347,29 +363,44 @@ const ListaCliente = () => {
                                                     </TableCell>
 
                                                     <TableCell>
-                                                        <EditIcon
-                                                            className={
-                                                                styles.iconos
-                                                            }
+                                                        <Button
+                                                            style={{
+                                                                backgroundColor:
+                                                                    "grey",
+                                                                marginRight:
+                                                                    "5px",
+                                                            }}
                                                             onClick={() =>
                                                                 seleccionarConsola(
                                                                     consola,
                                                                     "Editar"
                                                                 )
                                                             }
-                                                        />
-                                                    &nbsp;&nbsp;&nbsp;
-                                                        <DeleteIcon
-                                                            className={
-                                                                styles.iconos
-                                                            }
+                                                        >
+                                                            <EditIcon
+                                                                style={{
+                                                                    color: "white",
+                                                                }}
+                                                            />
+                                                        </Button>
+                                                        <Button
+                                                            style={{
+                                                                backgroundColor:
+                                                                    "#9E1B1B",
+                                                            }}
                                                             onClick={() =>
                                                                 seleccionarConsola(
                                                                     consola,
                                                                     "Eliminar"
                                                                 )
                                                             }
-                                                        />
+                                                        >
+                                                            <DeleteIcon
+                                                                style={{
+                                                                    color: "white",
+                                                                }}
+                                                            />
+                                                        </Button>
                                                     </TableCell>
                                                 </TableRow>
                                             ))}

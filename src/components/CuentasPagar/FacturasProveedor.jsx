@@ -18,6 +18,7 @@ import {
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Menu, MenuItem } from "@mui/material";
 //pdf
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -57,6 +58,22 @@ const FacturasProveedor = () => {
     const [montoTotal, setMontoTotal] = useState(0);
     const [modalEditar, setModalEditar] = useState(false);
     const [modalEliminar, setModalEliminar] = useState(false);
+
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleOptionSelected = (option) => {
+        seleccionarConsola(consola, option);
+        handleMenuClose();
+    };
+
     //filtrar
 
     const [filtro, setFiltro] = useState("todos"); // Estado para almacenar el filtro seleccionado ('todos', 'pendientes' o 'pagadas')
@@ -443,7 +460,10 @@ const FacturasProveedor = () => {
                                                     ) : (
                                                         <Button
                                                             variant="contained"
-                                                            color="error"
+                                                            style={{
+                                                                backgroundColor:
+                                                                    "grey",
+                                                            }}
                                                             onClick={() =>
                                                                 cambiarEstadoFactura(
                                                                     consola._id,
@@ -457,29 +477,24 @@ const FacturasProveedor = () => {
                                                 </TableCell>
 
                                                 <TableCell>
-                                                    <EditIcon
-                                                        className={
-                                                            styles.iconos
-                                                        }
-                                                        onClick={() =>
-                                                            seleccionarConsola(
-                                                                consola,
-                                                                "Editar"
-                                                            )
-                                                        }
-                                                    />
-                                                    &nbsp;&nbsp;&nbsp;
-                                                    <DeleteIcon
-                                                        className={
-                                                            styles.iconos
-                                                        }
+                                                    <Button
+                                                        variant="contained"
+                                                        color="error"
+                                                        style={{
+                                                            color: "white",
+                                                            borderRadius: "2px",
+                                                            boxShadow:
+                                                                "2px 2px 4px rgba(0, 0, 0, 0.2)",
+                                                        }}
                                                         onClick={() =>
                                                             seleccionarConsola(
                                                                 consola,
                                                                 "Eliminar"
                                                             )
                                                         }
-                                                    />
+                                                    >
+                                                        Eliminar
+                                                    </Button>
                                                 </TableCell>
                                             </TableRow>
                                         ))}
