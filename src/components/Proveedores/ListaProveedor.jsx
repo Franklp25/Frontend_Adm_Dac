@@ -347,7 +347,7 @@ const ListaProveedor = () => {
                                                                 )
                                                             }
                                                         />
-
+                                                        &nbsp;&nbsp;&nbsp;
                                                         <DeleteIcon
                                                             className={
                                                                 styles.iconos
