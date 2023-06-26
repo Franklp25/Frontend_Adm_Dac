@@ -358,7 +358,7 @@ const ListaCliente = () => {
                                                                 )
                                                             }
                                                         />
-
+                                                    &nbsp;&nbsp;&nbsp;
                                                         <DeleteIcon
                                                             className={
                                                                 styles.iconos

@@ -86,7 +86,7 @@ function ListarEstadisticas() {
                         <input
                             type="text"
                             placeholder="Buscar producto"
-                            className="border-2 border-gray-400 rounded-full py-1 px-3 w-full md:w-1/2"
+                            className="border-2 border-gray-400 rounded-full py-1 px-3 w-full md:w-1/2 mr-2"
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
                         />
@@ -94,7 +94,7 @@ function ListarEstadisticas() {
                         {/* Aquí es donde los componentes de entrada de fecha deben ir */}
                         <input
                             type="date"
-                            className="border-2 border-gray-400 rounded-full py-1 px-3 w-full md:w-1/2"
+                            className="border-2 border-gray-400 rounded-full py-1 px-3 w-full md:w-1/2 mr-2"
                             value={fechaInicio}
                             onChange={(e) => setFechaInicio(e.target.value)}
                         />

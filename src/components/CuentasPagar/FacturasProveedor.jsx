@@ -468,7 +468,7 @@ const FacturasProveedor = () => {
                                                             )
                                                         }
                                                     />
-
+                                                    &nbsp;&nbsp;&nbsp;
                                                     <DeleteIcon
                                                         className={
                                                             styles.iconos
