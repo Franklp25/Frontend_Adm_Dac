@@ -46,7 +46,7 @@ const useStyles = makeStyles({
     modal: {
         position: "relative",
         width: 600,
-        height: 570,
+        maxHeight: "calc(100vh - 2rem)", // Ajusta la altura máxima del modal
         padding: 20,
         paddingBottom: 2,
         backgroundColor: "white",
@@ -54,7 +54,8 @@ const useStyles = makeStyles({
         top: "50%",
         left: "50%",
         transform: "translate(-50%,-50%)",
-        boxShadow: " 0 25px 50px -12px rgb(0 0 0 / 0.25)",
+        boxShadow: "0 25px 50px -12px rgb(0 0 0 / 0.25)",
+        overflow: "auto", // Agrega scroll si el contenido se desborda
     },
     iconos: {
         cursor: "pointer",
@@ -465,7 +466,7 @@ const FacturasCliente = () => {
     };
 
     const bodyEditar = (
-        <div className={styles.modal}>
+        <div className={`${styles.modal} h-full`}>
             <button
                 onClick={abrirCerrarModal}
                 type="button"
@@ -546,20 +547,22 @@ const FacturasCliente = () => {
                 <div className="my-4">
                     <h4 className="mb-2 font-semibold">Pagos parciales</h4>
                     <div className="max-h-48 overflow-y-auto">
-                        <table>
+                        <table className="w-full">
                             <thead>
                                 <tr>
-                                    <th>Número de comprobante</th>
-                                    <th>Fecha</th>
-                                    <th>Monto</th>
-                                    <th></th>
+                                    <th className="px-2 py-1">
+                                        Número de comprobante
+                                    </th>
+                                    <th className="px-2 py-1">Fecha</th>
+                                    <th className="px-2 py-1">Monto</th>
+                                    <th className="px-2 py-1"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {pagosParciales && pagosParciales.length > 0 ? (
                                     pagosParciales.map((pago, pagoIndex) => (
                                         <tr key={pagoIndex}>
-                                            <td>
+                                            <td className="px-2 py-1">
                                                 <TextField
                                                     name={`pagoParciales[${pagoIndex}].numComprobante`}
                                                     className={
@@ -577,7 +580,7 @@ const FacturasCliente = () => {
                                                     }}
                                                 />
                                             </td>
-                                            <td>
+                                            <td className="px-2 py-1">
                                                 <input
                                                     type="date"
                                                     name={`pagoParciales[${pagoIndex}].fecha`}
@@ -594,7 +597,7 @@ const FacturasCliente = () => {
                                                 />
                                             </td>
 
-                                            <td>
+                                            <td className="px-2 py-1">
                                                 <TextField
                                                     name={`pagoParciales[${pagoIndex}].monto`}
                                                     className={
@@ -612,7 +615,7 @@ const FacturasCliente = () => {
                                                     }}
                                                 />
                                             </td>
-                                            <td>
+                                            <td className="px-2 py-1">
                                                 <Button
                                                     className={
                                                         styles.botonEliminar
@@ -628,7 +631,7 @@ const FacturasCliente = () => {
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan="4">
+                                        <td className="px-2 py-1" colSpan="4">
                                             No hay pagos parciales
                                         </td>
                                     </tr>
@@ -646,7 +649,7 @@ const FacturasCliente = () => {
                         </label>
                     </div>
 
-                    <div className="mt-4">
+                    <div className="mt-4 mb-4">
                         <label className="text-lg font-bold">
                             Pago restante:{" "}
                             {(
