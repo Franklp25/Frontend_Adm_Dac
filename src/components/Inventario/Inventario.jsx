@@ -56,6 +56,7 @@ const Inventario = () => {
     const [productos, setProductos] = useState([]);
     const [modalEditar, setModalEditar] = useState(false);
     const [modalEliminar, setModalEliminar] = useState(false);
+    const [search, setSearch] = useState("");
 
     const [consolaSeleccionada, setConsolaSeleccionada] = useState({
         nombre: "",
@@ -225,6 +226,16 @@ const Inventario = () => {
                 </div>
             </div>
 
+            <div className=" flex justify-end mt-12 mr-10">
+                <input
+                    type="text"
+                    className=" p-3 pl-10 text-base rounded-lg  bg-gray-500 placeholder-gray-300 text-white "
+                    placeholder="Buscar..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+            </div>
+
             <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg mb-20">
                 <div className="overflow-x-auto w-full text-sm text-left">
                     <div className="w-full inline-block align-middle">
@@ -272,79 +283,88 @@ const Inventario = () => {
                                     </TableHead>
 
                                     <TableBody>
-                                        {productos.map((consola) => (
-                                            <TableRow key={consola.id}>
-                                                <TableCell>
-                                                    {consola.codigo}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.nombre}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.unidadMedida}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.cantidad}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.precio.toLocaleString(
-                                                        "es-US",
-                                                        {
-                                                            style: "currency",
-                                                            currency: "CRC",
-                                                        }
-                                                    )}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.descripcion}
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Button
-                                                        style={{
-                                                            backgroundColor:
-                                                                "grey",
-                                                            marginRight: "5px",
-                                                            margin: "0.25rem",
-                                                            width: "2.5rem",
-                                                            height: "2.5rem",
-                                                        }}
-                                                        onClick={() =>
-                                                            seleccionarConsola(
-                                                                consola,
-                                                                "Editar"
-                                                            )
-                                                        }
-                                                    >
-                                                        <EditIcon
+                                        {productos
+                                            .filter((consola) =>
+                                                consola.nombre
+                                                    .toLowerCase()
+                                                    .includes(
+                                                        search.toLowerCase()
+                                                    )
+                                            )
+                                            .map((consola) => (
+                                                <TableRow key={consola.id}>
+                                                    <TableCell>
+                                                        {consola.codigo}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {consola.nombre}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {consola.unidadMedida}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {consola.cantidad}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {consola.precio.toLocaleString(
+                                                            "es-US",
+                                                            {
+                                                                style: "currency",
+                                                                currency: "CRC",
+                                                            }
+                                                        )}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {consola.descripcion}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <Button
                                                             style={{
-                                                                color: "white",
+                                                                backgroundColor:
+                                                                    "grey",
+                                                                marginRight:
+                                                                    "5px",
+                                                                margin: "0.25rem",
+                                                                width: "2.5rem",
+                                                                height: "2.5rem",
                                                             }}
-                                                        />
-                                                    </Button>
-                                                    <Button
-                                                        style={{
-                                                            backgroundColor:
-                                                                "#9E1B1B",
-                                                            margin: "0.25rem",
-                                                            width: "2.5rem",
-                                                            height: "2.5rem",
-                                                        }}
-                                                        onClick={() =>
-                                                            seleccionarConsola(
-                                                                consola,
-                                                                "Eliminar"
-                                                            )
-                                                        }
-                                                    >
-                                                        <DeleteIcon
+                                                            onClick={() =>
+                                                                seleccionarConsola(
+                                                                    consola,
+                                                                    "Editar"
+                                                                )
+                                                            }
+                                                        >
+                                                            <EditIcon
+                                                                style={{
+                                                                    color: "white",
+                                                                }}
+                                                            />
+                                                        </Button>
+                                                        <Button
                                                             style={{
-                                                                color: "white",
+                                                                backgroundColor:
+                                                                    "#9E1B1B",
+                                                                margin: "0.25rem",
+                                                                width: "2.5rem",
+                                                                height: "2.5rem",
                                                             }}
-                                                        />
-                                                    </Button>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
+                                                            onClick={() =>
+                                                                seleccionarConsola(
+                                                                    consola,
+                                                                    "Eliminar"
+                                                                )
+                                                            }
+                                                        >
+                                                            <DeleteIcon
+                                                                style={{
+                                                                    color: "white",
+                                                                }}
+                                                            />
+                                                        </Button>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
                                     </TableBody>
                                 </Table>
                             </TableContainer>
