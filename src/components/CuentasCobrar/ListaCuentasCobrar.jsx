@@ -67,15 +67,27 @@ const ListaCuentasCobrar = () => {
 
     const obtenertotalDeudaFormateado = (idCliente) => {
         let total = 0;
+        let totalPagos = 0;
+
         facturas.forEach((factura) => {
-            if (factura.cliente == idCliente && !factura.anulada) {
+            if (factura.cliente === idCliente && !factura.anulada) {
                 total += factura.subtotal + factura.iva;
             }
+
+            if (factura.cliente === idCliente && factura.pagoParciales) {
+                factura.pagoParciales.forEach((pago) => {
+                    totalPagos += Number(pago.monto);
+                });
+            }
         });
+
+        total -= totalPagos;
+
         const formattedTotal = total.toLocaleString("es-US", {
             style: "currency",
             currency: "CRC",
         });
+
         return formattedTotal;
     };
 

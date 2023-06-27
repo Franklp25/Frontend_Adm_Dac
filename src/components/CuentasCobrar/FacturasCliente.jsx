@@ -126,6 +126,16 @@ const FacturasCliente = () => {
 
     const [sumaPagos, setSumaPagos] = useState(0);
 
+    const calcularSumaPagos = (pagosParciales) => {
+        const updatedPagosParciales = [...pagosParciales];
+        const suma = updatedPagosParciales.reduce(
+            (acumulador, pago) => acumulador + parseFloat(pago.monto),
+            0
+        );
+        //console.log("suma: "+suma)
+        setSumaPagos(suma);
+    };
+
     const handleChange = (e, index) => {
         const { name, value } = e.target;
 
@@ -134,13 +144,7 @@ const FacturasCliente = () => {
             const field = name.split(".").pop();
             updatedPagosParciales[index][field] = value;
             setPagosParciales(updatedPagosParciales);
-
-            const suma = updatedPagosParciales.reduce(
-                (acumulador, pago) => acumulador + parseFloat(pago.monto),
-                0
-            );
-            //console.log("suma: "+suma)
-            setSumaPagos(suma);
+            calcularSumaPagos();
         } else {
             setConsolaSeleccionada((prevState) => ({
                 ...prevState,
@@ -207,23 +211,22 @@ const FacturasCliente = () => {
         await clienteAxios
             .put(`/facturas/${consolaSeleccionada._id}`, { pagosParciales })
             .then((response) => {
-                // Crear una copia superficial de facturasFiltradas usando slice()
-                const dataNueva = facturas.slice();
+                // Crear una copia profunda de facturas usando JSON.parse(JSON.stringify())
+                const dataNueva = JSON.parse(JSON.stringify(facturas));
 
                 // Realizar los cambios en la copia
-                dataNueva.map((factura) => {
+                dataNueva.forEach((factura) => {
                     if (consolaSeleccionada._id === factura._id) {
-                        factura.pagosParciales = pagosParciales;
-                        console.log("hizo el cambio");
+                        factura.pagoParciales = pagosParciales;
                     }
                 });
 
-                // Asignar la nueva copia a facturasFiltradas
+                // Asignar la nueva copia a facturas y facturasFiltradas
                 setFacturas(dataNueva);
-                console.log(facturas);
-
-                abrirCerrarModal();
+                setFacturasFiltradas(dataNueva);
             });
+
+        abrirCerrarModal();
     };
 
     // const peticionDelete = async (eliminarID) => {
@@ -259,9 +262,6 @@ const FacturasCliente = () => {
     };
 
     const abrirCerrarModal = () => {
-        if (consolaSeleccionada.pagosParciales) {
-            setPagosParciales(consolaSeleccionada.pa);
-        }
         setModalEditar(!modalEditar);
     };
 
@@ -405,13 +405,25 @@ const FacturasCliente = () => {
 
     //montoTotal
     useEffect(() => {
-        const totalMonto = facturasFiltradas.reduce((total, factura) => {
-            if (!factura.anulada) {
-                return total + factura.iva + factura.subtotal;
-            } else {
-                return total;
+        let totalPagos = 0;
+
+        facturasFiltradas.forEach((factura) => {
+            if (factura.pagoParciales) {
+                factura.pagoParciales.forEach((pago) => {
+                    totalPagos += Number(pago.monto);
+                });
             }
-        }, 0);
+        });
+
+        const totalMonto =
+            facturasFiltradas.reduce((total, factura) => {
+                if (!factura.anulada) {
+                    return total + factura.iva + factura.subtotal;
+                } else {
+                    return total;
+                }
+            }, 0) - totalPagos;
+
         setMontoTotal(totalMonto);
     }, [facturasFiltradas]);
 
@@ -429,9 +441,11 @@ const FacturasCliente = () => {
             const nuevosPagosParciales = prevState.filter(
                 (_, i) => i !== index
             );
+            calcularSumaPagos(nuevosPagosParciales);
 
             return nuevosPagosParciales;
         });
+        
     };
 
     const anularFactura = async (facturaId) => {
