@@ -708,7 +708,7 @@ const FacturasCliente = () => {
                                                             backgroundColor:
                                                                 "#16A34A",
                                                             color: "white",
-                                                            borderRadius: "2px",
+                                                            borderRadius: "4px",
                                                             boxShadow:
                                                                 "2px 2px 4px rgba(0, 0, 0, 0.2)",
                                                             margin: "0.25rem",

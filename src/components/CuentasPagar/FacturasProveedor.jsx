@@ -482,7 +482,7 @@ const FacturasProveedor = () => {
                                                         color="error"
                                                         style={{
                                                             color: "white",
-                                                            borderRadius: "2px",
+                                                            borderRadius: "4px",
                                                             boxShadow:
                                                                 "2px 2px 4px rgba(0, 0, 0, 0.2)",
                                                         }}

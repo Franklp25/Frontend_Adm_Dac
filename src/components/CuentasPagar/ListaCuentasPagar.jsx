@@ -15,6 +15,7 @@ import {
     TextField,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import Button from "@mui/material/Button";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 const useStyles = makeStyles({
@@ -153,11 +154,23 @@ const ListaCuentasPagar = () => {
                                                         <Link
                                                             to={`/facturasProveedor/${proveedor._id}`}
                                                         >
-                                                            <RemoveRedEyeIcon
-                                                                className={
-                                                                    styles.iconos
-                                                                }
-                                                            />
+                                                            <Button
+                                                                variant="contained"
+                                                                style={{
+                                                                    backgroundColor:
+                                                                        "#16A34A",
+                                                                    color: "white",
+                                                                    borderRadius:
+                                                                        "4px",
+                                                                    boxShadow:
+                                                                        "2px 2px 4px rgba(0, 0, 0, 0.2)",
+                                                                    margin: "0.25rem",
+                                                                    width: "6.5rem",
+                                                                    height: "2.5rem",
+                                                                }}
+                                                            >
+                                                                Facturas
+                                                            </Button>
                                                         </Link>
                                                     </TableCell>
                                                 </TableRow>
