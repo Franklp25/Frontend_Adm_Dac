@@ -22,9 +22,25 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Menu, MenuItem } from "@mui/material";
 
+//moment js
+import moment from "moment";
+
 //pdf
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+
+const convertirFecha = (fecha) => {
+    // Si la fecha no está definida, retorna una cadena vacía
+    if (!fecha) return "";
+
+    // Formato de fecha compatible con el elemento input de tipo date (YYYY-MM-DD)
+    const formatoFecha = "YYYY-MM-DD";
+
+    // Utiliza moment.js para formatear la fecha
+    const fechaFormateada = moment(fecha).format(formatoFecha);
+
+    return fechaFormateada;
+};
 
 const useStyles = makeStyles({
     modal: {
@@ -73,13 +89,17 @@ const FacturasCliente = () => {
     const [filtro, setFiltro] = useState("todos"); // Estado para almacenar el filtro seleccionado ('todos', 'pendientes' o 'pagadas')
     const [facturasFiltradas, setFacturasFiltradas] = useState([]); // Estado para almacenar las facturas filtradas
 
-    const [anchorEl, setAnchorEl] = useState(null);
-    const handleMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
+    const [anchorEl, setAnchorEl] = useState([]);
+    const handleMenuOpen = (event, index) => {
+        setAnchorEl((prevAnchorEl) => {
+            const updatedAnchorEl = [...prevAnchorEl];
+            updatedAnchorEl[index] = event.currentTarget;
+            return updatedAnchorEl;
+        });
     };
 
     const handleMenuClose = () => {
-        setAnchorEl(null);
+        setAnchorEl([]);
     };
 
     const handleOptionSelected = (option) => {
@@ -103,24 +123,24 @@ const FacturasCliente = () => {
         pagosParciales: [{ numComprobante: "", fecha: "", monto: "" }],
     });
 
+    const [sumaPagos, setSumaPagos] = useState(0);
+
     const handleChange = (e, index) => {
         const { name, value } = e.target;
-        console.log(pagosParciales);
 
         if (name.startsWith("pagoParciales")) {
-            // Crear una copia del estado actual de pagosParciales
             const updatedPagosParciales = [...pagosParciales];
-
-            // Extraer el nombre del campo específico del pago parcial
             const field = name.split(".").pop();
-
-            // Actualizar el campo correspondiente en el pago parcial específico
             updatedPagosParciales[index][field] = value;
-
-            // Actualizar el estado de pagosParciales
             setPagosParciales(updatedPagosParciales);
+
+            const suma = updatedPagosParciales.reduce(
+                (acumulador, pago) => acumulador + parseFloat(pago.monto),
+                0
+            );
+            //console.log("suma: "+suma)
+            setSumaPagos(suma);
         } else {
-            // Manejar los otros campos de texto según tu implementación actual
             setConsolaSeleccionada((prevState) => ({
                 ...prevState,
                 [name]: value,
@@ -129,6 +149,7 @@ const FacturasCliente = () => {
     };
 
     const cambiarEstadoFactura = async (facturaId, nuevoEstado) => {
+        console.log("facturaId: " + facturaId);
         try {
             await clienteAxios.put(`/facturas/${facturaId}`, {
                 estado: nuevoEstado,
@@ -185,13 +206,22 @@ const FacturasCliente = () => {
         await clienteAxios
             .put(`/facturas/${consolaSeleccionada._id}`, { pagosParciales })
             .then((response) => {
-                var dataNueva = facturas; // Cambiar de 'clientes' a 'facturas'
+                // Crear una copia superficial de facturasFiltradas usando slice()
+                const dataNueva = facturas.slice();
+
+                // Realizar los cambios en la copia
                 dataNueva.map((factura) => {
                     if (consolaSeleccionada._id === factura._id) {
-                        consolaSeleccionada.pagosParciales=pagosParciales
+                        factura.pagosParciales = pagosParciales;
+                        console.log("hizo el cambio");
                     }
                 });
-                setFacturas(dataNueva); // Cambiar de 'clientes' a 'facturas'
+
+                // Asignar la nueva copia a facturasFiltradas
+                setFacturas(dataNueva);
+                console.log(facturas);
+
+                abrirCerrarModal();
             });
     };
 
@@ -228,10 +258,27 @@ const FacturasCliente = () => {
     };
 
     const abrirCerrarModal = () => {
+        if (consolaSeleccionada.pagosParciales) {
+            setPagosParciales(consolaSeleccionada.pa);
+        }
         setModalEditar(!modalEditar);
     };
 
     const seleccionarConsola = (consola, caso) => {
+        console.log(consola.pagoParciales);
+        if (consola.pagoParciales && consola.pagoParciales.length > 0) {
+            setPagosParciales(consola.pagoParciales);
+            const updatedPagosParciales = [...consola.pagoParciales];
+            const suma = updatedPagosParciales.reduce(
+                (acumulador, pago) => acumulador + parseFloat(pago.monto),
+                0
+            );
+            setSumaPagos(suma);
+            console.log("pagosParciales");
+        } else {
+            setPagosParciales([{ numComprobante: "", fecha: "", monto: "" }]);
+        }
+
         setConsolaSeleccionada(consola);
         caso === "Editar" ? setModalEditar(true) : "";
         caso === "Eliminar" ? confirmarDelete(consola) : "";
@@ -476,6 +523,24 @@ const FacturasCliente = () => {
                     }
                     InputProps={{ readOnly: true, notched: false }}
                 />
+
+                <TextField
+                    name="montoOriginal"
+                    className={styles.inputMaterial}
+                    label="Monto Original"
+                    onChange={handleChange}
+                    value={
+                        consolaSeleccionada &&
+                        (
+                            consolaSeleccionada.iva +
+                            consolaSeleccionada.subtotal
+                        ).toLocaleString("es-US", {
+                            style: "currency",
+                            currency: "CRC",
+                        })
+                    }
+                    InputProps={{ readOnly: true, notched: false }}
+                />
             </div>
             {consolaSeleccionada && consolaSeleccionada.pagoParciales && (
                 <div className="my-4">
@@ -491,57 +556,110 @@ const FacturasCliente = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {pagosParciales.map((pago, index) => (
-                                    <tr key={index}>
-                                        <td>
-                                            <TextField
-                                                name={`pagoParciales[${index}].numComprobante`}
-                                                className={styles.inputMaterial}
-                                                value={pago.numComprobante}
-                                                onChange={(event) =>
-                                                    handleChange(event, index)
-                                                }
-                                                InputProps={{ notched: false }}
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                type="date"
-                                                name={`pagoParciales[${index}].fecha`}
-                                                className="border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                value={pago.fecha}
-                                                onChange={(event) =>
-                                                    handleChange(event, index)
-                                                }
-                                            />
-                                        </td>
+                                {pagosParciales && pagosParciales.length > 0 ? (
+                                    pagosParciales.map((pago, pagoIndex) => (
+                                        <tr key={pagoIndex}>
+                                            <td>
+                                                <TextField
+                                                    name={`pagoParciales[${pagoIndex}].numComprobante`}
+                                                    className={
+                                                        styles.inputMaterial
+                                                    }
+                                                    value={pago.numComprobante}
+                                                    onChange={(event) =>
+                                                        handleChange(
+                                                            event,
+                                                            pagoIndex
+                                                        )
+                                                    }
+                                                    InputProps={{
+                                                        notched: false,
+                                                    }}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input
+                                                    type="date"
+                                                    name={`pagoParciales[${pagoIndex}].fecha`}
+                                                    className="border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                    value={convertirFecha(
+                                                        pago.fecha
+                                                    )}
+                                                    onChange={(event) =>
+                                                        handleChange(
+                                                            event,
+                                                            pagoIndex
+                                                        )
+                                                    }
+                                                />
+                                            </td>
 
-                                        <td>
-                                            <TextField
-                                                name={`pagoParciales[${index}].monto`}
-                                                className={styles.inputMaterial}
-                                                value={pago.monto}
-                                                onChange={(event) =>
-                                                    handleChange(event, index)
-                                                }
-                                                InputProps={{ notched: false }}
-                                            />
-                                        </td>
-                                        <td>
-                                            <Button
-                                                className={styles.botonEliminar}
-                                                onClick={() =>
-                                                    eliminarFila(index)
-                                                }
-                                            >
-                                                Eliminar
-                                            </Button>
+                                            <td>
+                                                <TextField
+                                                    name={`pagoParciales[${pagoIndex}].monto`}
+                                                    className={
+                                                        styles.inputMaterial
+                                                    }
+                                                    value={pago.monto}
+                                                    onChange={(event) =>
+                                                        handleChange(
+                                                            event,
+                                                            pagoIndex
+                                                        )
+                                                    }
+                                                    InputProps={{
+                                                        notched: false,
+                                                    }}
+                                                />
+                                            </td>
+                                            <td>
+                                                <Button
+                                                    className={
+                                                        styles.botonEliminar
+                                                    }
+                                                    onClick={() =>
+                                                        eliminarFila(pagoIndex)
+                                                    }
+                                                >
+                                                    Eliminar
+                                                </Button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="4">
+                                            No hay pagos parciales
                                         </td>
                                     </tr>
-                                ))}
+                                )}
                             </tbody>
                         </table>
                     </div>
+                    <div className="mt-4">
+                        <label className="text-lg font-bold">
+                            Suma de pagos previos:{" "}
+                            {sumaPagos.toLocaleString("es-US", {
+                                style: "currency",
+                                currency: "CRC",
+                            })}
+                        </label>
+                    </div>
+
+                    <div className="mt-4">
+                        <label className="text-lg font-bold">
+                            Pago restante:{" "}
+                            {(
+                                consolaSeleccionada.subtotal +
+                                consolaSeleccionada.iva -
+                                sumaPagos
+                            ).toLocaleString("es-US", {
+                                style: "currency",
+                                currency: "CRC",
+                            })}
+                        </label>
+                    </div>
+
                     <Button
                         className={styles.botonAgregar}
                         onClick={agregarFila}
@@ -638,148 +756,183 @@ const FacturasCliente = () => {
                                     </TableHead>
 
                                     <TableBody>
-                                        {facturasFiltradas.map((consola) => (
-                                            <TableRow key={consola._id}>
-                                                <TableCell>
-                                                    {consola.numFacturaCobrar ||
-                                                        "N.A"}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {new Date(
-                                                        consola.fechaEmision
-                                                    ).toLocaleDateString()}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {new Date(
-                                                        consola.fechaVencimiento
-                                                    ).toLocaleDateString()}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.iva.toLocaleString(
-                                                        "es-US",
-                                                        {
-                                                            style: "currency",
-                                                            currency: "CRC",
-                                                        }
-                                                    )}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.subtotal.toLocaleString(
-                                                        "es-US",
-                                                        {
-                                                            style: "currency",
-                                                            currency: "CRC",
-                                                        }
-                                                    )}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {(
-                                                        consola.iva +
-                                                        consola.subtotal
-                                                    ).toLocaleString("es-US", {
-                                                        style: "currency",
-                                                        currency: "CRC",
-                                                    })}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {consola.anulada ? (
+                                        {facturasFiltradas.map(
+                                            (consola, index) => (
+                                                <TableRow key={consola._id}>
+                                                    <TableCell>
+                                                        {consola.numFacturaCobrar ||
+                                                            "N.A"}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {new Date(
+                                                            consola.fechaEmision
+                                                        ).toLocaleDateString()}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {new Date(
+                                                            consola.fechaVencimiento
+                                                        ).toLocaleDateString()}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {consola.iva.toLocaleString(
+                                                            "es-US",
+                                                            {
+                                                                style: "currency",
+                                                                currency: "CRC",
+                                                            }
+                                                        )}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {consola.subtotal.toLocaleString(
+                                                            "es-US",
+                                                            {
+                                                                style: "currency",
+                                                                currency: "CRC",
+                                                            }
+                                                        )}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {(
+                                                            consola.iva +
+                                                            consola.subtotal -
+                                                            (consola
+                                                                .pagoParciales
+                                                                .length > 0
+                                                                ? consola.pagoParciales.reduce(
+                                                                      (
+                                                                          total,
+                                                                          pago
+                                                                      ) =>
+                                                                          total +
+                                                                          (parseFloat(
+                                                                              pago.monto
+                                                                          ) ||
+                                                                              0), // Validación de número válido o cero
+                                                                      0
+                                                                  )
+                                                                : 0)
+                                                        ).toLocaleString(
+                                                            "es-US",
+                                                            {
+                                                                style: "currency",
+                                                                currency: "CRC",
+                                                            }
+                                                        )}
+                                                    </TableCell>
+
+                                                    <TableCell>
+                                                        {consola.anulada ? (
+                                                            <Button
+                                                                variant="contained"
+                                                                style={{
+                                                                    backgroundColor:
+                                                                        "gray",
+                                                                }}
+                                                            >
+                                                                Anulada
+                                                            </Button>
+                                                        ) : consola.estado ? (
+                                                            <Button
+                                                                variant="contained"
+                                                                color="primary"
+                                                                onClick={() =>
+                                                                    cambiarEstadoFactura(
+                                                                        consola._id,
+                                                                        false
+                                                                    )
+                                                                }
+                                                            >
+                                                                Pagado
+                                                            </Button>
+                                                        ) : (
+                                                            <Button
+                                                                variant="contained"
+                                                                color="error"
+                                                                onClick={() =>
+                                                                    cambiarEstadoFactura(
+                                                                        consola._id,
+                                                                        true
+                                                                    )
+                                                                }
+                                                            >
+                                                                Pendiente
+                                                            </Button>
+                                                        )}
+                                                    </TableCell>
+
+                                                    <TableCell>
                                                         <Button
                                                             variant="contained"
                                                             style={{
                                                                 backgroundColor:
-                                                                    "gray",
+                                                                    "#16A34A",
+                                                                color: "white",
+                                                                borderRadius:
+                                                                    "2px",
+                                                                boxShadow:
+                                                                    "2px 2px 4px rgba(0, 0, 0, 0.2)",
+                                                                margin: "0.25rem",
+                                                                width: "2.5rem",
+                                                                height: "2.5rem",
+                                                            }}
+                                                            onClick={(event) =>
+                                                                handleMenuOpen(
+                                                                    event,
+                                                                    index
+                                                                )
+                                                            }
+                                                        >
+                                                            Más
+                                                        </Button>
+                                                        <Menu
+                                                            anchorEl={
+                                                                anchorEl[index]
+                                                            }
+                                                            open={Boolean(
+                                                                anchorEl[index]
+                                                            )}
+                                                            onClose={
+                                                                handleMenuClose
+                                                            }
+                                                            getContentAnchorEl={
+                                                                null
+                                                            }
+                                                            anchorOrigin={{
+                                                                vertical:
+                                                                    "bottom",
+                                                                horizontal:
+                                                                    "right",
+                                                            }}
+                                                            transformOrigin={{
+                                                                vertical: "top",
+                                                                horizontal:
+                                                                    "right",
                                                             }}
                                                         >
-                                                            Anulada
-                                                        </Button>
-                                                    ) : consola.estado ? (
-                                                        <Button
-                                                            variant="contained"
-                                                            color="primary"
-                                                            onClick={() =>
-                                                                cambiarEstadoFactura(
-                                                                    consola._id,
-                                                                    false
-                                                                )
-                                                            }
-                                                        >
-                                                            Pagado
-                                                        </Button>
-                                                    ) : (
-                                                        <Button
-                                                            variant="contained"
-                                                            color="error"
-                                                            onClick={() =>
-                                                                cambiarEstadoFactura(
-                                                                    consola._id,
-                                                                    true
-                                                                )
-                                                            }
-                                                        >
-                                                            Pendiente
-                                                        </Button>
-                                                    )}
-                                                </TableCell>
-
-                                                <TableCell>
-                                                    <Button
-                                                        variant="contained"
-                                                        style={{
-                                                            backgroundColor:
-                                                                "#16A34A",
-                                                            color: "white",
-                                                            borderRadius: "2px",
-                                                            boxShadow:
-                                                                "2px 2px 4px rgba(0, 0, 0, 0.2)",
-                                                            margin: "0.25rem",
-                                                            width: "2.5rem",
-                                                            height: "2.5rem",
-                                                        }}
-                                                        onClick={handleMenuOpen}
-                                                    >
-                                                        Más
-                                                    </Button>
-                                                    <Menu
-                                                        anchorEl={anchorEl}
-                                                        open={Boolean(anchorEl)}
-                                                        onClose={
-                                                            handleMenuClose
-                                                        }
-                                                        getContentAnchorEl={
-                                                            null
-                                                        }
-                                                        anchorOrigin={{
-                                                            vertical: "bottom",
-                                                            horizontal: "right",
-                                                        }}
-                                                        transformOrigin={{
-                                                            vertical: "top",
-                                                            horizontal: "right",
-                                                        }}
-                                                    >
-                                                        <MenuItem
-                                                            onClick={() =>
-                                                                seleccionarConsola(
-                                                                    consola,
-                                                                    "Editar"
-                                                                )
-                                                            }
-                                                        >
-                                                            Pago Parcial
-                                                        </MenuItem>
-                                                        <MenuItem
-                                                            onClick={() =>
-                                                                anularFactura(
-                                                                    consola._id
-                                                                )
-                                                            }
-                                                        >
-                                                            Anular
-                                                        </MenuItem>
-                                                    </Menu>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
+                                                            <MenuItem
+                                                                onClick={() =>
+                                                                    seleccionarConsola(
+                                                                        consola,
+                                                                        "Editar"
+                                                                    )
+                                                                }
+                                                            >
+                                                                Pago Parcial
+                                                            </MenuItem>
+                                                            <MenuItem
+                                                                onClick={() =>
+                                                                    anularFactura(
+                                                                        consola._id
+                                                                    )
+                                                                }
+                                                            >
+                                                                Anular
+                                                            </MenuItem>
+                                                        </Menu>
+                                                    </TableCell>
+                                                </TableRow>
+                                            )
+                                        )}
                                         <TableRow>
                                             <TableCell
                                                 className={styles.total}
