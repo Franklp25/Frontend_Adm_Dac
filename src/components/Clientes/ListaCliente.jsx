@@ -149,7 +149,7 @@ const ListaCliente = () => {
     };
 
     const confirmarDelete = async (consola) => {
-        console.log("Consola seleccionada: " + consola._id);
+        // console.log("Consola seleccionada: " + consola._id);
         try {
             Swal.fire({
                 title: "¿Deseas eliminar este Cliente?",

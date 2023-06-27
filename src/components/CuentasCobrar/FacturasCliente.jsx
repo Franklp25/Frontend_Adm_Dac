@@ -85,6 +85,7 @@ const FacturasCliente = () => {
     const [cliente, setCliente] = useState("");
     const [modalEditar, setModalEditar] = useState(false);
     const [modalEliminar, setModalEliminar] = useState(false);
+    const [search, setSearch] = useState("");
     //const [userId, setUserId] = useState(match.params.id);
     const [montoTotal, setMontoTotal] = useState(0);
     const [filtro, setFiltro] = useState("todos"); // Estado para almacenar el filtro seleccionado ('todos', 'pendientes' o 'pagadas')
@@ -327,6 +328,16 @@ const FacturasCliente = () => {
         doc.text("ESTADO DE CUENTA", 78, 68);
         doc.text(nomCliente, 89, 74);
 
+        const calcTotal = (factura) => {
+            let totalPagos = 0;
+            if (factura.pagoParciales) {
+                factura.pagoParciales.forEach((pago) => {
+                    totalPagos += Number(pago.monto);
+                });
+            }
+            return totalPagos;
+        };
+
         const datosTabla = facturasFiltradas.map((factura) => [
             factura.numFacturaCobrar,
             new Date(factura.fechaEmision).toLocaleDateString(),
@@ -339,7 +350,8 @@ const FacturasCliente = () => {
                 style: "currency",
                 currency: "CRC",
             }),
-            factura.iva + factura.subtotal,
+
+            factura.iva + factura.subtotal - calcTotal(factura),
             factura.estado ? "PAGADO" : "PENDIENTE",
         ]);
 
@@ -733,13 +745,24 @@ const FacturasCliente = () => {
                     Exportar a PDF
                 </Button>
             </div>
-            <div className="flex justify-start m-10 ">
-                <label className="mr-2">Filtrar:</label>
-                <select value={filtro} onChange={handleFiltroChange}>
-                    <option value="todos">Todos</option>
-                    <option value="pendientes">Pendientes</option>
-                    <option value="pagadas">Pagadas</option>
-                </select>
+            <div className="flex justify-between">
+                <div className="m-10">
+                    <label className="mr-2">Filtrar:</label>
+                    <select value={filtro} onChange={handleFiltroChange}>
+                        <option value="todos">Todos</option>
+                        <option value="pendientes">Pendientes</option>
+                        <option value="pagadas">Pagadas</option>
+                    </select>
+                </div>
+                <div className="mt-12 mr-10">
+                    <input
+                        type="text"
+                        className=" p-3 pl-10 text-base rounded-lg  bg-gray-500 placeholder-gray-300 text-white "
+                        placeholder="Buscar..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                </div>
             </div>
 
             <div className="flex flex-col mx-4 mt-10 overflow-x-auto shadow-md sm:rounded-lg mb-20">
@@ -794,8 +817,13 @@ const FacturasCliente = () => {
                                     </TableHead>
 
                                     <TableBody>
-                                        {facturasFiltradas.map(
-                                            (consola, index) => (
+                                        {facturasFiltradas
+                                            .filter((factura) =>
+                                                factura.numFacturaCobrar
+                                                    .toString()
+                                                    .includes(search)
+                                            )
+                                            .map((consola, index) => (
                                                 <TableRow key={consola._id}>
                                                     <TableCell>
                                                         {consola.numFacturaCobrar ||
@@ -971,8 +999,7 @@ const FacturasCliente = () => {
                                                         </Menu>
                                                     </TableCell>
                                                 </TableRow>
-                                            )
-                                        )}
+                                            ))}
                                         <TableRow>
                                             <TableCell
                                                 className={styles.total}

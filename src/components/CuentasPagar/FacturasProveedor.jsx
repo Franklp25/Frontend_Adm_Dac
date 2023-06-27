@@ -172,33 +172,49 @@ const FacturasProveedor = () => {
             });
     };
 
-    const peticionDelete = async () => {
-        await clienteAxios
-            .delete(
-                `/proveedor/${consolaSeleccionada._id}`,
+    const peticionDelete = async (eliminarID) => {
+        try {
+            await clienteAxios.delete(
+                `/facturas-pagar/${eliminarID._id}`,
                 consolaSeleccionada
-            )
-            .then((response) => {
-                var dataNueva = proveedor;
-                setProveedor(dataNueva);
+            );
+            var dataNueva = facturasProveedor.filter((consola) => {
+                if (eliminarID._id === consola._id) {
+                    return false;
+                }
+                return true;
             });
+            setFacturasProveedor(dataNueva);
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: JSON.stringify(error.response.data.msg),
+                // text: "Digite un nuevo número de cédula",
+            });
+        }
     };
 
     //Confirma mediante sweetAlert si se desea eliminar el elemento
-    const confirmarDelete = async () => {
-        Swal.fire({
-            title: "¿Deseas eliminar este proveedor?",
-            // text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Si, Eliminar!",
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                peticionDelete();
-            }
-        });
+    const confirmarDelete = async (consola) => {
+        // console.log("Consola seleccionada: " + consola._id);
+        try {
+            Swal.fire({
+                title: "¿Deseas eliminar esta factura?",
+                // text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, Eliminar!",
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    peticionDelete(consola);
+                } else {
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const abrirCerrarModal = () => {
@@ -208,7 +224,7 @@ const FacturasProveedor = () => {
     const seleccionarConsola = (consola, caso) => {
         setConsolaSeleccionada(consola);
         caso === "Editar" ? setModalEditar(true) : "";
-        caso === "Eliminar" ? confirmarDelete() : "";
+        caso === "Eliminar" ? confirmarDelete(consola) : "";
     };
 
     useEffect(() => {
