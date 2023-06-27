@@ -664,9 +664,7 @@ const FacturasCliente = () => {
                                             </td>
                                             <td className="px-2 py-1">
                                                 <Button
-                                                    className={
-                                                        styles.botonEliminar
-                                                    }
+                                                    style={{color:"red"}}
                                                     onClick={() =>
                                                         eliminarFila(pagoIndex)
                                                     }

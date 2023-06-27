@@ -78,14 +78,24 @@ const AgregarFacturasCobrar = () => {
             agregarDetalles(data._id);
             Swal.fire({
                 icon: "success",
-                title: "Factura agregada correctamente",
-                // text: "Gracias por enviar el formulario",
+                title: "¡Factura agregada correctamente!",
+                text: "La factura ha sido registrada en el sistema.",
+                showConfirmButton: false,
+                timer: 5500,
+                timerProgressBar: true,
+                toast: true,
+                position: "top-end",
+                background: "#f8f9fa",
+                iconColor: "#198754",
             });
         } catch (error) {
+            console.log(error);
             Swal.fire({
                 icon: "error",
-                title: JSON.stringify(error.response.data.msg),
-                // text: "Digite un nuevo número de cédula",
+                title: "Error",
+                text: JSON.stringify(error.response.data.msg),
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Cerrar",
             });
             return;
         }
