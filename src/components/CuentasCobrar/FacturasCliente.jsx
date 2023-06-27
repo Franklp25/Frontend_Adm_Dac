@@ -271,7 +271,7 @@ const FacturasCliente = () => {
                 currency: "CRC",
             }),
             factura.iva + factura.subtotal,
-            factura.estado,
+            factura.estado ? "PAGADO" : "PENDIENTE",
         ]);
 
         doc.autoTable({
@@ -325,7 +325,7 @@ const FacturasCliente = () => {
         doc.text(
             "Estimado cliente, le remitimos la información de nuestras cuentas bancarias.",
             37,
-            130
+            doc.autoTable.previous.finalY + 30
         );
 
         // Descargar archivo PDF
