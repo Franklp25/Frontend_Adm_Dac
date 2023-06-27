@@ -130,9 +130,15 @@ const FacturasCliente = () => {
         if (filtro === "todos") {
             setFacturasFiltradas(facturas);
         } else if (filtro === "pendientes") {
-            setFacturasFiltradas(facturas.filter((factura) => !factura.estado));
+            setFacturasFiltradas(
+                facturas.filter(
+                    (factura) => !factura.estado && !factura.anulada
+                )
+            );
         } else if (filtro === "pagadas") {
-            setFacturasFiltradas(facturas.filter((factura) => factura.estado));
+            setFacturasFiltradas(
+                facturas.filter((factura) => factura.estado && !factura.anulada)
+            );
         }
     }, [facturas, filtro]);
 
@@ -336,10 +342,13 @@ const FacturasCliente = () => {
 
     //montoTotal
     useEffect(() => {
-        const totalMonto = facturasFiltradas.reduce(
-            (total, factura) => total + factura.iva + factura.subtotal,
-            0
-        );
+        const totalMonto = facturasFiltradas.reduce((total, factura) => {
+            if (!factura.anulada) {
+                return total + factura.iva + factura.subtotal;
+            } else {
+                return total;
+            }
+        }, 0);
         setMontoTotal(totalMonto);
     }, [facturasFiltradas]);
 
@@ -360,6 +369,37 @@ const FacturasCliente = () => {
             );
             return { ...prevState, pagoParciales: nuevosPagosParciales };
         });
+    };
+
+    const anularFactura = async (facturaId) => {
+        console.log("entro aqui: " + facturaId);
+        try {
+            await clienteAxios.put(`/facturas/${facturaId}`, {
+                anulada: true,
+            });
+            setFacturas(
+                facturas.map((factura) => {
+                    if (factura._id === facturaId) {
+                        factura.anulada = true;
+                    }
+                    return factura;
+                })
+            );
+            Swal.fire({
+                icon: "success",
+                title: "¡Factura anulada correctamente!",
+                text: "La factura ha sido anulada en el sistema.",
+                showConfirmButton: false,
+                timer: 5500,
+                timerProgressBar: true,
+                toast: true,
+                position: "top-end",
+                background: "#f8f9fa",
+                iconColor: "#198754",
+            });
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const bodyEditar = (
@@ -579,7 +619,7 @@ const FacturasCliente = () => {
 
                                     <TableBody>
                                         {facturasFiltradas.map((consola) => (
-                                            <TableRow key={consola.id}>
+                                            <TableRow key={consola._id}>
                                                 <TableCell>
                                                     {consola.numFacturaCobrar ||
                                                         "N.A"}
@@ -622,7 +662,17 @@ const FacturasCliente = () => {
                                                     })}
                                                 </TableCell>
                                                 <TableCell>
-                                                    {consola.estado ? (
+                                                    {consola.anulada ? (
+                                                        <Button
+                                                            variant="contained"
+                                                            style={{
+                                                                backgroundColor:
+                                                                    "gray",
+                                                            }}
+                                                        >
+                                                            Anulada
+                                                        </Button>
+                                                    ) : consola.estado ? (
                                                         <Button
                                                             variant="contained"
                                                             color="primary"
@@ -650,6 +700,7 @@ const FacturasCliente = () => {
                                                         </Button>
                                                     )}
                                                 </TableCell>
+
                                                 <TableCell>
                                                     <Button
                                                         variant="contained"
@@ -698,9 +749,8 @@ const FacturasCliente = () => {
                                                         </MenuItem>
                                                         <MenuItem
                                                             onClick={() =>
-                                                                seleccionarConsola(
-                                                                    consola,
-                                                                    "Eliminar"
+                                                                anularFactura(
+                                                                    consola._id
                                                                 )
                                                             }
                                                         >
