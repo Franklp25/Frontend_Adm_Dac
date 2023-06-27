@@ -21,6 +21,7 @@ import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Menu, MenuItem } from "@mui/material";
+
 //pdf
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -59,7 +60,6 @@ const useStyles = makeStyles({
     },
     btnAnular: {},
 });
-
 const FacturasCliente = () => {
     const params = useParams();
     // console.log(params);
@@ -87,6 +87,10 @@ const FacturasCliente = () => {
         handleMenuClose();
     };
 
+    const [pagosParciales, setPagosParciales] = useState([
+        { numComprobante: "", fecha: "", monto: "" },
+    ]);
+
     const [consolaSeleccionada, setConsolaSeleccionada] = useState({
         tipoCedula: "",
         cedula: "",
@@ -96,14 +100,32 @@ const FacturasCliente = () => {
         email: "",
         direccion: "",
         _id: "",
+        pagosParciales: [{ numComprobante: "", fecha: "", monto: "" }],
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e, index) => {
         const { name, value } = e.target;
-        setConsolaSeleccionada((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
+        console.log(pagosParciales);
+
+        if (name.startsWith("pagoParciales")) {
+            // Crear una copia del estado actual de pagosParciales
+            const updatedPagosParciales = [...pagosParciales];
+
+            // Extraer el nombre del campo específico del pago parcial
+            const field = name.split(".").pop();
+
+            // Actualizar el campo correspondiente en el pago parcial específico
+            updatedPagosParciales[index][field] = value;
+
+            // Actualizar el estado de pagosParciales
+            setPagosParciales(updatedPagosParciales);
+        } else {
+            // Manejar los otros campos de texto según tu implementación actual
+            setConsolaSeleccionada((prevState) => ({
+                ...prevState,
+                [name]: value,
+            }));
+        }
     };
 
     const cambiarEstadoFactura = async (facturaId, nuevoEstado) => {
@@ -161,38 +183,31 @@ const FacturasCliente = () => {
 
     const peticionPut = async () => {
         await clienteAxios
-            .put(`/clientes/${consolaSeleccionada._id}`, consolaSeleccionada)
+            .put(`/facturas/${consolaSeleccionada._id}`, { pagosParciales })
             .then((response) => {
-                var dataNueva = clientes;
-                dataNueva.map((consola) => {
-                    if (consolaSeleccionada._id === consola._id) {
-                        consola.tipoCedula = consolaSeleccionada.tipoCedula;
-                        consola.cedula = consolaSeleccionada.cedula;
-                        consola.nombre = consolaSeleccionada.nombre;
-                        consola.apellidos = consolaSeleccionada.apellidos;
-                        consola.telefono = consolaSeleccionada.telefono;
-                        consola.email = consolaSeleccionada.email;
-                        consola.direccion = consolaSeleccionada.direccion;
+                var dataNueva = facturas; // Cambiar de 'clientes' a 'facturas'
+                dataNueva.map((factura) => {
+                    if (consolaSeleccionada._id === factura._id) {
+                        consolaSeleccionada.pagosParciales=pagosParciales
                     }
                 });
-                setClientes(dataNueva);
-                abrirCerrarModal();
+                setFacturas(dataNueva); // Cambiar de 'clientes' a 'facturas'
             });
     };
 
-    const peticionDelete = async (eliminarID) => {
-        await clienteAxios
-            .delete(`/clientes/${eliminarID._id}`, consolaSeleccionada)
-            .then((response) => {
-                var dataNueva = facturas.filter((consola) => {
-                    if (eliminarID._id === consola._id) {
-                        return false;
-                    }
-                    return true;
-                });
-                setClientes(dataNueva);
-            });
-    };
+    // const peticionDelete = async (eliminarID) => {
+    //     await clienteAxios
+    //         .delete(`/clientes/${eliminarID._id}`, consolaSeleccionada)
+    //         .then((response) => {
+    //             var dataNueva = facturas.filter((consola) => {
+    //                 if (eliminarID._id === consola._id) {
+    //                     return false;
+    //                 }
+    //                 return true;
+    //             });
+    //             setClientes(dataNueva);
+    //         });
+    // };
 
     //Confirma mediante sweetAlert si se desea eliminar el elemento
     const confirmarDelete = async (consola) => {
@@ -354,20 +369,20 @@ const FacturasCliente = () => {
 
     // Función para agregar una nueva fila a la lista de pagos parciales
     const agregarFila = () => {
-        const nuevoPagoParcial = { fecha: "", monto: "" };
-        setConsolaSeleccionada((prevState) => ({
-            ...prevState,
-            pagoParciales: [...prevState.pagoParciales, nuevoPagoParcial],
-        }));
+        setPagosParciales((prevPagosParciales) => [
+            ...prevPagosParciales,
+            { numComprobante: "", fecha: "", monto: "" },
+        ]);
     };
 
     // Función para eliminar una fila de la lista de pagos parciales
     const eliminarFila = (index) => {
-        setConsolaSeleccionada((prevState) => {
-            const nuevosPagosParciales = prevState.pagoParciales.filter(
+        setPagosParciales((prevState) => {
+            const nuevosPagosParciales = prevState.filter(
                 (_, i) => i !== index
             );
-            return { ...prevState, pagoParciales: nuevosPagosParciales };
+
+            return nuevosPagosParciales;
         });
     };
 
@@ -469,56 +484,61 @@ const FacturasCliente = () => {
                         <table>
                             <thead>
                                 <tr>
+                                    <th>Número de comprobante</th>
                                     <th>Fecha</th>
                                     <th>Monto</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {consolaSeleccionada.pagoParciales.map(
-                                    (pago, index) => (
-                                        <tr key={index}>
-                                            <td>
-                                                <TextField
-                                                    name={`pagoParciales[${index}].fecha`}
-                                                    className={
-                                                        styles.inputMaterial
-                                                    }
-                                                    value={pago.fecha}
-                                                    onChange={handleChange}
-                                                    InputProps={{
-                                                        notched: false,
-                                                    }}
-                                                />
-                                            </td>
-                                            <td>
-                                                <TextField
-                                                    name={`pagoParciales[${index}].monto`}
-                                                    className={
-                                                        styles.inputMaterial
-                                                    }
-                                                    value={pago.monto}
-                                                    onChange={handleChange}
-                                                    InputProps={{
-                                                        notched: false,
-                                                    }}
-                                                />
-                                            </td>
-                                            <td>
-                                                <Button
-                                                    className={
-                                                        styles.botonEliminar
-                                                    }
-                                                    onClick={() =>
-                                                        eliminarFila(index)
-                                                    }
-                                                >
-                                                    Eliminar
-                                                </Button>
-                                            </td>
-                                        </tr>
-                                    )
-                                )}
+                                {pagosParciales.map((pago, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            <TextField
+                                                name={`pagoParciales[${index}].numComprobante`}
+                                                className={styles.inputMaterial}
+                                                value={pago.numComprobante}
+                                                onChange={(event) =>
+                                                    handleChange(event, index)
+                                                }
+                                                InputProps={{ notched: false }}
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="date"
+                                                name={`pagoParciales[${index}].fecha`}
+                                                className="border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                value={pago.fecha}
+                                                onChange={(event) =>
+                                                    handleChange(event, index)
+                                                }
+                                            />
+                                        </td>
+
+                                        <td>
+                                            <TextField
+                                                name={`pagoParciales[${index}].monto`}
+                                                className={styles.inputMaterial}
+                                                value={pago.monto}
+                                                onChange={(event) =>
+                                                    handleChange(event, index)
+                                                }
+                                                InputProps={{ notched: false }}
+                                            />
+                                        </td>
+                                        <td>
+                                            <Button
+                                                className={styles.botonEliminar}
+                                                onClick={() =>
+                                                    eliminarFila(index)
+                                                }
+                                            >
+                                                Eliminar
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>

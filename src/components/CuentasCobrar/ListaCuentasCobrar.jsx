@@ -68,7 +68,7 @@ const ListaCuentasCobrar = () => {
     const obtenertotalDeudaFormateado = (idCliente) => {
         let total = 0;
         facturas.forEach((factura) => {
-            if (factura.cliente == idCliente) {
+            if (factura.cliente == idCliente && !factura.anulada) {
                 total += factura.subtotal + factura.iva;
             }
         });
