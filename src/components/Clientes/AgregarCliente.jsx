@@ -52,7 +52,7 @@ const AgregarCliente = () => {
                 title: "¡Cliente agregado correctamente!",
                 text: "El cliente ha sido registrado en el sistema.",
                 showConfirmButton: false,
-                timer: 6000,
+                timer: 5500,
                 timerProgressBar: true,
                 toast: true,
                 position: "top-end",
