@@ -445,7 +445,28 @@ const FacturasCliente = () => {
 
             return nuevosPagosParciales;
         });
-        
+    };
+
+    const confirmarAnular = async (consola) => {
+        console.log("Consola seleccionada: " + consola._id);
+        try {
+            Swal.fire({
+                title: "¿Deseas anular esta Factura?",
+                // text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, Anular!",
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    anularFactura(consola);
+                } else {
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const anularFactura = async (facturaId) => {
@@ -927,21 +948,23 @@ const FacturasCliente = () => {
                                                             }}
                                                         >
                                                             <MenuItem
-                                                                onClick={() =>
+                                                                onClick={() => {
                                                                     seleccionarConsola(
                                                                         consola,
                                                                         "Editar"
-                                                                    )
-                                                                }
+                                                                    );
+                                                                    handleMenuClose(); // Cerrar el menú al hacer clic en la opción
+                                                                }}
                                                             >
                                                                 Pago Parcial
                                                             </MenuItem>
                                                             <MenuItem
-                                                                onClick={() =>
-                                                                    anularFactura(
+                                                                onClick={() => {
+                                                                    confirmarAnular(
                                                                         consola._id
-                                                                    )
-                                                                }
+                                                                    );
+                                                                    handleMenuClose(); // Cerrar el menú al hacer clic en la opción
+                                                                }}
                                                             >
                                                                 Anular
                                                             </MenuItem>
